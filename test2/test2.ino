@@ -8,7 +8,7 @@
 const int ledLength = 8;     // later long of car
 #define LED_TYPE    WS2811
 #define COLOR_ORDER GRB
-#define MAX_BRIGHTNESS  120
+#define MAX_BRIGHTNESS  100
 const int fps = 100;
 
 int now=0;    // where is the car
@@ -48,28 +48,18 @@ void loop()
   if (cCheckInput.hasPassed(1)){
     cCheckInput.restart();
     car1.testMethod(sensorValue, now, led, NUM_LEDS);
- /*   if (sensorValue > 900)   //modify this threshold and relaunchVel to adjust sensitivity
-    {
-      led[now].setRGB(220,62,220);
-      FastLED.show();
-      now = now + 1 ;
-      if(now == 144){
-        now = 0;
-     for(int i=0;i<NUM_LEDS;i++){
-        fill_rainbow(led, i, 0, 5);
-        FastLED.show();
-        delay(10);
-  }
-FastLED.clear();
-        }
-    }*/ 
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
   
     cNextFrame.restart();
     FastLED.clear();
-
+led[20].setRGB(220,0,0);
+led[21].setRGB(220,0,0);
+led[22].setRGB(220,0,0);
+led[23].setRGB(220,0,0);
+led[24].setRGB(220,0,0);
+led[25].setRGB(220,0,0);
 led[now].setRGB(220,62,220);
 
     FastLED.show();
