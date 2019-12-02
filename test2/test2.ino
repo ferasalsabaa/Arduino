@@ -8,14 +8,13 @@
 const int ledLength = 8;     // later long of car
 #define LED_TYPE    WS2811
 #define COLOR_ORDER GRB
-#define MAX_BRIGHTNESS  100
+#define MAX_BRIGHTNESS  60
 const int fps = 100;
 
-int now = 0;  // where is the car
+int carOnePosition = 0;  // where is the car
+int carTwoPosition = 0;  // where is the car
 
 #define ctsPin 19  // place the sensor
-int sensorValue  = 0;  // touch value
-int sensorValueB  = 0;
 
 //VARIABLEN ERZEUGEN
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
@@ -26,7 +25,7 @@ int sensorWertA = 0;    //in dieser variable wird unser sensorwert, d.h. der Rü
 int sensorWertB = 0;
 int sensorWertC = 0;
 int sensorWertD = 0;
-int sensorValueTest =0;
+int sensorValueTest = 0;
 
 
 //create chrono objects for timed actions:
@@ -37,6 +36,7 @@ Chrono cCheckInput;
 CRGB led [NUM_LEDS];
 
 Car_class car1; // first car
+Car_class car2; // first car
 
 void setup() {
 
@@ -47,8 +47,8 @@ void setup() {
   FastLED.setBrightness(MAX_BRIGHTNESS);
 
   Serial.begin(115200); //serielle datenverbindung zum computer herstellen damit wir mit Serial.print(); oder Serial.println(); daten senden können
-  pinMode(sensorValue, OUTPUT);
-  pinMode(ctsPin, INPUT);
+  //pinMode(sensorValue, OUTPUT);
+  //pinMode(ctsPin, INPUT);
 
   pinMode(sensorPinA, INPUT_PULLUP);  //declare pin as input AND enable internal 33kohm pullup resistor (that is: a 33k resistor between the analog input pin and 3.3 volts)
   pinMode(sensorPinB, INPUT_PULLUP);
@@ -58,19 +58,22 @@ void setup() {
 
 void loop()
 {
- // sensorValue = filter(analogRead(sensorPinA), 0.5, sensorWertA);    
- //  sensorWertA = filter(analogRead(sensorPinA), 0.25, sensorWertA);  
-//  sensorValueTest = map(sensorValue, 0, 1023, 0, 100);
- // sensorValue = sensorWertA
- sensorValue = analogRead(sensorPinA);
- sensorValueB = analogRead(sensorPinB);
-  Serial.println(sensorValue);               //send debug data to the Arduino Serial Monitor
+  // sensorValue = filter(analogRead(sensorPinA), 0.5, sensorWertA);
+  //  sensorWertA = filter(analogRead(sensorPinA), 0.25, sensorWertA);
+  //  sensorValueTest = map(sensorValue, 0, 1023, 0, 100);
+  // sensorValue = sensorWertA
+  sensorWertA = analogRead(sensorPinA);
+  sensorWertB = analogRead(sensorPinB);
+  sensorWertC = analogRead(sensorPinC);
+  sensorWertD = analogRead(sensorPinD);
+  Serial.println(sensorWertA);               //send debug data to the Arduino Serial Monitor
 
 
   //INTERACTIVITY: work with sensor data every X ms
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
-    car1.moveAlong(sensorValue, now, led, NUM_LEDS, sensorValueB);
+    car1.moveAlong(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
+    car2.moveAlong(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
@@ -83,8 +86,14 @@ void loop()
     led[23].setRGB(220, 0, 0);
     led[24].setRGB(220, 0, 0);
     led[25].setRGB(220, 0, 0);
-    led[now].setRGB(220, 62, 220);
+    if (carOnePosition == carTwoPosition) {
+      led[carOnePosition].setRGB(255, 51, 51);
+      led[carTwoPosition].setRGB(255, 51, 51);
 
+    } else {
+      led[carOnePosition].setRGB(102, 0, 102);
+      led[carTwoPosition].setRGB(255, 255, 102);
+    }
     FastLED.show();
   }
 
