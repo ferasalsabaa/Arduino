@@ -2,12 +2,6 @@ class Car_class {
 
   public:
 
-    int now = 0;  // where is the car
-
-
-
-#define ctsPin 19
-    int sensorValue  = 0;
 
     void moveAlong(int& sensorValue, int& now, CRGB led[], int NUM_LEDS, int& sensorValueB) {
       if (sensorValueB < 8)   //modify this threshold and relaunchVel to adjust sensitivity
@@ -23,7 +17,6 @@ class Car_class {
             FastLED.show();
             delay(100);
           } else {
-          //  led[now].setRGB(220, 62, 220);
             FastLED.show();
             delay(100);
             now = now - 1 ;
@@ -37,7 +30,6 @@ class Car_class {
           delay(1000);
           now = now + 1 ;
         } else {
-        //  led[now].setRGB(220, 62, 220);
           FastLED.show();
           delay(100);
           now = now + 1 ;

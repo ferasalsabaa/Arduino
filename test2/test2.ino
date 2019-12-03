@@ -58,22 +58,14 @@ void setup() {
 
 void loop()
 {
-  // sensorValue = filter(analogRead(sensorPinA), 0.5, sensorWertA);
-  //  sensorWertA = filter(analogRead(sensorPinA), 0.25, sensorWertA);
-  //  sensorValueTest = map(sensorValue, 0, 1023, 0, 100);
-  // sensorValue = sensorWertA
- // sensorWertA = analogRead(sensorPinA);
-    sensorWertA = filter(analogRead(sensorPinA), 0.25, sensorWertA);
-    sensorWertB = filter(analogRead(sensorPinB), 0.25, sensorWertB);
-    sensorWertC = filter(analogRead(sensorPinC), 0.25, sensorWertC);
-    sensorWertD = filter(analogRead(sensorPinD), 0.25, sensorWertD);
-      sensorWertA = map(sensorWertA, 0, 1023, 0, 100);
-      sensorWertB = map(sensorWertB, 0, 1023, 0, 100);
-      sensorWertC = map(sensorWertC, 0, 1023, 0, 100);
-      sensorWertD = map(sensorWertD, 0, 1023, 0, 100);
- // sensorWertB = analogRead(sensorPinB);
- // sensorWertC = analogRead(sensorPinC);
- // sensorWertD = analogRead(sensorPinD);
+  sensorWertA = filter(analogRead(sensorPinA), 0.25, sensorWertA);
+  sensorWertB = filter(analogRead(sensorPinB), 0.25, sensorWertB);
+  sensorWertC = filter(analogRead(sensorPinC), 0.25, sensorWertC);
+  sensorWertD = filter(analogRead(sensorPinD), 0.25, sensorWertD);
+  sensorWertA = map(sensorWertA, 0, 1023, 0, 100);
+  sensorWertB = map(sensorWertB, 0, 1023, 0, 100);
+  sensorWertC = map(sensorWertC, 0, 1023, 0, 100);
+  sensorWertD = map(sensorWertD, 0, 1023, 0, 100);
   Serial.println(sensorWertA);               //send debug data to the Arduino Serial Monitor
 
 
