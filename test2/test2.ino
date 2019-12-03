@@ -72,20 +72,49 @@ void loop()
   //INTERACTIVITY: work with sensor data every X ms
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
-    car1.move_now(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
-    car2.move_now(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
+    if (carOnePosition < carTwoPosition) {
+      car1.move_now_speed(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
+      car2.move_now_slow(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
+    } else if (carOnePosition > carTwoPosition) {
+      car2.move_now_speed(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
+      car1.move_now_slow(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
+    } else {
+      if (sensorWertA < sensorWertC) {
+        car1.move_now_speed(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
+        car2.move_now_slow(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
+      } else {
+        car2.move_now_speed(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
+        car1.move_now_slow(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
+      }
+    }
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
 
     cNextFrame.restart();
     FastLED.clear();
+    //first one:
     led[20].setRGB(220, 0, 0);
     led[21].setRGB(220, 0, 0);
     led[22].setRGB(220, 0, 0);
     led[23].setRGB(220, 0, 0);
     led[24].setRGB(220, 0, 0);
     led[25].setRGB(220, 0, 0);
+    //second one:
+    led[90].setRGB(0, 0, 220);
+    led[91].setRGB(0, 0, 220);
+    led[92].setRGB(0, 0, 220);
+    led[93].setRGB(0, 0, 220);
+    led[94].setRGB(0, 0, 220);
+    led[95].setRGB(0, 0, 220);
+    led[96].setRGB(0, 0, 220);
+    led[97].setRGB(0, 0, 220);
+    led[98].setRGB(0, 0, 220);
+    led[99].setRGB(0, 0, 220);
+    led[100].setRGB(0, 0, 220);
+    led[101].setRGB(0, 0, 220);
+
+
     if (carOnePosition == carTwoPosition) {
       led[carOnePosition].setRGB(255, 51, 51);
       led[carTwoPosition].setRGB(255, 51, 51);
