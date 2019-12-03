@@ -72,8 +72,8 @@ void loop()
   //INTERACTIVITY: work with sensor data every X ms
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
-    car1.moveAlong(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
-    car2.moveAlong(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
+    car1.move_now(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
+    car2.move_now(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
