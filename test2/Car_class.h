@@ -54,6 +54,10 @@ class Car_class {
           FastLED.show();
           delay(50);
           now = now + 1 ;
+        } else if (now == 90 || now == 91 || now == 92 || now == 93 || now == 94 || now == 95 || now == 96 || now == 97 || now == 98 || now == 99 || now == 100 || now == 101) {
+
+          FastLED.show();
+
         } else {
           if (now == 0) {
             // led[now].setRGB(220, 62, 220);
@@ -77,7 +81,12 @@ class Car_class {
           FastLED.show();
           delay(100);
           now = now + 1 ;
-        } else {
+        }else if (now == 90 || now == 91 || now == 92 || now == 93 || now == 94 || now == 95 || now == 96 || now == 97 || now == 98 || now == 99 || now == 100 || now == 101) {
+          if (sensorValue > 4 ) {
+            FastLED.show();
+            delay(60);
+            now = now + 1 ;
+          }} else {
           if (now == 0) {
             // led[now].setRGB(220, 62, 220);
             now = now + 1 ;
@@ -96,7 +105,17 @@ class Car_class {
           FastLED.show();
           delay(50);
           now = now - 1 ;
-        } else {
+        }else if (now == 90 || now == 91 || now == 92 || now == 93 || now == 94 || now == 95 || now == 96 || now == 97 || now == 98 || now == 99 || now == 100 || now == 101) {
+          if (sensorValueB > 4 ) {
+            FastLED.show();
+            delay(60);
+            now = now - 1 ;
+          } else{
+            FastLED.show();
+            delay(1000);
+            now = now - 1 ;
+            } 
+          } else {
           if (now == 0) {
             // led[now].setRGB(220, 62, 220);
             FastLED.show();
