@@ -14,6 +14,9 @@ const int fps = 100;
 int carOnePosition = 0;  // where is the car
 int carTwoPosition = 0;  // where is the car
 
+int carOneCount = 0;  // bouns
+int carTwoCount = 0;  // bouns
+
 #define ctsPin 19  // place the sensor
 
 //VARIABLEN ERZEUGEN
@@ -73,18 +76,18 @@ void loop()
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
     if (carOnePosition < carTwoPosition) {
-      car1.move_now_speed(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
-      car2.move_now_slow(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
+      car1.move_now_speed(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount);
+      car2.move_now_slow(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount);
     } else if (carOnePosition > carTwoPosition) {
-      car2.move_now_speed(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
-      car1.move_now_slow(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
+      car2.move_now_speed(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount);
+      car1.move_now_slow(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount);
     } else {
       if (sensorWertA < sensorWertC) {
-        car1.move_now_speed(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
-        car2.move_now_slow(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
+        car1.move_now_speed(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount);
+        car2.move_now_slow(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount);
       } else {
-        car2.move_now_speed(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD);
-        car1.move_now_slow(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB);
+        car2.move_now_speed(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount);
+        car1.move_now_slow(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount);
       }
     }
   }
@@ -113,6 +116,13 @@ void loop()
     led[99].setRGB(0, 0, 220);
     led[100].setRGB(0, 0, 220);
     led[101].setRGB(0, 0, 220);
+    //third one(counter):
+    led[70].setRGB(0, 220, 0);
+    led[42].setRGB(0, 220, 0);
+    led[40].setRGB(0, 220, 0);
+    //third blocks
+    led[110].setRGB(248, 255, 10);
+    led[111].setRGB(248, 255, 10);
 
 
     if (carOnePosition == carTwoPosition) {
