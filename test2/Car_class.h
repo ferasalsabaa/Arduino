@@ -37,7 +37,7 @@ class Car_class {
         if (now == 20 || now == 21 || now == 22 || now == 23 || now == 24 || now == 25) {
           //led[now].setRGB(0, 0, 220);
           FastLED.show();
-          delay(700 / speedBounos);
+          delay(1000 / speedBounos);
           now = now + 1 ;
         } else if (now == 90 || now == 91 || now == 92 || now == 93 || now == 94 || now == 95 || now == 96 || now == 97 || now == 98 || now == 99 || now == 100 || now == 101) {
           if (sensorValue < 4 ) {
