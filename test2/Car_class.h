@@ -103,14 +103,14 @@ class Car_class {
           }
         }
       }
-      if (now == NUM_LEDS) {
+   /*   if (now == NUM_LEDS) {
         now = 0;
         for (int i = 0; i < NUM_LEDS; i++) {
           fill_rainbow(led, i, 0, 5);
           FastLED.show();
           delay(10);
         }
-      }
+      } */
     }
 
 

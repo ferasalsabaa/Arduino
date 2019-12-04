@@ -129,9 +129,29 @@ void loop()
       led[carOnePosition].setRGB(255, 51, 51);
       led[carTwoPosition].setRGB(255, 51, 51);
 
-    } else if(carOnePosition == 144){
-      } else if(carTwoPosition == 144){
-        }
+    } else if (carOnePosition == 144) {
+      carOnePosition = 0;
+      carTwoPosition = 0;
+      carOneCount = 0;  // bouns
+      carTwoCount = 0;  // bouns
+      for (int i = 0; i < NUM_LEDS; i++) {
+        //fill_rainbow(led, i, 0, 5);
+        led[i].setRGB(102, 0, 102);
+        FastLED.show();
+        delay(10);
+      }
+    } else if (carTwoPosition == 144) {
+      carOnePosition = 0;
+      carTwoPosition = 0;
+      carOneCount = 0;  // bouns
+      carTwoCount = 0;  // bouns
+      for (int i = 0; i < NUM_LEDS; i++) {
+        //fill_rainbow(led, i, 0, 5);
+        led[i].setRGB(255, 255, 102);
+        FastLED.show();
+        delay(10);
+      }
+    }
     else {
       led[carOnePosition].setRGB(102, 0, 102);
       led[carTwoPosition].setRGB(255, 255, 102);
