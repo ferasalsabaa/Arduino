@@ -82,10 +82,16 @@ void loop()
       car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 2);
       car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1);
     } else {
-      if (sensorWertA < sensorWertC) {
+      if(carTwoPosition == 0 && carOnePosition == 0){
+        car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1);
+        car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1);
+        }
+       else if (sensorWertA < sensorWertC) {
+        carTwoPosition --;
         car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 2);
         car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1);
-      } else {
+      } else{
+        carOnePosition --;
         car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 2);
         car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1);
       }
@@ -135,7 +141,6 @@ void loop()
       carOneCount = 0;  // bouns
       carTwoCount = 0;  // bouns
       for (int i = 0; i < NUM_LEDS; i++) {
-        //fill_rainbow(led, i, 0, 5);
         led[i].setRGB(102, 0, 102);
         FastLED.show();
         delay(10);
@@ -146,7 +151,6 @@ void loop()
       carOneCount = 0;  // bouns
       carTwoCount = 0;  // bouns
       for (int i = 0; i < NUM_LEDS; i++) {
-        //fill_rainbow(led, i, 0, 5);
         led[i].setRGB(255, 255, 102);
         FastLED.show();
         delay(10);
