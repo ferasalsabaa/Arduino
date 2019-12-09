@@ -125,8 +125,18 @@ void loop()
     led[101].setRGB(0, 0, 220);
     //third one(counter):
     led[70].setRGB(0, 220, 0);
+    delay(100);
+    FastLED.show();
+    led[70] = CRGB::Black;
     led[42].setRGB(0, 220, 0);
+    delay(100);
+    FastLED.show();
+    led[42] = CRGB::Black;
     led[40].setRGB(0, 220, 0);
+    delay(100);
+    FastLED.show();
+    led[40] = CRGB::Black;
+    
     //third blocks
     led[110].setRGB(248, 255, 10);
     led[111].setRGB(248, 255, 10);
@@ -139,6 +149,7 @@ void loop()
         }
        led[130].setRGB(248, 255, 10);
     led[131].setRGB(248, 255, 10);
+   //fxFire2012Update();
       }
     if (carOnePosition == carTwoPosition) {
       led[carOnePosition].setRGB(255, 51, 51);
@@ -151,8 +162,7 @@ void loop()
       carTwoCount = 0;  // bouns
       for (int i = 0; i < NUM_LEDS; i++) {
         led[i].setRGB(102, 0, 102);
-        FastLED.show();
-        delay(40);
+        led[i] = CRGB::Black;
       }
     } else if (carTwoPosition == 144) {
       carOnePosition = 0;
@@ -178,3 +188,58 @@ float filter(float rawValue, float weight, float lastValue)
   float result = weight * rawValue + (1.0 - weight) * lastValue;
   return result;
 }
+ void fxFire2012Update()
+    {
+      int spark = 175;
+      int cool = 90;
+      bool gReverseDirection = false;
+      //const int NUM_LEDS = 60;  //mask NUM_LEDS as a constant
+      //Serial.println(NUM_LEDS);
+      // Array of temperature readings at each simulation cell
+      //byte heat[NUM_LEDS];
+      static byte heat[20];
+
+      // There are two main parameters you can play with to control the look and
+      // feel of your fire: COOLING (used in step 1 above), and SPARKING (used
+      // in step 3 above).
+      //
+      // COOLING: How much does the air cool as it rises?
+      // Less cooling = taller flames.  More cooling = shorter flames.
+      // Default 50, suggested range 20-100
+      //int COOLING = 50;
+      int COOLING = cool;
+
+      // SPARKING: What chance (out of 255) is there that a new spark will be lit?
+      // Higher chance = more roaring fire.  Lower chance = more flickery fire.
+      // Default 120, suggested range 50-200.
+      //int SPARKING = 120;
+      int SPARKING = spark;
+
+      // Step 1.  Cool down every cell a little
+      for ( int i = 120; i < 140; i++) {
+        heat[i] = qsub8( heat[i],  random8(0, ((COOLING * 10) / 20) + 2));
+      }
+
+      // Step 2.  Heat from each cell drifts 'up' and diffuses a little
+      for ( int k = 140 - 1; k >= 122; k--) {
+        heat[k] = (heat[k - 1] + heat[k - 2] + heat[k - 2] ) / 3;
+      }
+
+      // Step 3.  Randomly ignite new 'sparks' of heat near the bottom
+      if ( random8() < SPARKING ) {
+        int y = random8(120,140);
+        heat[y] = qadd8( heat[y], random8(160, 255) );
+      }
+
+      // Step 4.  Map from heat cells to LED colors
+      for ( int j = 120; j < 140; j++) {
+        CRGB color = HeatColor( heat[j]);
+        int pixelnumber;
+        if ( gReverseDirection ) {
+          pixelnumber = (140) - j;
+        } else {
+          pixelnumber = j;
+        }
+        led[pixelnumber] = color;
+      }
+    }

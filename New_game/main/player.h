@@ -76,9 +76,6 @@ class Player {
             FastLED.show();
             delay(120 / speedBounos);
           } else {
-          led[now].fadeLightBy(70);
-          delay(1000);
-            FastLED.show();
             delay(100 / speedBounos);
             now = now + 1 ;
           }
