@@ -1,7 +1,7 @@
-class Car_class {
+class Player {
 
   public:
-    void blocks(int& sensorValue, int& now, CRGB led[], int NUM_LEDS, int& sensorValueB, int& count, int speedBounos) {
+    void blocks(int& sensorValue, int& now, CRGB led[], int NUM_LEDS, int& sensorValueB, int& count, int speedBounos, int& change) {
       if (sensorValueB < 7 && sensorValue < 7) {
         if (now == 20 || now == 21 || now == 22 || now == 23 || now == 24 || now == 25) {
           //led[now].setRGB(0, 0, 220);
@@ -16,10 +16,20 @@ class Car_class {
           count ++;
           delay(100 / speedBounos);
           now = now + 1 ;
+          for(int i=now; i<133; i++){
+            led[i].setRGB(0,220,0);
+            delay(10);
+            FastLED.show();
+            led[i] = CRGB::Black;
+            }
         } else if (now == 110 || now == 111) {
           FastLED.show();
           delay(1000 / speedBounos);
           now = now + 1 ;
+        }  else if ((now == 130 || now == 131) && count >=3) {
+          now = now + 1 ;
+          FastLED.show();
+          change --;
         } else {
           if (now == 0) {
             // led[now].setRGB(220, 62, 220);
@@ -66,6 +76,8 @@ class Car_class {
             FastLED.show();
             delay(120 / speedBounos);
           } else {
+          led[now].fadeLightBy(70);
+          delay(1000);
             FastLED.show();
             delay(100 / speedBounos);
             now = now + 1 ;
@@ -101,6 +113,15 @@ class Car_class {
         }
       }
     }
+
+    void fad (int now, CRGB led[]){
+      int count = 80;
+      for(int i = count; i!=0 ; i--)
+     led[i].maximizeBrightness(i);
+     FastLED.show();
+     delay(5);
+      
+      }
 
 
 };

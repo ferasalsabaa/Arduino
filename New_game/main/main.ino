@@ -1,6 +1,6 @@
 #include <FastLED.h>
 #include <Chrono.h>
-#include "Car_class.h"
+#include "player.h"
 
 #define NUM_LEDS 144 // all leds
 #define LED_PIN 14   // place the led
@@ -8,7 +8,7 @@
 const int ledLength = 8;     // later long of car
 #define LED_TYPE    WS2811
 #define COLOR_ORDER GRB
-#define MAX_BRIGHTNESS  60
+int MAX_BRIGHTNESS =  60;
 const int fps = 100;
 
 int carOnePosition = 0;  // where is the car
@@ -30,6 +30,8 @@ int sensorWertC = 0;
 int sensorWertD = 0;
 int sensorValueTest = 0;
 
+int change = 9;
+
 
 //create chrono objects for timed actions:
 Chrono cNextFrame(Chrono::MICROS);
@@ -38,8 +40,8 @@ Chrono cCheckInput;
 
 CRGB led [NUM_LEDS];
 
-Car_class car1; // first car
-Car_class car2; // first car
+Player car1; // first car
+Player car2; // first car
 
 void setup() {
 
@@ -47,8 +49,7 @@ void setup() {
 
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(led, NUM_LEDS);
   FastLED.setCorrection(TypicalLEDStrip); //LEDS.setCorrection(Candle); or (Tungsten40W)
-  FastLED.setBrightness(MAX_BRIGHTNESS);
-
+  
   Serial.begin(115200); //serielle datenverbindung zum computer herstellen damit wir mit Serial.print(); oder Serial.println(); daten senden können
   //pinMode(sensorValue, OUTPUT);
   //pinMode(ctsPin, INPUT);
@@ -76,24 +77,24 @@ void loop()
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
     if (carOnePosition < carTwoPosition) {
-      car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 2);
-      car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1);
+      car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 2, change);
+      car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1, change);
     } else if (carOnePosition > carTwoPosition) {
-      car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 2);
-      car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1);
+      car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 2, change);
+      car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1, change);
     } else {
       if(carTwoPosition == 0 && carOnePosition == 0){
-        car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1);
-        car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1);
+        car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1, change);
+        car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1, change);
         }
        else if (sensorWertA < sensorWertC) {
         carTwoPosition --;
-        car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 2);
-        car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1);
+        car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 2, change);
+        car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1, change);
       } else{
         carOnePosition --;
-        car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 2);
-        car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1);
+        car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 2, change);
+        car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1, change);
       }
     }
   }
@@ -129,8 +130,16 @@ void loop()
     //third blocks
     led[110].setRGB(248, 255, 10);
     led[111].setRGB(248, 255, 10);
-
-
+    //new blocks
+    if(change >7){
+      for(int i=130; i<136; i++){
+        led[i].setRGB(220,0,0);
+        FastLED.show();
+        delay(10);
+        }
+       led[130].setRGB(248, 255, 10);
+    led[131].setRGB(248, 255, 10);
+      }
     if (carOnePosition == carTwoPosition) {
       led[carOnePosition].setRGB(255, 51, 51);
       led[carTwoPosition].setRGB(255, 51, 51);
@@ -143,7 +152,7 @@ void loop()
       for (int i = 0; i < NUM_LEDS; i++) {
         led[i].setRGB(102, 0, 102);
         FastLED.show();
-        delay(10);
+        delay(40);
       }
     } else if (carTwoPosition == 144) {
       carOnePosition = 0;
@@ -152,7 +161,6 @@ void loop()
       carTwoCount = 0;  // bouns
       for (int i = 0; i < NUM_LEDS; i++) {
         led[i].setRGB(255, 255, 102);
-        FastLED.show();
         delay(10);
       }
     }
