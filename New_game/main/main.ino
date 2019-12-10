@@ -43,9 +43,13 @@ CRGB led [NUM_LEDS];
 Player car1; // first car
 Player car2; // first car
 
-unsigned long startMillis;
+unsigned long previousTimeFire;
+unsigned long previousTimeBright;
+unsigned long previousTimeDark;
 
- int x=0;
+int x_counter_Fire = 130;
+int x_counter_bright = 130;
+int x_counter_dark = 130;
 
 void setup() {
 
@@ -62,12 +66,13 @@ void setup() {
   pinMode(sensorPinB, INPUT_PULLUP);
   pinMode(sensorPinC, INPUT_PULLUP);
   pinMode(sensorPinD, INPUT_PULLUP);
-
- unsigned long startMillis = millis();
+  unsigned long previousTimeFire = 0;
 }
 
 void loop()
 {
+  unsigned long currentTime = millis();
+
   sensorWertA = filter(analogRead(sensorPinA), 0.25, sensorWertA);
   sensorWertB = filter(analogRead(sensorPinB), 0.25, sensorWertB);
   sensorWertC = filter(analogRead(sensorPinC), 0.25, sensorWertC);
@@ -104,28 +109,39 @@ void loop()
       }
     }
     if (change > 7) {
-   //   for (int i = 130; i < 136; i++) {
-    //    led[i].setRGB(220, 0, 0);
-    //    FastLED.show();
-    //    delay(10);
-    //  }
+      if (currentTime - previousTimeFire >= 70) {
+        previousTimeFire = currentTime;
+        //leds[x].setRGB(255,69,0);
+        led[x_counter_Fire].setRGB(220, 0, 0);
+        FastLED.show();
+        if (++x_counter_Fire >= 136) x_counter_Fire = 130;
+      }
+      /*   for (int i = 130; i < 136; i++) {
+           led[i].setRGB(220, 0, 0);
+           FastLED.show();
+           delay(10);
+         }*/
       led[130].setRGB(248, 255, 10);
       led[131].setRGB(248, 255, 10);
     }
-   /* led[70].setRGB(0, 220, 0);
-    delay(100);
-    FastLED.show();
-    led[70] = CRGB::Black;
-    led[42].setRGB(0, 220, 0);
-    delay(100);
-    FastLED.show();
-    led[42] = CRGB::Black;
-    led[40].setRGB(0, 220, 0);
-    delay(100);
-    FastLED.show();
-    led[40] = CRGB::Black;
-    FastLED.show();*/
-    //brighten(x);
+    if (currentTime - previousTimeFire >= 10000) {
+      brighten();
+      previousTimeFire = currentTime;
+    }
+
+    /* led[70].setRGB(0, 220, 0);
+      delay(100);
+      FastLED.show();
+      led[70] = CRGB::Black;
+      led[42].setRGB(0, 220, 0);
+      delay(100);
+      FastLED.show();
+      led[42] = CRGB::Black;
+      led[40].setRGB(0, 220, 0);
+      delay(100);
+      FastLED.show();
+      led[40] = CRGB::Black;
+      FastLED.show();*/
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
@@ -195,21 +211,27 @@ float filter(float rawValue, float weight, float lastValue)
   float result = weight * rawValue + (1.0 - weight) * lastValue;
   return result;
 }
-void myDelay(int del) {
-  unsigned long myPrevMillis = millis();
-  while (millis()- myPrevMillis <= del);
-}
-void brighten(int& x) {
+void brighten() {
+  uint16_t j;
 
-  
-    unsigned long current = millis();
-    while(current - startMillis >= 5){
-       led[70].setRGB( 0, 0, x);
-    led[40].setRGB( 0, 0, x);
-    led[42].setRGB( 0, 0, x);
-      startMillis = current;
+  for (j = 0; j < 200; j++) {
+    // for (i = 0; i < NUM_LEDS; i++) {
+    led[70].setRGB( 0, 0, j);
+    led[40].setRGB( 0, 0, j);
+    led[42].setRGB( 0, 0, j);
+    //}
     FastLED.show();
-    if (++x >= 200){ x = 0;}
-    }
+    delay(5);
+  }
 
+
+  for (j = 200; j > 0; j--) {
+    led[70].setRGB( 0, 0, j);
+    led[40].setRGB( 0, 0, j);
+    led[42].setRGB( 0, 0, j);
+
+    FastLED.show();
+    delay(5);
+    Serial.println(j);
+  }
 }
