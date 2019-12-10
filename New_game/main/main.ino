@@ -113,52 +113,55 @@ void loop()
         car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1, change);
       }
     }
-    if (change > 2) {
-      if (currentTime - previousTimeFire >= 70) {
+
+    if (currentTime - previousTimeFire >= 70) {
+      if (change > 2) {
         previousTimeFire = currentTime;
         //leds[x].setRGB(255,69,0);
         led[x_counter_Fire].setRGB(220, 0, 0);
         FastLED.show();
         if (++x_counter_Fire >= 136) x_counter_Fire = 130;
+        led[130].setRGB(248, 255, 10);
+        led[131].setRGB(248, 255, 10);
       }
-      led[130].setRGB(248, 255, 10);
-      led[131].setRGB(248, 255, 10);
-    }else{
-      led[130].setRGB(248, 255, 10);
-      led[131].setRGB(248, 255, 10);
+
+      else {
+        led[130].setRGB(248, 255, 10);
+        led[131].setRGB(248, 255, 10);
       }
-if(currentTime_bright - previousTimeBright >= 100){
-  previousTimeBright = currentTime_bright;
+    }
+    if (currentTime_bright - previousTimeBright >= 100) {
+      previousTimeBright = currentTime_bright;
 
 
-/*led[70].setRGB( 0, 0, 200);
-    led[40].setRGB( 0, 0, 200);
-    led[42].setRGB( 0, 0, 200);
-    FastLED.show();
-    leds[x] = CRGB::Black;*/
+      /*led[70].setRGB( 0, 0, 200);
+          led[40].setRGB( 0, 0, 200);
+          led[42].setRGB( 0, 0, 200);
+          FastLED.show();
+          leds[x] = CRGB::Black;*/
 
 
-  
-   led[70].setRGB( 0, 0, x_counter_bright);
-    led[40].setRGB( 0, 0, x_counter_bright);
-    led[42].setRGB( 0, 0, x_counter_bright);
-    FastLED.show();
-     if (x_counter_bright + 10 >= 200) x_counter_bright = 0;
-  }
- /* for (j = 0; j < 200; j++) {
-    // for (i = 0; i < NUM_LEDS; i++) {
-   
-    //}
-    
-    delay(5);
-  }*/
 
-    
-  /*  if (currentTime - previousTimeFire >= 10000) {
-      brighten();
-      previousTimeFire = currentTime;
-    }*/
-    
+      led[70].setRGB( 0, 0, x_counter_bright);
+      led[40].setRGB( 0, 0, x_counter_bright);
+      led[42].setRGB( 0, 0, x_counter_bright);
+      FastLED.show();
+      if (x_counter_bright + 10 >= 200) x_counter_bright = 0;
+    }
+    /* for (j = 0; j < 200; j++) {
+       // for (i = 0; i < NUM_LEDS; i++) {
+
+       //}
+
+       delay(5);
+      }*/
+
+
+    /*  if (currentTime - previousTimeFire >= 10000) {
+        brighten();
+        previousTimeFire = currentTime;
+      }*/
+
 
     /* led[70].setRGB(0, 220, 0);
       delay(100);
