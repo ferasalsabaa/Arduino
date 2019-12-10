@@ -30,7 +30,7 @@ int sensorWertC = 0;
 int sensorWertD = 0;
 int sensorValueTest = 0;
 
-int change = 5;
+int change = 0;
 
 
 //create chrono objects for timed actions:
@@ -68,8 +68,9 @@ void setup() {
   pinMode(sensorPinB, INPUT_PULLUP);
   pinMode(sensorPinC, INPUT_PULLUP);
   pinMode(sensorPinD, INPUT_PULLUP);
-  unsigned long previousTimeFire = 0;
-  unsigned long previousTimeBright = 0;
+  previousTimeFire = 0;
+  previousTimeBright = 0;
+  previousTimeDark = 0;
 }
 
 void loop()
@@ -113,69 +114,6 @@ void loop()
         car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1, change);
       }
     }
-
-    if (currentTime - previousTimeFire >= 70) {
-      if (change > 2) {
-        previousTimeFire = currentTime;
-        //leds[x].setRGB(255,69,0);
-        led[x_counter_Fire].setRGB(220, 0, 0);
-        FastLED.show();
-        if (++x_counter_Fire >= 136) x_counter_Fire = 130;
-        led[130].setRGB(248, 255, 10);
-        led[131].setRGB(248, 255, 10);
-      }
-
-      else {
-        led[130].setRGB(248, 255, 10);
-        led[131].setRGB(248, 255, 10);
-      }
-    }
-    if (currentTime_bright - previousTimeBright >= 100) {
-      previousTimeBright = currentTime_bright;
-
-
-      /*led[70].setRGB( 0, 0, 200);
-          led[40].setRGB( 0, 0, 200);
-          led[42].setRGB( 0, 0, 200);
-          FastLED.show();
-          leds[x] = CRGB::Black;*/
-
-
-
-      led[70].setRGB( 0, 0, x_counter_bright);
-      led[40].setRGB( 0, 0, x_counter_bright);
-      led[42].setRGB( 0, 0, x_counter_bright);
-      FastLED.show();
-      if (x_counter_bright + 10 >= 200) x_counter_bright = 0;
-    }
-    /* for (j = 0; j < 200; j++) {
-       // for (i = 0; i < NUM_LEDS; i++) {
-
-       //}
-
-       delay(5);
-      }*/
-
-
-    /*  if (currentTime - previousTimeFire >= 10000) {
-        brighten();
-        previousTimeFire = currentTime;
-      }*/
-
-
-    /* led[70].setRGB(0, 220, 0);
-      delay(100);
-      FastLED.show();
-      led[70] = CRGB::Black;
-      led[42].setRGB(0, 220, 0);
-      delay(100);
-      FastLED.show();
-      led[42] = CRGB::Black;
-      led[40].setRGB(0, 220, 0);
-      delay(100);
-      FastLED.show();
-      led[40] = CRGB::Black;
-      FastLED.show();*/
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
@@ -234,6 +172,31 @@ void loop()
     else {
       led[carOnePosition].setRGB(102, 0, 102);
       led[carTwoPosition].setRGB(255, 255, 102);
+    }
+    if (currentTime - previousTimeFire >= 70) {
+      if (change <= 3) {
+        previousTimeFire = currentTime;
+        //leds[x].setRGB(255,69,0);
+        led[x_counter_Fire].setRGB(220, 0, 0);
+        FastLED.show();
+        if (++x_counter_Fire >= 136) x_counter_Fire = 130;
+        led[130].setRGB(248, 255, 10);
+        led[131].setRGB(248, 255, 10);
+      }
+
+      else {
+        led[130].setRGB(248, 255, 10);
+        led[131].setRGB(248, 255, 10);
+      }
+      
+    }
+    if (currentTime_bright - previousTimeBright >= 100) {
+      previousTimeBright = currentTime_bright;
+      led[70].setRGB( 0, 0, x_counter_bright);
+      led[40].setRGB( 0, 0, x_counter_bright);
+      led[42].setRGB( 0, 0, x_counter_bright);
+      FastLED.show();
+      if (x_counter_bright + 10 >= 200) x_counter_bright = 0;
     }
 
   }
