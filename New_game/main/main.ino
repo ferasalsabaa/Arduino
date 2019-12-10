@@ -43,6 +43,10 @@ CRGB led [NUM_LEDS];
 Player car1; // first car
 Player car2; // first car
 
+unsigned long startMillis;
+
+ int x=0;
+
 void setup() {
 
   FastLED.addLeds<NEOPIXEL, LED_PIN>(led, NUM_LEDS);
@@ -58,6 +62,8 @@ void setup() {
   pinMode(sensorPinB, INPUT_PULLUP);
   pinMode(sensorPinC, INPUT_PULLUP);
   pinMode(sensorPinD, INPUT_PULLUP);
+
+ unsigned long startMillis = millis();
 }
 
 void loop()
@@ -98,15 +104,15 @@ void loop()
       }
     }
     if (change > 7) {
-      for (int i = 130; i < 136; i++) {
-        led[i].setRGB(220, 0, 0);
-        FastLED.show();
-        delay(10);
-      }
+   //   for (int i = 130; i < 136; i++) {
+    //    led[i].setRGB(220, 0, 0);
+    //    FastLED.show();
+    //    delay(10);
+    //  }
       led[130].setRGB(248, 255, 10);
       led[131].setRGB(248, 255, 10);
     }
-    led[70].setRGB(0, 220, 0);
+   /* led[70].setRGB(0, 220, 0);
     delay(100);
     FastLED.show();
     led[70] = CRGB::Black;
@@ -118,7 +124,8 @@ void loop()
     delay(100);
     FastLED.show();
     led[40] = CRGB::Black;
-    FastLED.show();
+    FastLED.show();*/
+    //brighten(x);
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
@@ -191,4 +198,18 @@ float filter(float rawValue, float weight, float lastValue)
 void myDelay(int del) {
   unsigned long myPrevMillis = millis();
   while (millis()- myPrevMillis <= del);
+}
+void brighten(int& x) {
+
+  
+    unsigned long current = millis();
+    while(current - startMillis >= 5){
+       led[70].setRGB( 0, 0, x);
+    led[40].setRGB( 0, 0, x);
+    led[42].setRGB( 0, 0, x);
+      startMillis = current;
+    FastLED.show();
+    if (++x >= 200){ x = 0;}
+    }
+
 }
