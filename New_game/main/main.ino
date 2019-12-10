@@ -144,6 +144,7 @@ void loop()
     //third blocks
     led[110].setRGB(248, 255, 10);
     led[111].setRGB(248, 255, 10);
+    led[138].setRGB(0, 255, 10);
     //new blocks
 
     if (carOnePosition == carTwoPosition) {
@@ -152,22 +153,8 @@ void loop()
 
     } else if (carOnePosition == 144) {
       carOnePosition = 0;
-      carTwoPosition = 0;
-      carOneCount = 0;  // bouns
-      carTwoCount = 0;  // bouns
-      for (int i = 0; i < NUM_LEDS; i++) {
-        led[i].setRGB(102, 0, 102);
-        led[i] = CRGB::Black;
-      }
     } else if (carTwoPosition == 144) {
-      carOnePosition = 0;
       carTwoPosition = 0;
-      carOneCount = 0;  // bouns
-      carTwoCount = 0;  // bouns
-      for (int i = 0; i < NUM_LEDS; i++) {
-        led[i].setRGB(255, 255, 102);
-        delay(10);
-      }
     }
     else {
       led[carOnePosition].setRGB(102, 0, 102);
@@ -182,13 +169,31 @@ void loop()
         if (++x_counter_Fire >= 136) x_counter_Fire = 130;
         led[130].setRGB(248, 255, 10);
         led[131].setRGB(248, 255, 10);
-      }
 
-      else {
-        led[130].setRGB(248, 255, 10);
-        led[131].setRGB(248, 255, 10);
-      }
+        if(carOnePosition == 130 || carOnePosition == 131 || carOnePosition == 132 || carOnePosition == 133 || carOnePosition == 134 || carOnePosition == 135 || carOnePosition == 136 ){
+          brighten(carOnePosition);
+          carOnePosition = 0;
+          }
+        if(carTwoPosition == 130 || carTwoPosition == 131 || carTwoPosition == 132 || carTwoPosition == 133 || carTwoPosition == 134 || carTwoPosition == 135 || carTwoPosition == 136){
+           brighten(carTwoPosition);
+           carTwoPosition = 0;
+          }
+        
+      } else {     
+        if(carTwoPosition == 138 || carOnePosition == 138){
+          brighten(carTwoPosition);
+          brighten(carOnePosition);
+     for (int i = 0; i < NUM_LEDS; i++) {
+             fill_rainbow(led, i, 0, 5);
+             FastLED.show();
+             delay(10);
+           }
+         carOnePosition = carTwoPosition = 0;
+            carTwoCount =   carOneCount = 0;  // bouns
+        change = 0;
+          }
       
+      }
     }
     if (currentTime_bright - previousTimeBright >= 100) {
       previousTimeBright = currentTime_bright;
@@ -208,14 +213,12 @@ float filter(float rawValue, float weight, float lastValue)
   float result = weight * rawValue + (1.0 - weight) * lastValue;
   return result;
 }
-void brighten() {
+void brighten(int now) {
   uint16_t j;
 
   for (j = 0; j < 200; j++) {
     // for (i = 0; i < NUM_LEDS; i++) {
-    led[70].setRGB( 0, 0, j);
-    led[40].setRGB( 0, 0, j);
-    led[42].setRGB( 0, 0, j);
+    led[now].setRGB( j, 0,0);
     //}
     FastLED.show();
     delay(5);
@@ -223,9 +226,7 @@ void brighten() {
 
 
   for (j = 200; j > 0; j--) {
-    led[70].setRGB( 0, 0, j);
-    led[40].setRGB( 0, 0, j);
-    led[42].setRGB( 0, 0, j);
+    led[now].setRGB( j, 0, 0);
 
     FastLED.show();
     delay(5);

@@ -18,7 +18,7 @@ class Player {
           delay(100 / speedBounos);
           now = now + 1 ;
           for(int i=now; i<133; i++){
-            led[i].setRGB(0,220,0);
+            led[i].setRGB(0,0,220);
             delay(10);
             FastLED.show();
             led[i] = CRGB::Black;
@@ -67,7 +67,7 @@ class Player {
             now = now + 1 ;
           } else {
             FastLED.show();
-            delay(10000 / speedBounos);
+            delay(1000 / speedBounos);
             now = now + 1 ;
           }
         }  else {
