@@ -49,7 +49,7 @@ void setup() {
 
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(led, NUM_LEDS);
   FastLED.setCorrection(TypicalLEDStrip); //LEDS.setCorrection(Candle); or (Tungsten40W)
-  
+
   Serial.begin(115200); //serielle datenverbindung zum computer herstellen damit wir mit Serial.print(); oder Serial.println(); daten senden können
   //pinMode(sensorValue, OUTPUT);
   //pinMode(ctsPin, INPUT);
@@ -83,20 +83,42 @@ void loop()
       car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 2, change);
       car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1, change);
     } else {
-      if(carTwoPosition == 0 && carOnePosition == 0){
+      if (carTwoPosition == 0 && carOnePosition == 0) {
         car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1, change);
         car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1, change);
-        }
-       else if (sensorWertA < sensorWertC) {
+      }
+      else if (sensorWertA < sensorWertC) {
         carTwoPosition --;
         car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 2, change);
         car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1, change);
-      } else{
+      } else {
         carOnePosition --;
         car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 2, change);
         car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1, change);
       }
     }
+    if (change > 7) {
+      for (int i = 130; i < 136; i++) {
+        led[i].setRGB(220, 0, 0);
+        FastLED.show();
+        delay(10);
+      }
+      led[130].setRGB(248, 255, 10);
+      led[131].setRGB(248, 255, 10);
+    }
+    led[70].setRGB(0, 220, 0);
+    delay(100);
+    FastLED.show();
+    led[70] = CRGB::Black;
+    led[42].setRGB(0, 220, 0);
+    delay(100);
+    FastLED.show();
+    led[42] = CRGB::Black;
+    led[40].setRGB(0, 220, 0);
+    delay(100);
+    FastLED.show();
+    led[40] = CRGB::Black;
+    FastLED.show();
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
@@ -123,34 +145,12 @@ void loop()
     led[99].setRGB(0, 0, 220);
     led[100].setRGB(0, 0, 220);
     led[101].setRGB(0, 0, 220);
-    //third one(counter):
-    led[70].setRGB(0, 220, 0);
-    delay(100);
-    FastLED.show();
-    led[70] = CRGB::Black;
-    led[42].setRGB(0, 220, 0);
-    delay(100);
-    FastLED.show();
-    led[42] = CRGB::Black;
-    led[40].setRGB(0, 220, 0);
-    delay(100);
-    FastLED.show();
-    led[40] = CRGB::Black;
-    
+
     //third blocks
     led[110].setRGB(248, 255, 10);
     led[111].setRGB(248, 255, 10);
     //new blocks
-    if(change >7){
-      for(int i=130; i<136; i++){
-        led[i].setRGB(220,0,0);
-        FastLED.show();
-        delay(10);
-        }
-       led[130].setRGB(248, 255, 10);
-    led[131].setRGB(248, 255, 10);
-   //fxFire2012Update();
-      }
+
     if (carOnePosition == carTwoPosition) {
       led[carOnePosition].setRGB(255, 51, 51);
       led[carTwoPosition].setRGB(255, 51, 51);
@@ -178,7 +178,7 @@ void loop()
       led[carOnePosition].setRGB(102, 0, 102);
       led[carTwoPosition].setRGB(255, 255, 102);
     }
-    FastLED.show();
+
   }
 
 } // end loop
@@ -188,58 +188,7 @@ float filter(float rawValue, float weight, float lastValue)
   float result = weight * rawValue + (1.0 - weight) * lastValue;
   return result;
 }
- void fxFire2012Update()
-    {
-      int spark = 175;
-      int cool = 90;
-      bool gReverseDirection = false;
-      //const int NUM_LEDS = 60;  //mask NUM_LEDS as a constant
-      //Serial.println(NUM_LEDS);
-      // Array of temperature readings at each simulation cell
-      //byte heat[NUM_LEDS];
-      static byte heat[20];
-
-      // There are two main parameters you can play with to control the look and
-      // feel of your fire: COOLING (used in step 1 above), and SPARKING (used
-      // in step 3 above).
-      //
-      // COOLING: How much does the air cool as it rises?
-      // Less cooling = taller flames.  More cooling = shorter flames.
-      // Default 50, suggested range 20-100
-      //int COOLING = 50;
-      int COOLING = cool;
-
-      // SPARKING: What chance (out of 255) is there that a new spark will be lit?
-      // Higher chance = more roaring fire.  Lower chance = more flickery fire.
-      // Default 120, suggested range 50-200.
-      //int SPARKING = 120;
-      int SPARKING = spark;
-
-      // Step 1.  Cool down every cell a little
-      for ( int i = 120; i < 140; i++) {
-        heat[i] = qsub8( heat[i],  random8(0, ((COOLING * 10) / 20) + 2));
-      }
-
-      // Step 2.  Heat from each cell drifts 'up' and diffuses a little
-      for ( int k = 140 - 1; k >= 122; k--) {
-        heat[k] = (heat[k - 1] + heat[k - 2] + heat[k - 2] ) / 3;
-      }
-
-      // Step 3.  Randomly ignite new 'sparks' of heat near the bottom
-      if ( random8() < SPARKING ) {
-        int y = random8(120,140);
-        heat[y] = qadd8( heat[y], random8(160, 255) );
-      }
-
-      // Step 4.  Map from heat cells to LED colors
-      for ( int j = 120; j < 140; j++) {
-        CRGB color = HeatColor( heat[j]);
-        int pixelnumber;
-        if ( gReverseDirection ) {
-          pixelnumber = (140) - j;
-        } else {
-          pixelnumber = j;
-        }
-        led[pixelnumber] = color;
-      }
-    }
+void myDelay(int del) {
+  unsigned long myPrevMillis = millis();
+  while (millis()- myPrevMillis <= del);
+}
