@@ -9,7 +9,8 @@ class Player {
           delay(70 / speedBounos);
           now = now + 1 ;
         } else if (now == 90 || now == 91 || now == 92 || now == 93 || now == 94 || now == 95 || now == 96 || now == 97 || now == 98 || now == 99 || now == 100 || now == 101) {
-
+          brighten(now, led);
+          now = 85;
           FastLED.show();
 
         } else if (now == 70 || now == 42 || now == 40) {
@@ -119,7 +120,19 @@ class Player {
      FastLED.show();
      delay(5);
       
+      
       }
+
+      void brighten(int now, CRGB led[]) {
+  uint16_t j;
+  for (j = 200; j > 0; j--) {
+    led[now].setRGB( 0, 0, j);
+
+    FastLED.show();
+    delay(5);
+    Serial.println(j);
+  }
+}
 
 
 };

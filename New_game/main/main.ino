@@ -215,11 +215,8 @@ float filter(float rawValue, float weight, float lastValue)
 }
 void brighten(int now) {
   uint16_t j;
-
-  for (j = 0; j < 200; j++) {
-    // for (i = 0; i < NUM_LEDS; i++) {
+  for (j = 50; j < 200; j++) {
     led[now].setRGB( j, 0,0);
-    //}
     FastLED.show();
     delay(5);
   }
