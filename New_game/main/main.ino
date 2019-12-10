@@ -170,29 +170,31 @@ void loop()
         led[130].setRGB(248, 255, 10);
         led[131].setRGB(248, 255, 10);
 
-        if(carOnePosition == 130 || carOnePosition == 131 || carOnePosition == 132 || carOnePosition == 133 || carOnePosition == 134 || carOnePosition == 135 || carOnePosition == 136 ){
+        if (carOnePosition == 130 || carOnePosition == 131 || carOnePosition == 132 || carOnePosition == 133 || carOnePosition == 134 || carOnePosition == 135 || carOnePosition == 136 ) {
           brighten(carOnePosition);
           carOnePosition = 0;
-          }
-        if(carTwoPosition == 130 || carTwoPosition == 131 || carTwoPosition == 132 || carTwoPosition == 133 || carTwoPosition == 134 || carTwoPosition == 135 || carTwoPosition == 136){
-           brighten(carTwoPosition);
-           carTwoPosition = 0;
-          }
-        
-      } else {     
-        if(carTwoPosition == 138 || carOnePosition == 138){
+        }
+        if (carTwoPosition == 130 || carTwoPosition == 131 || carTwoPosition == 132 || carTwoPosition == 133 || carTwoPosition == 134 || carTwoPosition == 135 || carTwoPosition == 136) {
+          brighten(carTwoPosition);
+          carTwoPosition = 0;
+        }
+
+      } else {
+         led[130].setRGB(10, 0, 0);
+        led[131].setRGB(10, 0, 0);
+        if (carTwoPosition == 138 || carOnePosition == 138) {
           brighten(carTwoPosition);
           brighten(carOnePosition);
-     for (int i = 0; i < NUM_LEDS; i++) {
-             fill_rainbow(led, i, 0, 5);
-             FastLED.show();
-             delay(10);
-           }
-         carOnePosition = carTwoPosition = 0;
-            carTwoCount =   carOneCount = 0;  // bouns
-        change = 0;
+          for (int i = 0; i < NUM_LEDS; i++) {
+            fill_rainbow(led, i, 0, 5);
+            FastLED.show();
+            delay(10);
           }
-      
+          carOnePosition = carTwoPosition = 0;
+          carTwoCount =   carOneCount = 0;  // bouns
+          change = 0;
+        }
+
       }
     }
     if (currentTime_bright - previousTimeBright >= 100) {
@@ -216,7 +218,7 @@ float filter(float rawValue, float weight, float lastValue)
 void brighten(int now) {
   uint16_t j;
   for (j = 50; j < 200; j++) {
-    led[now].setRGB( j, 0,0);
+    led[now].setRGB( j, 0, 0);
     FastLED.show();
     delay(5);
   }
