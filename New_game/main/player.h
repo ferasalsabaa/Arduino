@@ -14,6 +14,7 @@ class Player {
 
         } else if (now == 70 || now == 42 || now == 40) {
           count ++;
+          change --;
           delay(100 / speedBounos);
           now = now + 1 ;
           for(int i=now; i<133; i++){
@@ -26,7 +27,7 @@ class Player {
           FastLED.show();
           delay(1000 / speedBounos);
           now = now + 1 ;
-        }  else if ((now == 130 || now == 131) && count >=3) {
+        }  else if ((now == 130 || now == 131) && count >=7) {
           now = now + 1 ;
           FastLED.show();
           change --;
