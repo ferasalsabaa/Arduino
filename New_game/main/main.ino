@@ -48,7 +48,7 @@ unsigned long previousTimeBright;
 unsigned long previousTimeDark;
 
 int x_counter_Fire = 130;
-int x_counter_bright = 0;
+int x_counter_bright = 100;
 int x_counter_dark = 130;
 
 int fire_count;
