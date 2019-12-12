@@ -48,7 +48,7 @@ unsigned long previousTimeBright;
 unsigned long previousTimeDark;
 
 int x_counter_Fire = 130;
-int x_counter_bright = 130;
+int x_counter_bright = 0;
 int x_counter_dark = 130;
 
 int fire_count;
@@ -197,13 +197,13 @@ void loop()
 
       }
     }
-    if (currentTime_bright - previousTimeBright >= 100) {
+    if (currentTime_bright - previousTimeBright >= 500) {
       previousTimeBright = currentTime_bright;
       led[70].setRGB( 0, 0, x_counter_bright);
       led[40].setRGB( 0, 0, x_counter_bright);
       led[42].setRGB( 0, 0, x_counter_bright);
       FastLED.show();
-      if (x_counter_bright + 10 >= 200) x_counter_bright = 0;
+      if (x_counter_bright ++ >= 200) x_counter_bright = 0;
     }
 
   }
