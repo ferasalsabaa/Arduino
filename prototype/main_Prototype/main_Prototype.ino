@@ -11,12 +11,6 @@ const int ledLength = 8;     // later long of car
 int MAX_BRIGHTNESS =  60;
 const int fps = 100;
 
-int carOnePosition = 0;  // where is the car
-int carTwoPosition = 0;  // where is the car
-
-int carOneCount = 0;  // bouns
-int carTwoCount = 0;  // bouns
-
 #define ctsPin 19  // place the sensor
 
 //VARIABLEN ERZEUGEN
@@ -30,9 +24,6 @@ int sensorWertC = 0;
 int sensorWertD = 0;
 int sensorValueTest = 0;
 
-int change = 0;
-
-
 //create chrono objects for timed actions:
 Chrono cNextFrame(Chrono::MICROS);
 Chrono cCheckInput;
@@ -40,18 +31,8 @@ Chrono cCheckInput;
 
 CRGB led [NUM_LEDS];
 
-Player car1; // first car
-Player car2; // first car
-
-unsigned long previousTimeFire;
-unsigned long previousTimeBright;
-unsigned long previousTimeDark;
-
-int x_counter_Fire = 130;
-int x_counter_bright = 100;
-int x_counter_dark = 130;
-
-int fire_count;
+Player player1(0, 0, 0); // first car
+Player player2(140, 0, 0); // first car
 
 void setup() {
 
@@ -68,17 +49,10 @@ void setup() {
   pinMode(sensorPinB, INPUT_PULLUP);
   pinMode(sensorPinC, INPUT_PULLUP);
   pinMode(sensorPinD, INPUT_PULLUP);
-  previousTimeFire = 0;
-  previousTimeBright = 0;
-  previousTimeDark = 0;
 }
 
 void loop()
 {
-  unsigned long currentTime = millis();
-  unsigned long currentTime_bright = millis();
-  unsigned long currentTime_dark = millis();
-
   sensorWertA = filter(analogRead(sensorPinA), 0.25, sensorWertA);
   sensorWertB = filter(analogRead(sensorPinB), 0.25, sensorWertB);
   sensorWertC = filter(analogRead(sensorPinC), 0.25, sensorWertC);
@@ -93,122 +67,19 @@ void loop()
   //INTERACTIVITY: work with sensor data every X ms
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
-    if (carOnePosition < carTwoPosition) {
-      car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 2, change);
-      car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1, change);
-    } else if (carOnePosition > carTwoPosition) {
-      car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 2, change);
-      car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1, change);
-    } else {
-      if (carTwoPosition == 0 && carOnePosition == 0) {
-        car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1, change);
-        car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1, change);
-      }
-      else if (sensorWertA < sensorWertC) {
-        carTwoPosition --;
-        car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 2, change);
-        car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 1, change);
-      } else {
-        carOnePosition --;
-        car2.blocks(sensorWertC, carTwoPosition, led, NUM_LEDS, sensorWertD, carTwoCount, 2, change);
-        car1.blocks(sensorWertA, carOnePosition, led, NUM_LEDS, sensorWertB, carOneCount, 1, change);
-      }
-    }
+
+    
+
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
-
     cNextFrame.restart();
     FastLED.clear();
-    //first one:
-    led[20].setRGB(220, 0, 0);
-    led[21].setRGB(220, 0, 0);
-    led[22].setRGB(220, 0, 0);
-    led[23].setRGB(220, 0, 0);
-    led[24].setRGB(220, 0, 0);
-    led[25].setRGB(220, 0, 0);
-    //second one:
-    led[90].setRGB(0, 0, 220);
-    led[91].setRGB(0, 0, 220);
-    led[92].setRGB(0, 0, 220);
-    led[93].setRGB(0, 0, 220);
-    led[94].setRGB(0, 0, 220);
-    led[95].setRGB(0, 0, 220);
-    led[96].setRGB(0, 0, 220);
-    led[97].setRGB(0, 0, 220);
-    led[98].setRGB(0, 0, 220);
-    led[99].setRGB(0, 0, 220);
-    led[100].setRGB(0, 0, 220);
-    led[101].setRGB(0, 0, 220);
-
-    //third blocks
-    led[110].setRGB(248, 255, 10);
-    led[111].setRGB(248, 255, 10);
-    led[138].setRGB(0, 255, 10);
-    //new blocks
-
-    if (carOnePosition == carTwoPosition) {
-      led[carOnePosition].setRGB(255, 51, 51);
-      led[carTwoPosition].setRGB(255, 51, 51);
-
-    } else if (carOnePosition == 144) {
-      carOnePosition = 0;
-    } else if (carTwoPosition == 144) {
-      carTwoPosition = 0;
-    }
-    else {
-      led[carOnePosition].setRGB(102, 0, 102);
-      led[carTwoPosition].setRGB(255, 255, 102);
-    }
-    if (currentTime - previousTimeFire >= 70) {
-      if (change <= 3) {
-        previousTimeFire = currentTime;
-        //leds[x].setRGB(255,69,0);
-        led[x_counter_Fire].setRGB(220, 0, 0);
-        FastLED.show();
-        if (++x_counter_Fire >= 136) x_counter_Fire = 130;
-        led[130].setRGB(248, 255, 10);
-        led[131].setRGB(248, 255, 10);
-
-        if (carOnePosition == 130 || carOnePosition == 131 || carOnePosition == 132 || carOnePosition == 133 || carOnePosition == 134 || carOnePosition == 135 || carOnePosition == 136 ) {
-          brighten(carOnePosition);
-          carOnePosition = 0;
-        }
-        if (carTwoPosition == 130 || carTwoPosition == 131 || carTwoPosition == 132 || carTwoPosition == 133 || carTwoPosition == 134 || carTwoPosition == 135 || carTwoPosition == 136) {
-          brighten(carTwoPosition);
-          carTwoPosition = 0;
-        }
-
-      } else {
-         led[130].setRGB(10, 0, 0);
-        led[131].setRGB(10, 0, 0);
-        if (carTwoPosition == 138 || carOnePosition == 138) {
-          brighten(carTwoPosition);
-          brighten(carOnePosition);
-          for (int i = 0; i < NUM_LEDS; i++) {
-            fill_rainbow(led, i, 0, 5);
-            FastLED.show();
-            delay(10);
-          }
-          carOnePosition = carTwoPosition = 0;
-          carTwoCount =   carOneCount = 0;  // bouns
-          change = 0;
-        }
-
-      }
-    }
-    if (currentTime_bright - previousTimeBright >= 500) {
-      previousTimeBright = currentTime_bright;
-      led[70].setRGB( 0, 0, x_counter_bright);
-      led[40].setRGB( 0, 0, x_counter_bright);
-      led[42].setRGB( 0, 0, x_counter_bright);
-      FastLED.show();
-      if (x_counter_bright ++ >= 200) x_counter_bright = 0;
-    }
-
+    led[143].setRGB(102, 0, 102);
+    led[0].setRGB(102, 0, 102);
+    FastLED.show();
   }
-
-} // end loop
+}// end loop
 
 float filter(float rawValue, float weight, float lastValue)
 {
