@@ -13,6 +13,9 @@ const int fps = 100;
 
 #define ctsPin 19  // place the sensor
 
+int playerOneFire = 0;  // where is the car
+int playerTwoFire = 0;  // where is the car
+
 //VARIABLEN ERZEUGEN
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
 int sensorPinB = 16;
@@ -30,6 +33,8 @@ Chrono cCheckInput;
 
 
 CRGB led [NUM_LEDS];
+
+int j=60;
 
 Player player1(0, 0, 0); // first car
 Player player2(140, 0, 0); // first car
@@ -67,9 +72,9 @@ void loop()
   //INTERACTIVITY: work with sensor data every X ms
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
-
-
-
+    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFire);
+    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFire);
+    
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
@@ -77,9 +82,10 @@ void loop()
     FastLED.clear();
     led[143].setRGB(102, 0, 102);
     led[0].setRGB(102, 0, 102);
+    led[50].setRGB( playerTwoFire, 0, 0);
+    led[59].setRGB( playerOneFire, 0, 0);
     FastLED.show();
-    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, 0);
-    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, 0);
+
   }
 }// end loop
 
