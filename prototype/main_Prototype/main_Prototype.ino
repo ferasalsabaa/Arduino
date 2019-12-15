@@ -13,8 +13,17 @@ const int fps = 100;
 
 #define ctsPin 19  // place the sensor
 
-int playerOneFire = 0;  // where is the car
-int playerTwoFire = 0;  // where is the car
+int playerOneFireA = 0;  // where is the car
+int playerTwoFireA = 0;  // where is the car
+
+int playerOneFireB = 0;  // where is the car
+int playerTwoFireB = 0;  // where is the car
+
+int playerOneFirePosition = 1;  // where is the car
+int playerTwoFirePosition = 142;  // where is the car
+
+int playerOneFireCount = 0;  // where is the car
+int playerTwoFireCount = 0;  // where is the car
 
 //VARIABLEN ERZEUGEN
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
@@ -34,7 +43,7 @@ Chrono cCheckInput;
 
 CRGB led [NUM_LEDS];
 
-int j=60;
+int j = 60;
 
 Player player1(0, 0, 0); // first car
 Player player2(140, 0, 0); // first car
@@ -72,9 +81,16 @@ void loop()
   //INTERACTIVITY: work with sensor data every X ms
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
-    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFire);
-    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFire);
-    
+
+    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireA, playerTwoFireCount);
+    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireA, playerOneFireCount);
+    if (playerOneFireCount > 1 ) {
+      player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireB, playerOneFireCount);
+    }
+    if (playerTwoFireCount > 1 ) {
+      player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireB, playerTwoFireCount);
+    }
+
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
@@ -82,8 +98,10 @@ void loop()
     FastLED.clear();
     led[143].setRGB(102, 0, 102);
     led[0].setRGB(102, 0, 102);
-    led[50].setRGB( playerTwoFire, 0, 0);
-    led[59].setRGB( playerOneFire, 0, 0);
+    led[playerOneFirePosition].setRGB( playerOneFireA, 0, 0);
+    led[playerTwoFirePosition].setRGB( playerTwoFireA, 0, 0);
+    led[playerTwoFirePosition - 1].setRGB( playerTwoFireB, 0, 0);
+    led[playerOneFirePosition + 1].setRGB( playerOneFireB, 0, 0);
     FastLED.show();
 
   }

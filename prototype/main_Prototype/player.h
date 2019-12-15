@@ -10,14 +10,12 @@ class Player {
       powerPlayer = power;
       farPlayer = far;
     }
-    void playShow(int& sensorValue, CRGB led[], int NUM_LEDS, int& sensorValueB, int& playerFire) {
-     Chrono brightTime;
+    void playShow(int& sensorValue, CRGB led[], int NUM_LEDS, int& sensorValueB, int& playerFire, int& count) {
       if (sensorValue < 7 && playerFire <= 200) {
-    //    if (brightTime.hasPassed(8) == 1) {
-          brightTime.restart();
-          playerFire++;
-        //  FastLED.show();
-      //  }
+        playerFire++;
+        if (playerFire >= 199) {
+          count ++;
+        }
       }
     }
 
