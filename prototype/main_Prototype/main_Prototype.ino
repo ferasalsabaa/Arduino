@@ -68,7 +68,7 @@ void loop()
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
 
-    
+
 
   }
   //DRAW FRAME
@@ -78,6 +78,8 @@ void loop()
     led[143].setRGB(102, 0, 102);
     led[0].setRGB(102, 0, 102);
     FastLED.show();
+    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, 0);
+    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, 0);
   }
 }// end loop
 
