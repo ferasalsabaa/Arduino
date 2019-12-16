@@ -13,17 +13,16 @@ const int fps = 100;
 
 #define ctsPin 19  // place the sensor
 
-int playerOneFireA = 0;  // where is the car
-int playerTwoFireA = 0;  // where is the car
+int playerOneFireA = 0;  // how strong the first fire for 1st player
+int playerTwoFireA = 0;  // how strong the first fire for 2nd player
 
-int playerOneFireB = 0;  // where is the car
-int playerTwoFireB = 0;  // where is the car
+int playerOneFireB = 0;  // how strong the second fire for 1st player
+int playerTwoFireB = 0;  // how strong the second fire for 2nd player
 
-int playerOneFirePosition = 1;  // where is the car
-int playerTwoFirePosition = 142;  // where is the car
+int playerOneFirePosition = 1;  // where is the player1
+int playerTwoFirePosition = 142;  // where is the player2
 
-int playerOneFireCount = 0;  // where is the car
-int playerTwoFireCount = 0;  // where is the car
+
 
 //VARIABLEN ERZEUGEN
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
@@ -39,6 +38,9 @@ int sensorValueTest = 0;
 //create chrono objects for timed actions:
 Chrono cNextFrame(Chrono::MICROS);
 Chrono cCheckInput;
+
+Chrono brigt1;
+Chrono bright2;
 
 
 CRGB led [NUM_LEDS];
@@ -82,13 +84,13 @@ void loop()
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
 
-    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireA, playerTwoFireCount);
-    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireA, playerOneFireCount);
-    if (playerOneFireCount > 1 ) {
-      player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireB, playerOneFireCount);
+    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireA);
+    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireA);
+    if (playerOneFireA > 199 ) {
+      player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireB);
     }
-    if (playerTwoFireCount > 1 ) {
-      player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireB, playerTwoFireCount);
+    if (playerTwoFireA > 199 ) {
+      player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireB);
     }
 
   }
