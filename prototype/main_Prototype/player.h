@@ -10,11 +10,12 @@ class Player {
       powerPlayer = power;
       farPlayer = far;
     }
-    void playShow(int& sensorValue, CRGB led[], int NUM_LEDS, int& sensorValueB, int& playerFire) {
+    void playShow(int& sensorValue, CRGB led[], int NUM_LEDS, int& sensorValueB, int& playerFire, int& FireCase) {
       if (sensorValue < 7 && playerFire <= 200) {
         playerFire++;
-        if (playerFire >= 199) {
-        }
+      }
+      if (sensorValue < 7 && sensorValueB < 7) {
+        FireCase = 1;
       }
     }
 };

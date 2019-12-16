@@ -22,6 +22,8 @@ int playerTwoFireB = 0;  // how strong the second fire for 2nd player
 int playerOneFirePosition = 1;  // where is the player1
 int playerTwoFirePosition = 142;  // where is the player2
 
+int fireCase1 = 0;
+int fireCase2 = 0;
 
 
 //VARIABLEN ERZEUGEN
@@ -38,9 +40,6 @@ int sensorValueTest = 0;
 //create chrono objects for timed actions:
 Chrono cNextFrame(Chrono::MICROS);
 Chrono cCheckInput;
-
-Chrono brigt1;
-Chrono bright2;
 
 
 CRGB led [NUM_LEDS];
@@ -84,13 +83,13 @@ void loop()
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
 
-    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireA);
-    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireA);
+    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireA, fireCase2);
+    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireA, fireCase1);
     if (playerOneFireA > 199 ) {
-      player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireB);
+      player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireB, fireCase1);
     }
     if (playerTwoFireA > 199 ) {
-      player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireB);
+      player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireB, fireCase2);
     }
 
   }
@@ -98,12 +97,20 @@ void loop()
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
     cNextFrame.restart();
     FastLED.clear();
+
+    Chrono brigt;
+
     led[143].setRGB(102, 0, 102);
     led[0].setRGB(102, 0, 102);
-    led[playerOneFirePosition].setRGB( playerOneFireA, 0, 0);
-    led[playerTwoFirePosition].setRGB( playerTwoFireA, 0, 0);
-    led[playerTwoFirePosition - 1].setRGB( playerTwoFireB, 0, 0);
-    led[playerOneFirePosition + 1].setRGB( playerOneFireB, 0, 0);
+    if (fireCase1 == 0 && fireCase2 == 0) {
+      led[playerOneFirePosition].setRGB( playerOneFireA, 0, 0);
+      led[playerTwoFirePosition].setRGB( playerTwoFireA, 0, 0);
+      led[playerTwoFirePosition - 1].setRGB( playerTwoFireB, 0, 0);
+      led[playerOneFirePosition + 1].setRGB( playerOneFireB, 0, 0);
+    } else {
+      led[playerOneFirePosition + 5].setRGB( playerOneFireB, 0, 0);
+      led[playerTwoFirePosition - 5].setRGB( playerTwoFireB, 0, 0);
+    }
     FastLED.show();
 
   }
