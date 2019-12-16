@@ -114,20 +114,3 @@ float filter(float rawValue, float weight, float lastValue)
   float result = weight * rawValue + (1.0 - weight) * lastValue;
   return result;
 }
-void brighten(int now) {
-  uint16_t j;
-  for (j = 50; j < 200; j++) {
-    led[now].setRGB( j, 0, 0);
-    FastLED.show();
-    delay(5);
-  }
-
-
-  for (j = 200; j > 0; j--) {
-    led[now].setRGB( j, 0, 0);
-
-    FastLED.show();
-    delay(5);
-    Serial.println(j);
-  }
-}

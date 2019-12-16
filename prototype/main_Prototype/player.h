@@ -17,21 +17,4 @@ class Player {
         }
       }
     }
-
-    void brighten(int now, CRGB led[], int& sensorValueB, int& sensorValue) {
-      Chrono darkTime;
-      Chrono brightTime;
-
-      while (j < 200 && sensorValue < 7) {
-        if (brightTime.hasPassed(800) == 1) {
-          brightTime.restart();
-          led[50].setRGB( j, 0, 0);
-          FastLED.show();
-          j++;
-        }
-      }
-
-
-
-    }
 };
