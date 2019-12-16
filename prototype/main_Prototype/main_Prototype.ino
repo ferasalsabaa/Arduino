@@ -46,6 +46,8 @@ CRGB led [NUM_LEDS];
 
 int j = 60;
 
+int i = 0;
+
 Player player1(0, 0, 0); // first car
 Player player2(140, 0, 0); // first car
 
@@ -68,6 +70,7 @@ void setup() {
 
 void loop()
 {
+  Chrono bright;
   sensorWertA = filter(analogRead(sensorPinA), 0.25, sensorWertA);
   sensorWertB = filter(analogRead(sensorPinB), 0.25, sensorWertB);
   sensorWertC = filter(analogRead(sensorPinC), 0.25, sensorWertC);
@@ -98,7 +101,7 @@ void loop()
     cNextFrame.restart();
     FastLED.clear();
 
-    Chrono brigt;
+
 
     led[143].setRGB(102, 0, 102);
     led[0].setRGB(102, 0, 102);
@@ -107,9 +110,22 @@ void loop()
       led[playerTwoFirePosition].setRGB( playerTwoFireA, 0, 0);
       led[playerTwoFirePosition - 1].setRGB( playerTwoFireB, 0, 0);
       led[playerOneFirePosition + 1].setRGB( playerOneFireB, 0, 0);
-    } else {
-      led[playerOneFirePosition + 5].setRGB( playerOneFireB, 0, 0);
-      led[playerTwoFirePosition - 5].setRGB( playerTwoFireB, 0, 0);
+    } else if (fireCase1 != 0) {
+      //   for (int i = 3 ; i <= 130; i++) {
+
+      if (bright.hasPassed(1)) {
+        bright.restart();
+        led[i].setRGB( playerOneFireB, 0, 0);
+        led[i+1].setRGB( playerOneFireB, 0, 0);
+        FastLED.show();
+        // led[i] = CRGB::Black;
+        if(i<=140){i++;}
+      }
+      // }
+    }  else if (fireCase2 != 0) {
+      for (int i = 140 ; i >= 4; i--) {
+        led[i].setRGB( playerTwoFireB, 0, 0);
+      }
     }
     FastLED.show();
 
