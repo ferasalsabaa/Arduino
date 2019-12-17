@@ -171,7 +171,6 @@ void loop()
           fireCase1 = 0;
           k = 142;
           i = 0;
-
         }
       }
       // 2 start   ___ 1 not yet
@@ -182,7 +181,7 @@ void loop()
         bright.restart();
         led[k].setRGB( 0, 0, playerTwoFireSecond);
         led[k - 1].setRGB( 0, 0, playerTwoFireSecond);
-        FastLED.show();
+        //       FastLED.show();
         if (k > 2) {
           k--;
         }
@@ -260,16 +259,20 @@ void loop()
       }
     }
     if (defenceTwoShow == true) {
-      led[138].setRGB( 0, 220, 0);
-      led[139].setRGB( 0, 220, 0);
-      FastLED.show();
-      defenceTwoShow = false;
+      if (defence2.hasPassed(1)) {
+        led[138].setRGB( 0, 220, 0);
+        led[139].setRGB( 0, 220, 0);
+        FastLED.show();
+        defenceTwoShow = false;
+      }
     }
     if (defenceOneShow == true) {
-      led[3].setRGB( 0, 220, 0);
-      led[4].setRGB( 0, 220, 0);
-      FastLED.show();
-      defenceOneShow = false;
+      if (defence1.hasPassed(1)) {
+        led[3].setRGB( 0, 220, 0);
+        led[4].setRGB( 0, 220, 0);
+        FastLED.show();
+        defenceOneShow = false;
+      }
     }
     FastLED.show();
   }
