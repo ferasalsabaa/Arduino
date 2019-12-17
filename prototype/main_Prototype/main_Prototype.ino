@@ -120,12 +120,13 @@ void loop()
 
     led[143].setRGB(102, 0, 102);
     led[0].setRGB(102, 0, 102);
+    // start
     if (fireCase1 == 0 && fireCase2 == 0) {
       led[playerOneFirePosition].setRGB( playerOneFireFirst, 0, 0);
       led[playerTwoFirePosition].setRGB( playerTwoFireFirst, 0, 0);
       led[playerTwoFirePosition - 1].setRGB( playerTwoFireSecond, 0, 0);
       led[playerOneFirePosition + 1].setRGB( playerOneFireSecond, 0, 0);
-
+      // 1 start   ___ 2 not yet
     } else if (fireCase1 != 0 && fireCase2 == 0) {
       led[playerTwoFirePosition].setRGB( playerTwoFireFirst, 0, 0);
       led[playerTwoFirePosition - 1].setRGB( playerTwoFireSecond, 0, 0);
@@ -162,6 +163,7 @@ void loop()
         i = 0;
 
       }
+      // 2 start   ___ 1 not yet
     }  else if (fireCase2 != 0 && fireCase1 == 0) {
       led[playerOneFirePosition].setRGB( playerOneFireFirst, 0, 0);
       led[playerOneFirePosition + 1].setRGB( playerOneFireSecond, 0, 0);
@@ -200,6 +202,7 @@ void loop()
       }
 
     }
+    // both start already
     else if (fireCase2 != 0 && fireCase1 != 0) {
       if (bright.hasPassed(1)) {
         bright.restart();
