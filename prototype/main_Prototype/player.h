@@ -18,4 +18,12 @@ class Player {
         FireCase = 1;
       }
     }
+
+    boolean defenceTest(int& sensorWertC, int& sensorWertD){
+       if (sensorWertD < 7 && sensorWertC > 7) {
+        return true;
+      } else {
+        return false;
+        }
+      }
 };

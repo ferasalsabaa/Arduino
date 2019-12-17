@@ -25,6 +25,9 @@ int playerTwoFirePosition = 142;  // where is the player2
 int fireCase1 = 0;
 int fireCase2 = 0;
 
+boolean defenceOne = false;
+boolean defenceTwo = false;
+
 
 //VARIABLEN ERZEUGEN
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
@@ -95,6 +98,17 @@ void loop()
     if (playerTwoFireFirst > 199 ) {
       player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireSecond, fireCase2);
     }
+    /*
+      int i = 0;
+      int k = 142;
+
+    */
+    if (i > 130) {
+      defenceTwo = player2.defenceTest(sensorWertC, sensorWertD);
+    }
+    if (k < 9) {
+      defenceOne = player1.defenceTest(sensorWertA, sensorWertB);
+    }
 
   }
   //DRAW FRAME
@@ -124,9 +138,29 @@ void loop()
           i++;
         }
       }
-      if (i == 141) {
+      if (i == 141 && defenceTwo == false) {
         led[i].setRGB( playerOneFireSecond, 0, 0);
         led[i + 1].setRGB( playerOneFireSecond, 0, 0);
+      } else if (defenceTwo == true) {
+        playerOneFireSecond = 0;
+        playerOneFireFirst = 0;
+        fireCase1 = 0;
+        i = 0;
+        defenceTwo = false;
+      }
+      if (k == i) {
+        led[k].setRGB( 0, 0, 220);
+        FastLED.show();
+        delay(100);
+        playerTwoFireSecond = 0;
+        playerOneFireSecond = 0;
+        playerOneFireFirst = 0;
+        playerTwoFireFirst = 0;
+        fireCase2 = 0;
+        fireCase1 = 0;
+        k = 142;
+        i = 0;
+
       }
     }  else if (fireCase2 != 0 && fireCase1 == 0) {
       led[playerOneFirePosition].setRGB( playerOneFireFirst, 0, 0);
@@ -140,9 +174,29 @@ void loop()
           k--;
         }
       }
-      if (k == 2) {
+      if (k == 2 && defenceOne == false) {
         led[k].setRGB( playerTwoFireSecond, 0, 0);
         led[k - 1].setRGB( playerTwoFireSecond, 0, 0);
+      }else if (defenceOne == true) {
+        playerTwoFireSecond = 0;
+        playerTwoFireFirst = 0;
+        fireCase2 = 0;
+        k = 142;
+        defenceOne = false;
+      }
+      if (k == i) {
+        led[k].setRGB( 0, 0, 220);
+        FastLED.show();
+        delay(100);
+        playerTwoFireSecond = 0;
+        playerOneFireSecond = 0;
+        playerOneFireFirst = 0;
+        playerTwoFireFirst = 0;
+        fireCase2 = 0;
+        fireCase1 = 0;
+        k = 142;
+        i = 0;
+
       }
 
     }
