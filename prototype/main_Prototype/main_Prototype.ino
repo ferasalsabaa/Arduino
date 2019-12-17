@@ -131,10 +131,14 @@ void loop()
         led[k].setRGB( playerTwoFireSecond, 0, 0);
         led[k - 1].setRGB( playerTwoFireSecond, 0, 0);
         FastLED.show();
-        if (k > 3) {
+        if (k > 2) {
           k--;
-        }
+        } 
       }
+      if(k == 2){
+        led[k].setRGB( playerTwoFireSecond, 0, 0);
+        led[k - 1].setRGB( playerTwoFireSecond, 0, 0);
+        }
 
     }
     else if (fireCase2 != 0 && fireCase1 != 0) {
