@@ -111,6 +111,7 @@ void loop()
       led[playerTwoFirePosition].setRGB( playerTwoFireFirst, 0, 0);
       led[playerTwoFirePosition - 1].setRGB( playerTwoFireSecond, 0, 0);
       led[playerOneFirePosition + 1].setRGB( playerOneFireSecond, 0, 0);
+
     } else if (fireCase1 != 0 && fireCase2 == 0) {
       led[playerTwoFirePosition].setRGB( playerTwoFireFirst, 0, 0);
       led[playerTwoFirePosition - 1].setRGB( playerTwoFireSecond, 0, 0);
@@ -123,6 +124,10 @@ void loop()
           i++;
         }
       }
+      if (i == 141) {
+        led[i].setRGB( playerOneFireSecond, 0, 0);
+        led[i + 1].setRGB( playerOneFireSecond, 0, 0);
+      }
     }  else if (fireCase2 != 0 && fireCase1 == 0) {
       led[playerOneFirePosition].setRGB( playerOneFireFirst, 0, 0);
       led[playerOneFirePosition + 1].setRGB( playerOneFireSecond, 0, 0);
@@ -133,12 +138,12 @@ void loop()
         FastLED.show();
         if (k > 2) {
           k--;
-        } 
+        }
       }
-      if(k == 2){
+      if (k == 2) {
         led[k].setRGB( playerTwoFireSecond, 0, 0);
         led[k - 1].setRGB( playerTwoFireSecond, 0, 0);
-        }
+      }
 
     }
     else if (fireCase2 != 0 && fireCase1 != 0) {
