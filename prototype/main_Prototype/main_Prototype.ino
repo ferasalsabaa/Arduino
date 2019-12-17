@@ -161,9 +161,22 @@ void loop()
           i++;
         }
       }
+      if (k == i) {
+        led[k].setRGB( 0, 0, 220);
+        FastLED.show();
+        delay(100);
+        playerTwoFireSecond = 0;
+        playerOneFireSecond = 0;
+        playerOneFireFirst = 0;
+        playerTwoFireFirst = 0;
+        fireCase2 = 0;
+        fireCase1 = 0;
+        k = 142;
+        i = 0;
+
+      }
     }
     FastLED.show();
-
   }
 }// end loop
 
