@@ -13,11 +13,11 @@ const int fps = 100;
 
 #define ctsPin 19  // place the sensor
 
-int playerOneFireA = 0;  // how strong the first fire for 1st player
-int playerTwoFireA = 0;  // how strong the first fire for 2nd player
+int playerOneFireFirst = 0;  // how strong the first fire for 1st player
+int playerTwoFireFirst = 0;  // how strong the first fire for 2nd player
 
-int playerOneFireB = 0;  // how strong the second fire for 1st player
-int playerTwoFireB = 0;  // how strong the second fire for 2nd player
+int playerOneFireSecond = 0;  // how strong the second fire for 1st player
+int playerTwoFireSecond = 0;  // how strong the second fire for 2nd player
 
 int playerOneFirePosition = 1;  // where is the player1
 int playerTwoFirePosition = 142;  // where is the player2
@@ -87,13 +87,13 @@ void loop()
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
 
-    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireA, fireCase2);
-    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireA, fireCase1);
-    if (playerOneFireA > 199 ) {
-      player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireB, fireCase1);
+    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireFirst, fireCase2);
+    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireFirst, fireCase1);
+    if (playerOneFireFirst > 199 ) {
+      player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireSecond, fireCase1);
     }
-    if (playerTwoFireA > 199 ) {
-      player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireB, fireCase2);
+    if (playerTwoFireFirst > 199 ) {
+      player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireSecond, fireCase2);
     }
 
   }
@@ -107,29 +107,29 @@ void loop()
     led[143].setRGB(102, 0, 102);
     led[0].setRGB(102, 0, 102);
     if (fireCase1 == 0 && fireCase2 == 0) {
-      led[playerOneFirePosition].setRGB( playerOneFireA, 0, 0);
-      led[playerTwoFirePosition].setRGB( playerTwoFireA, 0, 0);
-      led[playerTwoFirePosition - 1].setRGB( playerTwoFireB, 0, 0);
-      led[playerOneFirePosition + 1].setRGB( playerOneFireB, 0, 0);
+      led[playerOneFirePosition].setRGB( playerOneFireFirst, 0, 0);
+      led[playerTwoFirePosition].setRGB( playerTwoFireFirst, 0, 0);
+      led[playerTwoFirePosition - 1].setRGB( playerTwoFireSecond, 0, 0);
+      led[playerOneFirePosition + 1].setRGB( playerOneFireSecond, 0, 0);
     } else if (fireCase1 != 0 && fireCase2 == 0) {
-      led[playerTwoFirePosition].setRGB( playerTwoFireA, 0, 0);
-      led[playerTwoFirePosition - 1].setRGB( playerTwoFireB, 0, 0);
+      led[playerTwoFirePosition].setRGB( playerTwoFireFirst, 0, 0);
+      led[playerTwoFirePosition - 1].setRGB( playerTwoFireSecond, 0, 0);
       if (bright.hasPassed(1)) {
         bright.restart();
-        led[i].setRGB( playerOneFireB, 0, 0);
-        led[i + 1].setRGB( playerOneFireB, 0, 0);
+        led[i].setRGB( playerOneFireSecond, 0, 0);
+        led[i + 1].setRGB( playerOneFireSecond, 0, 0);
         FastLED.show();
         if (i <= 140) {
           i++;
         }
       }
     }  else if (fireCase2 != 0 && fireCase1 == 0) {
-      led[playerOneFirePosition].setRGB( playerOneFireA, 0, 0);
-      led[playerOneFirePosition + 1].setRGB( playerOneFireB, 0, 0);
+      led[playerOneFirePosition].setRGB( playerOneFireFirst, 0, 0);
+      led[playerOneFirePosition + 1].setRGB( playerOneFireSecond, 0, 0);
       if (bright.hasPassed(1)) {
         bright.restart();
-        led[k].setRGB( playerTwoFireB, 0, 0);
-        led[k - 1].setRGB( playerTwoFireB, 0, 0);
+        led[k].setRGB( playerTwoFireSecond, 0, 0);
+        led[k - 1].setRGB( playerTwoFireSecond, 0, 0);
         FastLED.show();
         if (k > 3) {
           k--;
@@ -140,10 +140,10 @@ void loop()
     else if (fireCase2 != 0 && fireCase1 != 0) {
       if (bright.hasPassed(1)) {
         bright.restart();
-        led[k].setRGB( playerTwoFireB, 0, 0);
-        led[k - 1].setRGB( playerTwoFireB, 0, 0);
-        led[i].setRGB( playerOneFireB, 0, 0);
-        led[i + 1].setRGB( playerOneFireB, 0, 0);
+        led[k].setRGB( playerTwoFireSecond, 0, 0);
+        led[k - 1].setRGB( playerTwoFireSecond, 0, 0);
+        led[i].setRGB( playerOneFireSecond, 0, 0);
+        led[i + 1].setRGB( playerOneFireSecond, 0, 0);
         FastLED.show();
         if (k >= 3) {
           k--;
