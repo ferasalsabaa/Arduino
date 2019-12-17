@@ -47,6 +47,7 @@ CRGB led [NUM_LEDS];
 int j = 60;
 
 int i = 0;
+int k = 142;
 
 Player player1(0, 0, 0); // first car
 Player player2(140, 0, 0); // first car
@@ -110,21 +111,46 @@ void loop()
       led[playerTwoFirePosition].setRGB( playerTwoFireA, 0, 0);
       led[playerTwoFirePosition - 1].setRGB( playerTwoFireB, 0, 0);
       led[playerOneFirePosition + 1].setRGB( playerOneFireB, 0, 0);
-    } else if (fireCase1 != 0) {
-      //   for (int i = 3 ; i <= 130; i++) {
-
+    } else if (fireCase1 != 0 && fireCase2 == 0) {
+      led[playerTwoFirePosition].setRGB( playerTwoFireA, 0, 0);
+      led[playerTwoFirePosition - 1].setRGB( playerTwoFireB, 0, 0);
       if (bright.hasPassed(1)) {
         bright.restart();
         led[i].setRGB( playerOneFireB, 0, 0);
-        led[i+1].setRGB( playerOneFireB, 0, 0);
+        led[i + 1].setRGB( playerOneFireB, 0, 0);
         FastLED.show();
-        // led[i] = CRGB::Black;
-        if(i<=140){i++;}
+        if (i <= 140) {
+          i++;
+        }
       }
-      // }
-    }  else if (fireCase2 != 0) {
-      for (int i = 140 ; i >= 4; i--) {
-        led[i].setRGB( playerTwoFireB, 0, 0);
+    }  else if (fireCase2 != 0 && fireCase1 == 0) {
+      led[playerOneFirePosition].setRGB( playerOneFireA, 0, 0);
+      led[playerOneFirePosition + 1].setRGB( playerOneFireB, 0, 0);
+      if (bright.hasPassed(1)) {
+        bright.restart();
+        led[k].setRGB( playerTwoFireB, 0, 0);
+        led[k - 1].setRGB( playerTwoFireB, 0, 0);
+        FastLED.show();
+        if (k > 3) {
+          k--;
+        }
+      }
+
+    }
+    else if (fireCase2 != 0 && fireCase1 != 0) {
+      if (bright.hasPassed(1)) {
+        bright.restart();
+        led[k].setRGB( playerTwoFireB, 0, 0);
+        led[k - 1].setRGB( playerTwoFireB, 0, 0);
+        led[i].setRGB( playerOneFireB, 0, 0);
+        led[i + 1].setRGB( playerOneFireB, 0, 0);
+        FastLED.show();
+        if (k >= 3) {
+          k--;
+        }
+        if (i <= 140) {
+          i++;
+        }
       }
     }
     FastLED.show();
