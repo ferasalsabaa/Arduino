@@ -28,6 +28,11 @@ int fireCase2 = 0;
 boolean defenceOne = false;
 boolean defenceTwo = false;
 
+boolean defenceOneShow = false;
+boolean defenceTwoShow = false;
+
+
+
 
 //VARIABLEN ERZEUGEN
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
@@ -75,6 +80,9 @@ void setup() {
 void loop()
 {
   Chrono bright;
+  Chrono defence2;
+  Chrono defence1;
+
   sensorWertA = filter(analogRead(sensorPinA), 0.25, sensorWertA);
   sensorWertB = filter(analogRead(sensorPinB), 0.25, sensorWertB);
   sensorWertC = filter(analogRead(sensorPinC), 0.25, sensorWertC);
@@ -98,16 +106,18 @@ void loop()
     if (playerTwoFireFirst > 199 ) {
       player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireSecond, fireCase2);
     }
-    /*
-      int i = 0;
-      int k = 142;
 
-    */
     if (i > 130) {
       defenceTwo = player2.defenceTest(sensorWertC, sensorWertD);
     }
     if (k < 9) {
       defenceOne = player1.defenceTest(sensorWertA, sensorWertB);
+    }
+    if (sensorWertA > 7 && sensorWertB < 7) {
+      defenceOneShow = true;
+    }
+    if (sensorWertB > 7 && sensorWertD < 7) {
+      defenceTwoShow = true;
     }
 
   }
@@ -147,8 +157,9 @@ void loop()
           fireCase1 = 0;
           i = 0;
           defenceTwo = false;
+          defenceTwoShow = false;
         }
-        if (k == i || k == i-1 || k == i+1) {
+        if (k == i || k == i - 1 || k == i + 1) {
           led[k].setRGB( 0, 0, 220);
           FastLED.show();
           delay(100);
@@ -184,8 +195,9 @@ void loop()
           fireCase2 = 0;
           k = 142;
           defenceOne = false;
+          defenceOneShow = false;
         }
-        if (k == i || k == i-1 || k == i+1) {
+        if (k == i || k == i - 1 || k == i + 1) {
           led[k].setRGB( 0, 0, 220);
           FastLED.show();
           delay(100);
@@ -216,7 +228,7 @@ void loop()
           i++;
         }
       }
-      if (k == i || k == i-1 || k == i+1) {
+      if (k == i || k == i - 1 || k == i + 1) {
         led[k].setRGB( 0, 0, 220);
         FastLED.show();
         delay(100);
@@ -236,6 +248,7 @@ void loop()
         fireCase2 = 0;
         k = 142;
         defenceOne = false;
+        defenceOneShow = false;
       }
       if (defenceTwo == true) {
         playerOneFireSecond = 0;
@@ -243,7 +256,20 @@ void loop()
         fireCase1 = 0;
         i = 0;
         defenceTwo = false;
+        defenceTwoShow = false;
       }
+    }
+    if (defenceTwoShow == true) {
+      led[138].setRGB( 0, 220, 0);
+      led[139].setRGB( 0, 220, 0);
+      FastLED.show();
+      defenceTwoShow = false;
+    }
+    if (defenceOneShow == true) {
+      led[3].setRGB( 0, 220, 0);
+      led[4].setRGB( 0, 220, 0);
+      FastLED.show();
+      defenceOneShow = false;
     }
     FastLED.show();
   }
