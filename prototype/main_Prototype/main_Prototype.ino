@@ -119,7 +119,6 @@ void loop()
     if (sensorWertB > 7 && sensorWertD < 7) {
       defenceTwoShow = true;
     }
-
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
@@ -136,6 +135,23 @@ void loop()
       led[playerTwoFirePosition].setRGB( 0 , 0, playerTwoFireFirst);
       led[playerTwoFirePosition - 1].setRGB( 0, 0, playerTwoFireSecond);
       led[playerOneFirePosition + 1].setRGB( playerOneFireSecond, 0, 0);
+
+      if (defenceTwoShow == true) {
+        if (defence2.hasPassed(1)) {
+          led[138].setRGB( 0, 220, 0);
+          led[139].setRGB( 0, 220, 0);
+          FastLED.show();
+          defenceTwoShow = false;
+        }
+      }
+      if (defenceOneShow == true) {
+        if (defence1.hasPassed(1)) {
+          led[3].setRGB( 0, 220, 0);
+          led[4].setRGB( 0, 220, 0);
+          FastLED.show();
+          defenceOneShow = false;
+        }
+      }
       // 1 start   ___ 2 not yet
     } else if (fireCase1 != 0 && fireCase2 == 0) {
       led[playerTwoFirePosition].setRGB( 0, 0, playerTwoFireFirst);
@@ -152,12 +168,8 @@ void loop()
           led[i].setRGB( playerOneFireSecond, 0, 0);
           led[i + 1].setRGB( playerOneFireSecond, 0, 0);
         } else if (defenceTwo == true) {
-          playerOneFireSecond = 0;
-          playerOneFireFirst = 0;
-          fireCase1 = 0;
           i = 0;
-          defenceTwo = false;
-          defenceTwoShow = false;
+          player1.resetPlayer(playerOneFireSecond, playerOneFireFirst, fireCase1, defenceTwo, defenceTwoShow);
         }
         if (k == i || k == i - 1 || k == i + 1) {
           led[k].setRGB( 0, 0, 220);
@@ -171,6 +183,23 @@ void loop()
           fireCase1 = 0;
           k = 142;
           i = 0;
+        }
+      }
+
+      if (defenceTwoShow == true) {
+        if (defence2.hasPassed(1)) {
+          led[138].setRGB( 0, 220, 0);
+          led[139].setRGB( 0, 220, 0);
+          FastLED.show();
+          defenceTwoShow = false;
+        }
+      }
+      if (defenceOneShow == true) {
+        if (defence1.hasPassed(1)) {
+          led[3].setRGB( 0, 220, 0);
+          led[4].setRGB( 0, 220, 0);
+          FastLED.show();
+          defenceOneShow = false;
         }
       }
       // 2 start   ___ 1 not yet
@@ -189,12 +218,8 @@ void loop()
           led[k].setRGB( 0, 0, playerTwoFireSecond);
           led[k - 1].setRGB( 0, 0, playerTwoFireSecond);
         } else if (defenceOne == true) {
-          playerTwoFireSecond = 0;
-          playerTwoFireFirst = 0;
-          fireCase2 = 0;
           k = 142;
-          defenceOne = false;
-          defenceOneShow = false;
+          player2.resetPlayer(playerTwoFireSecond, playerTwoFireFirst, fireCase2, defenceOne, defenceOneShow);
         }
         if (k == i || k == i - 1 || k == i + 1) {
           led[k].setRGB( 0, 0, 220);
@@ -208,6 +233,22 @@ void loop()
           fireCase1 = 0;
           k = 142;
           i = 0;
+        }
+      }
+      if (defenceTwoShow == true) {
+        if (defence2.hasPassed(1)) {
+          led[138].setRGB( 0, 220, 0);
+          led[139].setRGB( 0, 220, 0);
+          FastLED.show();
+          defenceTwoShow = false;
+        }
+      }
+      if (defenceOneShow == true) {
+        if (defence1.hasPassed(1)) {
+          led[3].setRGB( 0, 220, 0);
+          led[4].setRGB( 0, 220, 0);
+          FastLED.show();
+          defenceOneShow = false;
         }
       }
     }
@@ -242,20 +283,12 @@ void loop()
 
       }
       if (defenceOne == true) {
-        playerTwoFireSecond = 0;
-        playerTwoFireFirst = 0;
-        fireCase2 = 0;
         k = 142;
-        defenceOne = false;
-        defenceOneShow = false;
+        player2.resetPlayer(playerTwoFireSecond, playerTwoFireFirst, fireCase2, defenceOne, defenceOneShow);
       }
       if (defenceTwo == true) {
-        playerOneFireSecond = 0;
-        playerOneFireFirst = 0;
-        fireCase1 = 0;
         i = 0;
-        defenceTwo = false;
-        defenceTwoShow = false;
+        player1.resetPlayer(playerOneFireSecond, playerOneFireFirst, fireCase1, defenceTwo, defenceTwoShow);
       }
     }
     if (defenceTwoShow == true) {

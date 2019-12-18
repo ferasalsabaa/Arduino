@@ -11,7 +11,7 @@ class Player {
       farPlayer = far;
     }
     void playShow(int& sensorValue, CRGB led[], int NUM_LEDS, int& sensorValueB, int& playerFire, int& FireCase) {
-      if (sensorValue < 7 && playerFire <= 200) {
+      if (sensorValue < 7 && sensorValueB > 7 && playerFire <= 200) {
         playerFire++;
       }
       if (sensorValue < 7 && sensorValueB < 7) {
@@ -19,11 +19,18 @@ class Player {
       }
     }
 
-    boolean defenceTest(int& sensorWertC, int& sensorWertD){
-       if (sensorWertD < 7 && sensorWertC > 7) {
+    boolean defenceTest(int& sensorWertC, int& sensorWertD) {
+      if (sensorWertD < 7 && sensorWertC > 7) {
         return true;
       } else {
         return false;
-        }
       }
+    }
+    void resetPlayer(int& playerFireSecond, int& playerFireFirst, int& fireCase, boolean& defence, boolean& defenceShow) {
+      playerFireSecond = 0;
+      playerFireFirst = 0;
+      fireCase = 0;
+      defence = false;
+      defenceShow = false;
+    }
 };
