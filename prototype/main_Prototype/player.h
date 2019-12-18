@@ -11,7 +11,7 @@ class Player {
       farPlayer = far;
     }
     void playShow(int& sensorValue, CRGB led[], int NUM_LEDS, int& sensorValueB, int& playerFire, int& FireCase) {
-      if (sensorValue < 7 && sensorValueB > 7 && playerFire <= 200) {
+      if (sensorValueB > 7 && sensorValue < 7  && playerFire <= 200) {
         playerFire++;
       }
       if (sensorValue < 7 && sensorValueB < 7) {
