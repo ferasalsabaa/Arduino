@@ -134,6 +134,23 @@ void loop()
 
     led[143].setRGB(0, 0, 102);
     led[0].setRGB(102, 0, 0);
+
+       if (defenceTwoShow == true) {
+        if (defence2.hasPassed(1)) {
+          led[138].setRGB( 0, 220, 0);
+          led[139].setRGB( 0, 220, 0);
+          FastLED.show();
+          defenceTwoShow = false;
+        }
+      }
+      if (defenceOneShow == true) {
+        if (defence1.hasPassed(1)) {
+          led[3].setRGB( 0, 220, 0);
+          led[4].setRGB( 0, 220, 0);
+          FastLED.show();
+          defenceOneShow = false;
+        }
+      }
     // start
     if (fireCase1 == 0 && fireCase2 == 0) {
       led[playerOneFirePosition].setRGB( playerOneFireFirst, 0, 0);
@@ -189,23 +206,6 @@ void loop()
           player1.resetPlayer(playerOneFireSecond, playerOneFireFirst, fireCase1, defenceTwo, defenceTwoShow);
         }
       }
-
-      if (defenceTwoShow == true) {
-        if (defence2.hasPassed(1)) {
-          led[138].setRGB( 0, 220, 0);
-          led[139].setRGB( 0, 220, 0);
-          FastLED.show();
-          defenceTwoShow = false;
-        }
-      }
-      if (defenceOneShow == true) {
-        if (defence1.hasPassed(1)) {
-          led[3].setRGB( 0, 220, 0);
-          led[4].setRGB( 0, 220, 0);
-          FastLED.show();
-          defenceOneShow = false;
-        }
-      }
       // 2 start   ___ 1 not yet
     }  else if (fireCase2 != 0 && fireCase1 == 0) {
       led[playerOneFirePosition].setRGB( playerOneFireFirst, 0, 0);
@@ -237,22 +237,6 @@ void loop()
         } else if (defenceOne == true) {
           k = 142;
           player2.resetPlayer(playerTwoFireSecond, playerTwoFireFirst, fireCase2, defenceOne, defenceOneShow);
-        }
-      }
-      if (defenceTwoShow == true) {
-        if (defence2.hasPassed(1)) {
-          led[138].setRGB( 0, 220, 0);
-          led[139].setRGB( 0, 220, 0);
-          FastLED.show();
-          defenceTwoShow = false;
-        }
-      }
-      if (defenceOneShow == true) {
-        if (defence1.hasPassed(1)) {
-          led[3].setRGB( 0, 220, 0);
-          led[4].setRGB( 0, 220, 0);
-          FastLED.show();
-          defenceOneShow = false;
         }
       }
     }
@@ -324,22 +308,6 @@ void loop()
       if (defenceTwo == true) {
         i = 0;
         player1.resetPlayer(playerOneFireSecond, playerOneFireFirst, fireCase1, defenceTwo, defenceTwoShow);
-      }
-    }
-    if (defenceTwoShow == true) {
-      if (defence2.hasPassed(1)) {
-        led[138].setRGB( 0, 220, 0);
-        led[139].setRGB( 0, 220, 0);
-        FastLED.show();
-        defenceTwoShow = false;
-      }
-    }
-    if (defenceOneShow == true) {
-      if (defence1.hasPassed(1)) {
-        led[3].setRGB( 0, 220, 0);
-        led[4].setRGB( 0, 220, 0);
-        FastLED.show();
-        defenceOneShow = false;
       }
     }
     FastLED.show();
