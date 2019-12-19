@@ -157,24 +157,6 @@ void loop()
       led[playerTwoFirePosition].setRGB( 0 , 0, playerTwoFireFirst);
       led[playerTwoFirePosition - 1].setRGB( 0, 0, playerTwoFireSecond);
       led[playerOneFirePosition + 1].setRGB( playerOneFireSecond, 0, 0);
-
-      if (defenceOneShow == true) {
-        if (defence1.hasPassed(1)) {
-          led[3].setRGB( 0, 220, 0);
-          led[4].setRGB( 0, 220, 0);
-          FastLED.show();
-          defenceOneShow = false;
-        }
-      }
-
-      if (defenceTwoShow == true) {
-        if (defence2.hasPassed(1)) {
-          led[138].setRGB( 0, 220, 0);
-          led[139].setRGB( 0, 220, 0);
-          FastLED.show();
-          defenceTwoShow = false;
-        }
-      }
       // 1 start   ___ 2 not yet
     } else if (fireCase1 != 0 && fireCase2 == 0) {
       led[playerTwoFirePosition].setRGB( 0, 0, playerTwoFireFirst);
