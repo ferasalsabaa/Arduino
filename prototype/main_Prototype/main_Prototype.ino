@@ -313,18 +313,36 @@ void loop()
           i = 0;
         }
         else if (playerOneFireSecond < playerTwoFireSecond) {
+
+   for (int jjj = 200; jjj > 0; jjj--) {
+      led[i].setRGB( jjj, 0, 0);
+      led[i + 1].setRGB( jjj, 0, 0);
+      led[i + 2].setRGB( jjj, 0, 0);
+      led[i + 3].setRGB( jjj, 0, 0);
+
+      FastLED.show();
+      delay(5);
+    }
+          
           i = 0;
           player1.resetPlayer(playerOneFireSecond, playerOneFireFirst, fireCase1, defenceTwo, defenceTwoShow);
-          led[i].setRGB( 220, 0, 0);
-          FastLED.show();
-          delay(100);
+
         }
         else if (playerOneFireSecond > playerTwoFireSecond) {
+
+
+ for (int jjj = 200; jjj > 0; jjj--) {
+      led[k].setRGB( 0, 0, jjj);
+      led[k + 1].setRGB( 0, 0, jjj);
+      led[k - 1].setRGB( 0, 0, jjj);
+      led[k - 2].setRGB( 0, 0, jjj);
+
+      FastLED.show();
+      delay(5);
+    }
+          
           k = 142;
           player2.resetPlayer(playerTwoFireSecond, playerTwoFireFirst, fireCase2, defenceOne, defenceOneShow);
-          led[k].setRGB( 0, 0, 220);
-          FastLED.show();
-          delay(100);
         }
 
       }
