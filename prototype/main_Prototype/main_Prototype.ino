@@ -103,10 +103,10 @@ void loop()
 
     player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireFirst, fireCase2);
     player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireFirst, fireCase1);
-    if (playerOneFireFirst > 199 ) {
+    if (playerOneFireFirst > 199 && fireCase1 == 0) {
       player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireSecond, fireCase1);
     }
-    if (playerTwoFireFirst > 199 ) {
+    if (playerTwoFireFirst > 199 && fireCase2 == 0) {
       player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireSecond, fireCase2);
     }
 
@@ -171,14 +171,12 @@ void loop()
           i++;
         }
         if (i == 141 && defenceTwo == false) {
-         // led[i].setRGB( playerOneFireSecond, 0, 0);
-         // led[i + 1].setRGB( playerOneFireSecond, 0, 0);
           for (int i = 0; i < NUM_LEDS; i++) {
-             led[i].setRGB( 220, 0, 0);
+            led[i].setRGB( 220, 0, 0);
             FastLED.show();
             delay(10);
           }
-                playerTwoFireSecond = 0;
+          playerTwoFireSecond = 0;
           playerOneFireSecond = 0;
           playerOneFireFirst = 0;
           playerTwoFireFirst = 0;
@@ -190,7 +188,7 @@ void loop()
           i = 0;
           player1.resetPlayer(playerOneFireSecond, playerOneFireFirst, fireCase1, defenceTwo, defenceTwoShow);
         }
-        if (k == i || k == i - 1 || k == i + 1) {
+  /*      if (k == i || k == i - 1 || k == i + 1) {
           led[k].setRGB( 0, 0, 220);
           FastLED.show();
           delay(100);
@@ -202,7 +200,7 @@ void loop()
           fireCase1 = 0;
           k = 142;
           i = 0;
-        }
+        }*/
       }
 
       if (defenceTwoShow == true) {
@@ -253,7 +251,7 @@ void loop()
           k = 142;
           player2.resetPlayer(playerTwoFireSecond, playerTwoFireFirst, fireCase2, defenceOne, defenceOneShow);
         }
-        if (k == i || k == i - 1 || k == i + 1) {
+    /*    if (k == i || k == i - 1 || k == i + 1) {
           led[k].setRGB( 0, 0, 220);
           FastLED.show();
           delay(100);
@@ -265,7 +263,7 @@ void loop()
           fireCase1 = 0;
           k = 142;
           i = 0;
-        }
+        }*/
       }
       if (defenceTwoShow == true) {
         if (defence2.hasPassed(1)) {
