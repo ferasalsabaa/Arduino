@@ -188,19 +188,19 @@ void loop()
           i = 0;
           player1.resetPlayer(playerOneFireSecond, playerOneFireFirst, fireCase1, defenceTwo, defenceTwoShow);
         }
-  /*      if (k == i || k == i - 1 || k == i + 1) {
-          led[k].setRGB( 0, 0, 220);
-          FastLED.show();
-          delay(100);
-          playerTwoFireSecond = 0;
-          playerOneFireSecond = 0;
-          playerOneFireFirst = 0;
-          playerTwoFireFirst = 0;
-          fireCase2 = 0;
-          fireCase1 = 0;
-          k = 142;
-          i = 0;
-        }*/
+        /*      if (k == i || k == i - 1 || k == i + 1) {
+                led[k].setRGB( 0, 0, 220);
+                FastLED.show();
+                delay(100);
+                playerTwoFireSecond = 0;
+                playerOneFireSecond = 0;
+                playerOneFireFirst = 0;
+                playerTwoFireFirst = 0;
+                fireCase2 = 0;
+                fireCase1 = 0;
+                k = 142;
+                i = 0;
+              }*/
       }
 
       if (defenceTwoShow == true) {
@@ -251,19 +251,19 @@ void loop()
           k = 142;
           player2.resetPlayer(playerTwoFireSecond, playerTwoFireFirst, fireCase2, defenceOne, defenceOneShow);
         }
-    /*    if (k == i || k == i - 1 || k == i + 1) {
-          led[k].setRGB( 0, 0, 220);
-          FastLED.show();
-          delay(100);
-          playerTwoFireSecond = 0;
-          playerOneFireSecond = 0;
-          playerOneFireFirst = 0;
-          playerTwoFireFirst = 0;
-          fireCase2 = 0;
-          fireCase1 = 0;
-          k = 142;
-          i = 0;
-        }*/
+        /*    if (k == i || k == i - 1 || k == i + 1) {
+              led[k].setRGB( 0, 0, 220);
+              FastLED.show();
+              delay(100);
+              playerTwoFireSecond = 0;
+              playerOneFireSecond = 0;
+              playerOneFireFirst = 0;
+              playerTwoFireFirst = 0;
+              fireCase2 = 0;
+              fireCase1 = 0;
+              k = 142;
+              i = 0;
+            }*/
       }
       if (defenceTwoShow == true) {
         if (defence2.hasPassed(1)) {
@@ -315,10 +315,16 @@ void loop()
         else if (playerOneFireSecond < playerTwoFireSecond) {
           i = 0;
           player1.resetPlayer(playerOneFireSecond, playerOneFireFirst, fireCase1, defenceTwo, defenceTwoShow);
+          led[i].setRGB( 220, 0, 0);
+          FastLED.show();
+          delay(100);
         }
         else if (playerOneFireSecond > playerTwoFireSecond) {
           k = 142;
           player2.resetPlayer(playerTwoFireSecond, playerTwoFireFirst, fireCase2, defenceOne, defenceOneShow);
+          led[k].setRGB( 0, 0, 220);
+          FastLED.show();
+          delay(100);
         }
 
       }
