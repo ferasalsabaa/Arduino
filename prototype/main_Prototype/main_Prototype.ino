@@ -137,16 +137,16 @@ void loop()
 
        if (defenceTwoShow == true) {
         if (defence2.hasPassed(1)) {
-          led[138].setRGB( 0, 220, 0);
-          led[139].setRGB( 0, 220, 0);
+          led[138].setRGB( 220, 220, 0);
+          led[139].setRGB( 220, 220, 0);
           FastLED.show();
           defenceTwoShow = false;
         }
       }
       if (defenceOneShow == true) {
         if (defence1.hasPassed(1)) {
-          led[3].setRGB( 0, 220, 0);
-          led[4].setRGB( 0, 220, 0);
+          led[3].setRGB( 220, 220, 0);
+          led[4].setRGB( 220, 220, 0);
           FastLED.show();
           defenceOneShow = false;
         }
