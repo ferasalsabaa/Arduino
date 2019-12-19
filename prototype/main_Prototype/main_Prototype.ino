@@ -118,11 +118,9 @@ void loop()
     }
     if (sensorWertA > 7 && sensorWertB < 7) {
       defenceOneShow = true;
-      defenceCountOne++;
     }
     if (sensorWertB > 7 && sensorWertD < 7) {
       defenceTwoShow = true;
-      defenceCountTwo++;
     }
   }
   //DRAW FRAME
@@ -183,7 +181,10 @@ void loop()
           fireCase1 = 0;
           k = 142;
           i = 0;
-        } else if (defenceTwo == true) {
+          defenceCountTwo = 0;
+          defenceCountOne = 0;
+        } else if (defenceTwo == true && defenceCountTwo < 2) {
+          defenceCountTwo++;
           i = 0;
           player1.resetPlayer(playerOneFireSecond, playerOneFireFirst, fireCase1, defenceTwo, defenceTwoShow);
         }
@@ -216,7 +217,10 @@ void loop()
           fireCase1 = 0;
           k = 142;
           i = 0;
-        } else if (defenceOne == true) {
+                    defenceCountTwo = 0;
+          defenceCountOne = 0;
+        } else if (defenceOne == true && defenceCountOne < 2) {
+          defenceCountOne ++;
           k = 142;
           player2.resetPlayer(playerTwoFireSecond, playerTwoFireFirst, fireCase2, defenceOne, defenceOneShow);
         }
@@ -283,11 +287,13 @@ void loop()
         }
 
       }
-      if (defenceOne == true) {
+      if (defenceOne == true && defenceCountOne < 2) {
+         defenceCountOne++;
         k = 142;
         player2.resetPlayer(playerTwoFireSecond, playerTwoFireFirst, fireCase2, defenceOne, defenceOneShow);
       }
-      if (defenceTwo == true) {
+      if (defenceTwo == true && defenceCountTwo < 2) {
+        defenceCountTwo++;
         i = 0;
         player1.resetPlayer(playerOneFireSecond, playerOneFireFirst, fireCase1, defenceTwo, defenceTwoShow);
       }
