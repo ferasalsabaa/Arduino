@@ -133,22 +133,34 @@ void loop()
     led[143].setRGB(0, 0, 102);
     led[0].setRGB(102, 0, 0);
 
-       if (defenceTwoShow == true) {
-        if (defence2.hasPassed(1)) {
+    if (defenceTwoShow == true) {
+      if (defence2.hasPassed(1)) {
+        if (defenceCountTwo > 2) {
+          led[138].setRGB( 50, 0, 0);
+          led[139].setRGB( 50, 00, 0);
+          FastLED.show();
+        } else {
           led[138].setRGB( 220, 220, 0);
           led[139].setRGB( 220, 220, 0);
           FastLED.show();
-          defenceTwoShow = false;
         }
+
+        defenceTwoShow = false;
       }
-      if (defenceOneShow == true) {
-        if (defence1.hasPassed(1)) {
+    }
+    if (defenceOneShow == true) {
+      if (defence1.hasPassed(1)) {
+        if (defenceCountOne > 2) {
+          led[3].setRGB( 50, 0, 0);
+          led[4].setRGB( 50, 0, 0);
+        } else {
           led[3].setRGB( 220, 220, 0);
           led[4].setRGB( 220, 220, 0);
           FastLED.show();
-          defenceOneShow = false;
         }
+        defenceOneShow = false;
       }
+    }
     // start
     if (fireCase1 == 0 && fireCase2 == 0) {
       led[playerOneFirePosition].setRGB( playerOneFireFirst, 0, 0);
@@ -217,7 +229,7 @@ void loop()
           fireCase1 = 0;
           k = 142;
           i = 0;
-                    defenceCountTwo = 0;
+          defenceCountTwo = 0;
           defenceCountOne = 0;
         } else if (defenceOne == true && defenceCountOne < 2) {
           defenceCountOne ++;
@@ -244,7 +256,7 @@ void loop()
       }
       if (k == i || k == i - 1 || k == i + 1) {
         if (playerOneFireSecond == playerTwoFireSecond) {
-           for (int jjj = 200; jjj > 0; jjj--) {
+          for (int jjj = 200; jjj > 0; jjj--) {
             led[i].setRGB( jjj, 0, 0);
             led[i + 1].setRGB( jjj, 0, 0);
             led[i + 2].setRGB( 0, 0, jjj);
@@ -288,7 +300,7 @@ void loop()
 
       }
       if (defenceOne == true && defenceCountOne < 2) {
-         defenceCountOne++;
+        defenceCountOne++;
         k = 142;
         player2.resetPlayer(playerTwoFireSecond, playerTwoFireFirst, fireCase2, defenceOne, defenceOneShow);
       }
