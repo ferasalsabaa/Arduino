@@ -5,10 +5,10 @@ class Player {
 
     float fireFirstPositionC;
     float fireSecondPositionC;
-    
+
     float playerFireFirstC;
     float playerFireSecondC;
-    
+
     int energyPlayerC;
 
     bool FirstfireCaseC;
@@ -23,18 +23,30 @@ class Player {
       playerFireSecondC = playerFireSecond;
 
       energyPlayerC = energyPlayer;
-      
+
       FirstfireCaseC = FirstfireCase;
-      
+
     }
     void playShow(int& sensorValue, int& sensorValueB) {
       if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC <= 200) {
         playerFireFirstC = playerFireFirstC + 0.2;
-      } else if(sensorValueB > 7 && sensorValue < 7  && playerFireFirstC >= 200){
+      } else if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC >= 200) {
         playerFireSecondC = playerFireSecondC + 0.2;
-        }
-      if (sensorValue < 7 && sensorValueB < 7) {
+      }
+      if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
         fireFirstPositionC = fireFirstPositionC + 0.4;
+      }
+      if (fireFirstPositionC > 140) {
+
+         fireFirstPositionC = 1;
+         fireSecondPositionC = 2;
+
+         playerFireFirstC = 0;
+         playerFireSecondC = 0;
+
+        int energyPlayerC = 0;
+
+        bool FirstfireCaseC = false;
       }
     }
 
