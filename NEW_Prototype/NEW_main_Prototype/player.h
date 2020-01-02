@@ -2,20 +2,39 @@ class Player {
 
   public:
     int playerPositionC;
-    int powerPlayer;
-    int farPlayer;
-    int j = 0;
-    Player(int playerPosition, int power, int far) {
+
+    float fireFirstPositionC;
+    float fireSecondPositionC;
+    
+    float playerFireFirstC;
+    float playerFireSecondC;
+    
+    int energyPlayerC;
+
+    bool FirstfireCaseC;
+
+    Player(int playerPosition, float fireFirstPosition, float fireSecondPosition, float playerFireFirst, float playerFireSecond, int energyPlayer, bool FirstfireCase) {
       playerPositionC = playerPosition;
-      powerPlayer = power;
-      farPlayer = far;
+
+      fireFirstPositionC = fireFirstPosition;
+      fireSecondPositionC = fireSecondPosition;
+
+      playerFireFirstC = playerFireFirst;
+      playerFireSecondC = playerFireSecond;
+
+      energyPlayerC = energyPlayer;
+      
+      FirstfireCaseC = FirstfireCase;
+      
     }
-    void playShow(int& sensorValue, CRGB led[], int NUM_LEDS, int& sensorValueB, float& playerFire, int& FireCase) {
-      if (sensorValueB > 7 && sensorValue < 7  && playerFire <= 200) {
-        playerFire = playerFire + 0.2;
-      }
+    void playShow(int& sensorValue, int& sensorValueB) {
+      if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC <= 200) {
+        playerFireFirstC = playerFireFirstC + 0.2;
+      } else if(sensorValueB > 7 && sensorValue < 7  && playerFireFirstC >= 200){
+        playerFireSecondC = playerFireSecondC + 0.2;
+        }
       if (sensorValue < 7 && sensorValueB < 7) {
-        FireCase = 1;
+        fireFirstPositionC = fireFirstPositionC + 0.4;
       }
     }
 

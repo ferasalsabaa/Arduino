@@ -13,29 +13,6 @@ const int fps = 100;
 
 #define ctsPin 19  // place the sensor
 
-float playerOneFireFirst = 0;  // how strong the first fire for 1st player
-float playerTwoFireFirst = 0;  // how strong the first fire for 2nd player
-
-float playerOneFireSecond = 0;  // how strong the second fire for 1st player
-float playerTwoFireSecond = 0;  // how strong the second fire for 2nd player
-
-int playerOneFirePosition = 1;  // where is the player1
-int playerTwoFirePosition = 142;  // where is the player2
-
-int fireCase1 = 0;
-int fireCase2 = 0;
-
-int defenceCountOne = 0;
-int defenceCountTwo = 0;
-
-boolean defenceOne = false;
-boolean defenceTwo = false;
-
-boolean defenceOneShow = false;
-boolean defenceTwoShow = false;
-
-
-
 
 //VARIABLEN ERZEUGEN
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
@@ -55,16 +32,23 @@ Chrono cCheckInput;
 
 CRGB led [NUM_LEDS];
 
-int j = 60;
+int OnePlayerPosition = 0;
 
-// float i = 1;
-// float k = 142;
+float OneFireFirstPosition = 1;
+float OneFireSecondPosition = 2;
 
-int i = 1;
-int k = 142;
+float OnePlayerFireFirst = 0.0;
+float OnePlayerFireSecond = 0.0;
 
-Player player1(0, 0, 0); // first car
-Player player2(140, 0, 0); // first car
+int OneEnergyPlayer = 0;
+
+bool OnefireCase = false;
+
+
+Player player1(OnePlayerPosition, OneFireFirstPosition, OneFireSecondPosition, OnePlayerFireFirst, OnePlayerFireSecond, OneEnergyPlayer, OnefireCase);
+
+
+
 
 void setup() {
 
@@ -104,50 +88,22 @@ void loop()
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
 
-    player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireFirst, fireCase2);
-    player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireFirst, fireCase1);
-    if (playerOneFireFirst > 199 && fireCase1 == 0) {
-      player1.playShow(sensorWertA, led, NUM_LEDS, sensorWertB, playerOneFireSecond, fireCase1);
-    }
-    if (playerTwoFireFirst > 199 && fireCase2 == 0) {
-      player2.playShow(sensorWertC, led, NUM_LEDS, sensorWertD, playerTwoFireSecond, fireCase2);
-    }
- //   player1.playShowFireFirst((sensorWertC, sensorWertD, i);
+    player1.playShow(sensorWertA, sensorWertB);
 
-    if (i > 130) {
-      defenceTwo = player2.defenceTest(sensorWertC, sensorWertD);
-    }
-    if (k < 9) {
-      defenceOne = player1.defenceTest(sensorWertA, sensorWertB);
-    }
-    if (sensorWertA > 7 && sensorWertB < 7) {
-      defenceOneShow = true;
-    }
-    if (sensorWertB > 7 && sensorWertD < 7) {
-      defenceTwoShow = true;
-    }
+
   }
   //DRAW FRAME
-  //if (cNextFrame.hasPassed((1000 * 1000) / fps) ) { //milliseconds chrono -> triggers on every frame...
   if (cNextFrame.hasPassed((1000 * 1000) / fps)  ) { //milliseconds chrono -> triggers on every frame...
     cNextFrame.restart();
     FastLED.clear();
 
+    int i = (int) player1.fireFirstPositionC;
 
-//int ii = (int) i;
-
-    led[playerOneFirePosition].setRGB( playerOneFireFirst, 0, 0);
-    led[playerTwoFirePosition].setRGB( 0 , 0, playerTwoFireFirst);
-    led[playerTwoFirePosition - 1].setRGB( 0, 0, playerTwoFireSecond);
-    led[playerOneFirePosition + 1].setRGB( playerOneFireSecond, 0, 0);
-
-    led[i].setRGB( playerOneFireFirst, 0, 0);
-    led[i + 1].setRGB( playerOneFireSecond, 0, 0);
-    led[k].setRGB( 0, 0, playerTwoFireFirst);
-    led[k - 1].setRGB( 0, 0, playerTwoFireSecond);
-    
-    led[143].setRGB(0, 0, 102);
     led[0].setRGB(102, 0, 0);
+
+    led[i].setRGB(player1.playerFireFirstC, 0, 0);
+    led[i + 1].setRGB(player1.playerFireSecondC, 0, 0);
+
 
 
     FastLED.show();
