@@ -10,12 +10,18 @@ class Player {
       powerPlayer = power;
       farPlayer = far;
     }
-    void playShow(int& sensorValue, CRGB led[], int NUM_LEDS, int& sensorValueB, int& playerFire, int& FireCase) {
+    void playShow(int& sensorValue, CRGB led[], int NUM_LEDS, int& sensorValueB, float& playerFire, int& FireCase) {
       if (sensorValueB > 7 && sensorValue < 7  && playerFire <= 200) {
-        playerFire++;
+        playerFire = playerFire + 0.2;
       }
       if (sensorValue < 7 && sensorValueB < 7) {
         FireCase = 1;
+      }
+    }
+
+    void playShowFireFirst(int& sensorValue, int& sensorValueB, float& i) {
+      if (sensorValueB > 7 && sensorValue < 7  && i <= 142) {
+        i = i + 1;
       }
     }
 
