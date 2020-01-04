@@ -99,10 +99,12 @@ void loop()
 
     int i = (int) player1.fireFirstPositionC;
 
-    led[0].setRGB(102, 0, 0);
+
 
     led[i].setRGB(player1.playerFireFirstC, 0, 0);
     led[i + 1].setRGB(player1.playerFireSecondC, 0, 0);
+    led[0].setRGB(102, 0, 0);
+
 
 
 

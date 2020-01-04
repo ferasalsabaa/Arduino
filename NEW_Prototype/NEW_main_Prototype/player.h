@@ -38,26 +38,9 @@ class Player {
     }
     void playShow(int& sensorValue, int& sensorValueB) {
       if (effect1 == true) {
-        // fireFirstPositionC = fireFirstPositionC + 0.4;
-        fireFirstPositionC = fireFirstPositionC + speedC;
-        speedC = speedC + gravity;
-        if (fireFirstPositionC > 100) {
-          speedC = speedC * -1;
-        }
-        countEffect1 ++;
-        } else {
-          if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC <= 200) {
-            playerFireFirstC = playerFireFirstC + 0.2;
-          } else if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC >= 200) {
-            playerFireSecondC = playerFireSecondC + 0.2;
-          }
-          if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
-            effect1 = true;
-          }
-
-        }
-        if (fireFirstPositionC > 140) {
-
+        if (countEffect1 > 500) {
+          effect1 = false;
+          countEffect1 = 0;
           fireFirstPositionC = 1;
           fireSecondPositionC = 2;
 
@@ -68,8 +51,42 @@ class Player {
 
           bool FirstfireCaseC = false;
         }
+        // fireFirstPositionC = fireFirstPositionC + 0.4;
+        fireFirstPositionC = fireFirstPositionC + speedC;
+        speedC = speedC + gravity;
+        countEffect1 ++;
+        if (fireFirstPositionC > 100) {
+          speedC = speedC * -1;
+        }
+        if(fireFirstPositionC < 1){
+          fireFirstPositionC = 1;
+          }
+        countEffect1 ++;
+      } else {
+        if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC <= 200) {
+          playerFireFirstC = playerFireFirstC + 0.2;
+        } else if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC >= 200) {
+          playerFireSecondC = playerFireSecondC + 0.2;
+        }
+        if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
+          effect1 = true;
+        }
+
       }
-    
+      if (fireFirstPositionC > 140) {
+
+        fireFirstPositionC = 1;
+        fireSecondPositionC = 2;
+
+        playerFireFirstC = 0;
+        playerFireSecondC = 0;
+
+        int energyPlayerC = 0;
+
+        bool FirstfireCaseC = false;
+      }
+    }
+
 
     void playShowFireFirst(int& sensorValue, int& sensorValueB, float& i) {
       if (sensorValueB > 7 && sensorValue < 7  && i <= 142) {
