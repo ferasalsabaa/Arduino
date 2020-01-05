@@ -22,6 +22,9 @@ class Player {
     int countEffect1 = 0;
 
 
+    boolean effect2 = false;
+
+
     Player(int playerPosition, float fireFirstPosition, float fireSecondPosition, float playerFireFirst, float playerFireSecond, int energyPlayer, bool FirstfireCase) {
       playerPositionC = playerPosition;
 
@@ -47,9 +50,9 @@ class Player {
           playerFireFirstC = 0;
           playerFireSecondC = 0;
 
-          int energyPlayerC = 0;
+          energyPlayerC = 0;
 
-          bool FirstfireCaseC = false;
+          FirstfireCaseC = false;
         }
         // fireFirstPositionC = fireFirstPositionC + 0.4;
         fireFirstPositionC = fireFirstPositionC + speedC;
@@ -58,10 +61,27 @@ class Player {
         if (fireFirstPositionC > 100) {
           speedC = speedC * -1;
         }
-        if(fireFirstPositionC < 1){
+        if (fireFirstPositionC < 1) {
           fireFirstPositionC = 1;
-          }
+        }
         countEffect1 ++;
+      } else if (effect2 == true) {
+        fireFirstPositionC = fireFirstPositionC + speedC;
+        speedC = speedC + gravity;
+        countEffect1 ++;
+        if (fireFirstPositionC > 140) {
+          effect2 = false;
+          countEffect1 = 0;
+          fireFirstPositionC = 1;
+          fireSecondPositionC = 2;
+
+          playerFireFirstC = 0;
+          playerFireSecondC = 0;
+
+          energyPlayerC = 0;
+
+          FirstfireCaseC = false;
+        }
       } else {
         if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC <= 200) {
           playerFireFirstC = playerFireFirstC + 0.2;
@@ -69,7 +89,11 @@ class Player {
           playerFireSecondC = playerFireSecondC + 0.2;
         }
         if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
-          effect1 = true;
+          if (sensorValue > 3 && sensorValueB > 3) {
+            effect1 = true;
+          } else if (sensorValueB < 4 && sensorValue < 4) {
+            effect2 = true;
+          }
         }
 
       }
