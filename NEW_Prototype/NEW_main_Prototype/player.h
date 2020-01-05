@@ -16,13 +16,15 @@ class Player {
 
 
     float speedC = 0;
-    float gravity = 0.05;
+    float gravity = 0.09;
 
     boolean effect1 = false;
     int countEffect1 = 0;
 
 
     boolean effect2 = false;
+
+    boolean effect3 = false;
 
 
     Player(int playerPosition, float fireFirstPosition, float fireSecondPosition, float playerFireFirst, float playerFireSecond, int energyPlayer, bool FirstfireCase) {
@@ -42,17 +44,7 @@ class Player {
     void playShow(int& sensorValue, int& sensorValueB) {
       if (effect1 == true) {
         if (countEffect1 > 500) {
-          effect1 = false;
-          countEffect1 = 0;
-          fireFirstPositionC = 1;
-          fireSecondPositionC = 2;
-
-          playerFireFirstC = 0;
-          playerFireSecondC = 0;
-
-          energyPlayerC = 0;
-
-          FirstfireCaseC = false;
+          resetPlayer();
         }
         // fireFirstPositionC = fireFirstPositionC + 0.4;
         fireFirstPositionC = fireFirstPositionC + speedC;
@@ -68,20 +60,11 @@ class Player {
       } else if (effect2 == true) {
         fireFirstPositionC = fireFirstPositionC + speedC;
         speedC = speedC + gravity;
-        countEffect1 ++;
         if (fireFirstPositionC > 140) {
-          effect2 = false;
-          countEffect1 = 0;
-          fireFirstPositionC = 1;
-          fireSecondPositionC = 2;
-
-          playerFireFirstC = 0;
-          playerFireSecondC = 0;
-
-          energyPlayerC = 0;
-
-          FirstfireCaseC = false;
+          resetPlayer();
         }
+      } else if (effect3 == true) {
+
       } else {
         if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC <= 200) {
           playerFireFirstC = playerFireFirstC + 0.2;
@@ -93,6 +76,8 @@ class Player {
             effect1 = true;
           } else if (sensorValueB < 4 && sensorValue < 4) {
             effect2 = true;
+          } else if (sensorValue > 4 && sensorValueB < 4) {
+            effect3 = true;
           }
         }
 
@@ -125,11 +110,19 @@ class Player {
         return false;
       }
     }
-    void resetPlayer(int& playerFireSecond, int& playerFireFirst, int& fireCase, boolean& defence, boolean& defenceShow) {
-      playerFireSecond = 0;
-      playerFireFirst = 0;
-      fireCase = 0;
-      defence = false;
-      defenceShow = false;
+    void resetPlayer() {
+      effect1 = false;
+      effect2 = false;
+      effect3 = false;
+      countEffect1 = 0;
+      fireFirstPositionC = 1;
+      fireSecondPositionC = 2;
+
+      playerFireFirstC = 0;
+      playerFireSecondC = 0;
+
+      energyPlayerC = 0;
+
+      FirstfireCaseC = false;
     }
 };

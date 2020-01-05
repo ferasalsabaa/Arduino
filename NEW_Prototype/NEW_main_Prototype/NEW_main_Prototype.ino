@@ -14,6 +14,10 @@ const int fps = 100;
 #define ctsPin 19  // place the sensor
 
 
+float speedC = 0;
+float gravity = 0.09;
+
+
 //VARIABLEN ERZEUGEN
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
 int sensorPinB = 16;
@@ -104,6 +108,18 @@ void loop()
     led[i].setRGB(player1.playerFireFirstC, 0, 0);
     led[i + 1].setRGB(player1.playerFireSecondC, 0, 0);
     led[0].setRGB(102, 0, 0);
+    if (player1.effect3 == true) {
+      player1.fireFirstPositionC = player1.fireFirstPositionC + speedC;
+      speedC = speedC + gravity;
+      if ( player1.fireFirstPositionC > 140) {
+        for (int i = 0; i < NUM_LEDS; i++) {
+          led[i].setRGB( 220, 0, 0);
+          FastLED.show();
+          delay(10);
+        }
+        player1.resetPlayer();
+      }
+    }
 
 
 
