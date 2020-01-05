@@ -57,9 +57,9 @@ class Player {
         // fireFirstPositionC = fireFirstPositionC + 0.4;
         fireFirstPositionC = fireFirstPositionC + speedC;
         speedC = speedC + gravity;
-        countEffect1 ++;
         if (fireFirstPositionC > 100) {
           speedC = speedC * -1;
+          countEffect1 ++;
         }
         if (fireFirstPositionC < 1) {
           fireFirstPositionC = 1;
