@@ -35,7 +35,7 @@ Chrono cCheckInput;
 
 
 CRGB led [NUM_LEDS];
-
+// ---------------------------------player 1------------------------------------------
 int OnePlayerPosition = 6;
 
 float OneFireFirstPosition = 7;
@@ -50,6 +50,22 @@ bool OnefireCase = false;
 
 
 Player player1(OnePlayerPosition, OneFireFirstPosition, OneFireSecondPosition, OnePlayerFireFirst, OnePlayerFireSecond, OneEnergyPlayer, OnefireCase);
+
+// ---------------------------------player 2------------------------------------------
+int TwoPlayerPosition = 6;
+
+float TwoFireFirstPosition = 137;
+float TwoFireSecondPosition = 138;
+
+float TwoPlayerFireFirst = 0.0;
+float TwoPlayerFireSecond = 0.0;
+
+int TwoEnergyPlayer = 5;
+
+bool TwofireCase = false;
+
+
+Player player2(TwoPlayerPosition, TwoFireFirstPosition, TwoFireSecondPosition, TwoPlayerFireFirst, TwoPlayerFireSecond, TwoEnergyPlayer, TwofireCase);
 
 
 
@@ -93,6 +109,7 @@ void loop()
     cCheckInput.restart();
 
     player1.playShow(sensorWertA, sensorWertB);
+    player2.playShow(sensorWertC, sensorWertD);
 
 
   }
@@ -101,40 +118,42 @@ void loop()
     cNextFrame.restart();
     FastLED.clear();
 
-    int i = (int) player1.fireFirstPositionC;
+    int onePos = (int) player1.fireFirstPositionC;
+    int twoPos = (int) player2.fireFirstPositionC;
 
 
-
-    led[i].setRGB(player1.playerFireFirstC, 0, 0);
-    led[i + 1].setRGB(player1.playerFireSecondC, 0, 0);
+    led[onePos].setRGB(player1.playerFireFirstC, 0, 0);
+    led[onePos + 1].setRGB(player1.playerFireSecondC, 0, 0);
+    led[twoPos].setRGB(player2.playerFireFirstC, 0, 0);
+    led[twoPos + 1].setRGB(player2.playerFireSecondC, 0, 0);
     //  led[0].setRGB(102, 0, 0);
 
     switch (player1.energyPlayerC) {
       case 5:
-          led[0].setRGB( 50, 0, 0);
-                    led[1].setRGB( 50, 22, 0);
-                              led[2].setRGB( 50, 50, 0);
-                                        led[3].setRGB( 22 , 50, 0);
-                                                  led[4].setRGB( 0, 50, 0);
+        led[0].setRGB( 50, 0, 0);
+        led[1].setRGB( 50, 22, 0);
+        led[2].setRGB( 50, 50, 0);
+        led[3].setRGB( 22 , 50, 0);
+        led[4].setRGB( 0, 50, 0);
 
         break;
       case 4:
-                    led[i].setRGB( 220, 0, 0);
-                              led[i].setRGB( 220, 0, 0);
-                                        led[i].setRGB( 220, 0, 0);
-                                                  led[i].setRGB( 220, 0, 0);
+        led[0].setRGB( 50, 0, 0);
+        led[1].setRGB( 50, 22, 0);
+        led[2].setRGB( 50, 50, 0);
+        led[3].setRGB( 22 , 50, 0);
         break;
       case 3:
-                              led[i].setRGB( 220, 0, 0);
-                                        led[i].setRGB( 220, 0, 0);
-                                                  led[i].setRGB( 220, 0, 0);
+        led[0].setRGB( 50, 0, 0);
+        led[1].setRGB( 50, 22, 0);
+        led[2].setRGB( 50, 50, 0);
         break;
       case 2:
-                              led[i].setRGB( 220, 0, 0);
-                                        led[i].setRGB( 220, 0, 0);
+        led[0].setRGB( 50, 0, 0);
+        led[1].setRGB( 50, 22, 0);
         break;
       case 1:
-                                        led[i].setRGB( 220, 0, 0);
+        led[0].setRGB( 50, 0, 0);
         break;
     }
     if (player1.effect3 == true) {

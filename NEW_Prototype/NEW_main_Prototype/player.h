@@ -76,10 +76,13 @@ class Player {
         if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
           if (sensorValue > 3 && sensorValueB > 3) {
             effect1 = true;
+            fireFirstPositionC = 5;
           } else if (sensorValueB < 4 && sensorValue < 4) {
             effect2 = true;
+            fireFirstPositionC = 5;
           } else if (sensorValue > 4 && sensorValueB < 4) {
             effect3 = true;
+            fireFirstPositionC = 5;
           }
         }
 
