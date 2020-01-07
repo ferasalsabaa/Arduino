@@ -77,9 +77,9 @@ class Player {
           if (sensorValue > 3 && sensorValueB > 3) {
             effect1 = true;
           } else if (sensorValueB < 4 && sensorValue < 4) {
-            effect1 = true;
+            effect2 = true;
           } else if (sensorValue > 4 && sensorValueB < 4) {
-            effect1 = true;
+            effect3 = true;
           }
         }
 
@@ -117,13 +117,13 @@ class Player {
       effect2 = false;
       effect3 = false;
       countEffect1 = 0;
-      fireFirstPositionC = 1;
-      fireSecondPositionC = 2;
+      fireFirstPositionC = 7;
+      fireSecondPositionC = 8;
 
       playerFireFirstC = 0;
       playerFireSecondC = 0;
 
-      energyPlayerC = 0;
+      energyPlayerC = 5;
 
       FirstfireCaseC = false;
       speedC = 0;

@@ -36,15 +36,15 @@ Chrono cCheckInput;
 
 CRGB led [NUM_LEDS];
 
-int OnePlayerPosition = 0;
+int OnePlayerPosition = 6;
 
-float OneFireFirstPosition = 1;
-float OneFireSecondPosition = 2;
+float OneFireFirstPosition = 7;
+float OneFireSecondPosition = 8;
 
 float OnePlayerFireFirst = 0.0;
 float OnePlayerFireSecond = 0.0;
 
-int OneEnergyPlayer = 0;
+int OneEnergyPlayer = 5;
 
 bool OnefireCase = false;
 
@@ -107,7 +107,36 @@ void loop()
 
     led[i].setRGB(player1.playerFireFirstC, 0, 0);
     led[i + 1].setRGB(player1.playerFireSecondC, 0, 0);
-    led[0].setRGB(102, 0, 0);
+    //  led[0].setRGB(102, 0, 0);
+
+    switch (player1.energyPlayerC) {
+      case 5:
+          led[0].setRGB( 50, 0, 0);
+                    led[1].setRGB( 50, 22, 0);
+                              led[2].setRGB( 50, 50, 0);
+                                        led[3].setRGB( 22 , 50, 0);
+                                                  led[4].setRGB( 0, 50, 0);
+
+        break;
+      case 4:
+                    led[i].setRGB( 220, 0, 0);
+                              led[i].setRGB( 220, 0, 0);
+                                        led[i].setRGB( 220, 0, 0);
+                                                  led[i].setRGB( 220, 0, 0);
+        break;
+      case 3:
+                              led[i].setRGB( 220, 0, 0);
+                                        led[i].setRGB( 220, 0, 0);
+                                                  led[i].setRGB( 220, 0, 0);
+        break;
+      case 2:
+                              led[i].setRGB( 220, 0, 0);
+                                        led[i].setRGB( 220, 0, 0);
+        break;
+      case 1:
+                                        led[i].setRGB( 220, 0, 0);
+        break;
+    }
     if (player1.effect3 == true) {
       player1.fireFirstPositionC = player1.fireFirstPositionC + speedC;
       speedC = speedC + gravity;
