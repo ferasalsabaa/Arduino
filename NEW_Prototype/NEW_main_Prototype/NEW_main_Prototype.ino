@@ -54,8 +54,8 @@ Player player1(OnePlayerPosition, OneFireFirstPosition, OneFireSecondPosition, O
 // ---------------------------------player 2------------------------------------------
 int TwoPlayerPosition = 6;
 
-float TwoFireFirstPosition = 137;
-float TwoFireSecondPosition = 138;
+float TwoFireFirstPosition = 136;
+float TwoFireSecondPosition = 135;
 
 float TwoPlayerFireFirst = 0.0;
 float TwoPlayerFireSecond = 0.0;
@@ -125,7 +125,7 @@ void loop()
     led[onePos].setRGB(player1.playerFireFirstC, 0, 0);
     led[onePos + 1].setRGB(player1.playerFireSecondC, 0, 0);
     led[twoPos].setRGB(player2.playerFireFirstC, 0, 0);
-    led[twoPos + 1].setRGB(player2.playerFireSecondC, 0, 0);
+    led[twoPos - 1].setRGB(player2.playerFireSecondC, 0, 0);
     //  led[0].setRGB(102, 0, 0);
 
     switch (player1.energyPlayerC) {
@@ -154,6 +154,34 @@ void loop()
         break;
       case 1:
         led[0].setRGB( 50, 0, 0);
+        break;
+    }
+        switch (player2.energyPlayerC) {
+      case 5:
+        led[143].setRGB( 50, 0, 0);
+        led[142].setRGB( 50, 22, 0);
+        led[141].setRGB( 50, 50, 0);
+        led[140].setRGB( 22 , 50, 0);
+        led[139].setRGB( 0, 50, 0);
+
+        break;
+      case 4:
+        led[143].setRGB( 50, 0, 0);
+        led[142].setRGB( 50, 22, 0);
+        led[141].setRGB( 50, 50, 0);
+        led[140].setRGB( 22 , 50, 0);
+        break;
+      case 3:
+        led[143].setRGB( 50, 0, 0);
+        led[142].setRGB( 50, 22, 0);
+        led[141].setRGB( 50, 50, 0);
+        break;
+      case 2:
+        led[143].setRGB( 50, 0, 0);
+        led[142].setRGB( 50, 22, 0);
+        break;
+      case 1:
+        led[143].setRGB( 50, 0, 0);
         break;
     }
     if (player1.effect3 == true) {
