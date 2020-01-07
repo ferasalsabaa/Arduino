@@ -125,7 +125,7 @@ class Player {
             if (sensorValue > 3 && sensorValueB > 3) {
               effect1 = true;
             } else if (sensorValueB < 4 && sensorValue < 4) {
-              effect1 = true;
+              effect2 = true;
             } else if (sensorValue > 4 && sensorValueB < 4) {
               effect3 = true;
             }
