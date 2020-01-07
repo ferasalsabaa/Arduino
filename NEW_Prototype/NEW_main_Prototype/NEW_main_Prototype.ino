@@ -52,7 +52,7 @@ bool OnefireCase = false;
 Player player1(OnePlayerPosition, OneFireFirstPosition, OneFireSecondPosition, OnePlayerFireFirst, OnePlayerFireSecond, OneEnergyPlayer, OnefireCase);
 
 // ---------------------------------player 2------------------------------------------
-int TwoPlayerPosition = 6;
+int TwoPlayerPosition = 137;
 
 float TwoFireFirstPosition = 136;
 float TwoFireSecondPosition = 135;
@@ -126,7 +126,6 @@ void loop()
     led[onePos + 1].setRGB(player1.playerFireSecondC, 0, 0);
     led[twoPos].setRGB(player2.playerFireFirstC, 0, 0);
     led[twoPos - 1].setRGB(player2.playerFireSecondC, 0, 0);
-    //  led[0].setRGB(102, 0, 0);
 
     switch (player1.energyPlayerC) {
       case 5:
@@ -156,7 +155,7 @@ void loop()
         led[0].setRGB( 50, 0, 0);
         break;
     }
-        switch (player2.energyPlayerC) {
+    switch (player2.energyPlayerC) {
       case 5:
         led[143].setRGB( 50, 0, 0);
         led[142].setRGB( 50, 22, 0);
@@ -196,9 +195,6 @@ void loop()
         player1.resetPlayer();
       }
     }
-
-
-
 
     FastLED.show();
   }
