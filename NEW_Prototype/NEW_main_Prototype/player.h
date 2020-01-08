@@ -12,8 +12,6 @@ class Player {
 
     int energyPlayerC;
 
-    bool FirstfireCaseC;
-
 
     float speedC = 0;
     float gravity = 0.009;
@@ -27,7 +25,7 @@ class Player {
     boolean effect3 = false;
 
 
-    Player(int playerPosition, float fireFirstPosition, float fireSecondPosition, float playerFireFirst, float playerFireSecond, int energyPlayer, bool FirstfireCase) {
+    Player(int playerPosition, float fireFirstPosition, float fireSecondPosition, float playerFireFirst, float playerFireSecond, int energyPlayer) {
       playerPositionC = playerPosition;
 
       fireFirstPositionC = fireFirstPosition;
@@ -37,8 +35,6 @@ class Player {
       playerFireSecondC = playerFireSecond;
 
       energyPlayerC = energyPlayer;
-
-      FirstfireCaseC = FirstfireCase;
 
     }
     void playShow(int& sensorValue, int& sensorValueB) {
@@ -76,13 +72,13 @@ class Player {
             playerFireSecondC = playerFireSecondC + 0.2;
           }
           if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
-            if (playerFireSecondC < 50) {
+            if (playerFireSecondC < 120) {
               effect1 = true;
               fireFirstPositionC = 5;
-            } else if (playerFireSecondC > 50 && playerFireSecondC < 100) {
+            } else if (playerFireSecondC > 120 && playerFireSecondC < 170) {
               effect3 = true;
               fireFirstPositionC = 5;
-            } else if (playerFireSecondC > 100) {
+            } else if (playerFireSecondC > 170) {
               effect2 = true;
               fireFirstPositionC = 5;
             }
@@ -122,11 +118,11 @@ class Player {
             playerFireSecondC = playerFireSecondC + 0.2;
           }
           if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
-            if (playerFireSecondC < 50) {
+            if (playerFireSecondC < 120) {
               effect1 = true;
-            } else if (playerFireSecondC > 50 && playerFireSecondC < 100) {
+            } else if (playerFireSecondC > 120 && playerFireSecondC < 170) {
               effect3 = true;
-            } else if (playerFireSecondC > 100) {
+            } else if (playerFireSecondC > 170) {
               effect2 = true;
             }
           }
@@ -148,10 +144,6 @@ class Player {
       }
       playerFireFirstC = 0;
       playerFireSecondC = 0;
-
-      //     energyPlayerC = 5;
-
-      FirstfireCaseC = false;
       speedC = 0;
     }
 };

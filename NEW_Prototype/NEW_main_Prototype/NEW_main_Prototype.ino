@@ -50,7 +50,7 @@ int OneEnergyPlayer = 5;
 bool OnefireCase = false;
 
 
-Player player1(OnePlayerPosition, OneFireFirstPosition, OneFireSecondPosition, OnePlayerFireFirst, OnePlayerFireSecond, OneEnergyPlayer, OnefireCase);
+Player player1(OnePlayerPosition, OneFireFirstPosition, OneFireSecondPosition, OnePlayerFireFirst, OnePlayerFireSecond, OneEnergyPlayer);
 
 // ---------------------------------player 2------------------------------------------
 int TwoPlayerPosition = 137;
@@ -63,10 +63,8 @@ float TwoPlayerFireSecond = 0.0;
 
 int TwoEnergyPlayer = 5;
 
-bool TwofireCase = false;
 
-
-Player player2(TwoPlayerPosition, TwoFireFirstPosition, TwoFireSecondPosition, TwoPlayerFireFirst, TwoPlayerFireSecond, TwoEnergyPlayer, TwofireCase);
+Player player2(TwoPlayerPosition, TwoFireFirstPosition, TwoFireSecondPosition, TwoPlayerFireFirst, TwoPlayerFireSecond, TwoEnergyPlayer);
 
 
 
@@ -110,27 +108,30 @@ void loop()
     cCheckInput.restart();
 
     if (player1.effect3 == true) {
-      player1.fireFirstPositionC = player1.fireFirstPositionC + speedPlayer1;
-      speedPlayer1 = speedPlayer1 + gravity;
-      if ( player1.fireFirstPositionC > 140) {
+      player1.fireFirstPositionC = player1.fireFirstPositionC + player1.speedC;
+      player1.speedC = player1.speedC + gravity;
+      if ( player1.fireFirstPositionC > 140 && player2.playerFireSecondC<190) {
         player2.energyPlayerC = player2.energyPlayerC - 1;
         player1.resetPlayer();
-        speedPlayer1 = 0;
-      }
+      } else if(player1.fireFirstPositionC > 140 && player2.playerFireSecondC>190){
+               
+        player1.resetPlayer();
+        player2.effect3 = true;
+        }
     } else if (player2.effect3 == true) {
-      player2.fireFirstPositionC = player2.fireFirstPositionC - speedPlayer2;
-      speedPlayer2 = speedPlayer2 + gravity;
-      if ( player2.fireFirstPositionC < 4) {
+      player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
+      player2.speedC = player2.speedC + gravity;
+      if ( player2.fireFirstPositionC < 4 && player1.playerFireSecondC<190) {
         player1.energyPlayerC = player1.energyPlayerC - 1;
         player2.resetPlayer();
-        speedPlayer2 = 0;
-      }
+      } else if( player2.fireFirstPositionC < 4 && player1.playerFireSecondC>190){
+        player2.resetPlayer();
+        player1.effect3 = true;
+        }
     } else {
       player1.playShow(sensorWertA, sensorWertB);
       player2.playShow(sensorWertC, sensorWertD);
-
     }
-
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps)  ) { //milliseconds chrono -> triggers on every frame...
@@ -143,8 +144,8 @@ void loop()
 
     led[onePos].setRGB(player1.playerFireFirstC, 0, 0);
     led[onePos + 1].setRGB(player1.playerFireSecondC, 0, 0);
-    led[twoPos].setRGB(player2.playerFireFirstC, 0, 0);
-    led[twoPos - 1].setRGB(player2.playerFireSecondC, 0, 0);
+    led[twoPos].setRGB(0, 0, player2.playerFireFirstC);
+    led[twoPos - 1].setRGB(0, 0, player2.playerFireSecondC);
 
     switch (player1.energyPlayerC) {
       case 5:
@@ -173,6 +174,22 @@ void loop()
       case 1:
         led[0].setRGB( 50, 0, 0);
         break;
+      case 0:
+        for (int i = 0; i < 200; i++) {
+          fill_solid( led, NUM_LEDS, CRGB(0, 0, i));
+          FastLED.show();
+          delay(10);
+        }
+        for (int i = 0; i < NUM_LEDS; i++) {
+          fill_rainbow(led, i, 0, 5);
+          FastLED.show();
+          delay(10);
+        }
+        player2.resetPlayer();
+        player2.energyPlayerC = 5;
+        player1.resetPlayer();
+        player1.energyPlayerC = 5;
+        break;
     }
     switch (player2.energyPlayerC) {
       case 5:
@@ -200,6 +217,22 @@ void loop()
         break;
       case 1:
         led[143].setRGB( 50, 0, 0);
+        break;
+      case 0:
+        for (int i = 0; i < 200; i++) {
+          fill_solid( led, NUM_LEDS, CRGB(i, 0, 0));
+          FastLED.show();
+          delay(10);
+        }
+        for (int i = 0; i < NUM_LEDS; i++) {
+          fill_rainbow(led, i, 0, 5);
+          FastLED.show();
+          delay(10);
+        }
+        player2.resetPlayer();
+        player2.energyPlayerC = 5;
+        player1.resetPlayer();
+        player1.energyPlayerC = 5;
         break;
     }
 
