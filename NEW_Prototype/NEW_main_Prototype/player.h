@@ -62,7 +62,7 @@ class Player {
           }
           countEffect1 ++;
         } else if (effect2 == true) {
-          fireFirstPositionC = fireFirstPositionC + speedC;
+          fireFirstPositionC = fireFirstPositionC + speedC + 0.5;
           speedC = speedC + gravity;
           if (fireFirstPositionC > 140) {
             resetPlayer();
@@ -76,14 +76,14 @@ class Player {
             playerFireSecondC = playerFireSecondC + 0.2;
           }
           if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
-            if (sensorValue > 3 && sensorValueB > 3) {
+            if (playerFireSecondC < 50) {
+              effect1 = true;
+              fireFirstPositionC = 5;
+            } else if (playerFireSecondC > 50 && playerFireSecondC < 100) {
               effect3 = true;
               fireFirstPositionC = 5;
-            } else if (sensorValueB < 4 && sensorValue < 4) {
-              effect3 = true;
-              fireFirstPositionC = 5;
-            } else if (sensorValue > 4 && sensorValueB < 4) {
-              effect3 = true;
+            } else if (playerFireSecondC > 100) {
+              effect2 = true;
               fireFirstPositionC = 5;
             }
           }
