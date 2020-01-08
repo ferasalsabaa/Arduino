@@ -15,7 +15,7 @@ const int fps = 100;
 
 
 float speedC = 0;
-float gravity = 0.09;
+float gravity = 0.009;
 
 
 //VARIABLEN ERZEUGEN
@@ -111,6 +111,20 @@ void loop()
     player1.playShow(sensorWertA, sensorWertB);
     player2.playShow(sensorWertC, sensorWertD);
 
+    if (player1.effect3 == true) {
+      player1.fireFirstPositionC = player1.fireFirstPositionC + speedC;
+      speedC = speedC + gravity;
+      if ( player1.fireFirstPositionC > 140) {
+        player2.energyPlayerC = player2.energyPlayerC -1;
+        /*    for (int i = 0; i < NUM_LEDS; i++) {
+            led[i].setRGB( 220, 0, 0);
+            FastLED.show();
+            delay(10);
+          } */
+        player1.resetPlayer();
+        speedC = 0;
+      }
+    }
 
   }
   //DRAW FRAME
@@ -182,18 +196,6 @@ void loop()
       case 1:
         led[143].setRGB( 50, 0, 0);
         break;
-    }
-    if (player1.effect3 == true) {
-      player1.fireFirstPositionC = player1.fireFirstPositionC + speedC;
-      speedC = speedC + gravity;
-      if ( player1.fireFirstPositionC > 140) {
-        for (int i = 0; i < NUM_LEDS; i++) {
-          led[i].setRGB( 220, 0, 0);
-          FastLED.show();
-          delay(10);
-        }
-        player1.resetPlayer();
-      }
     }
 
     FastLED.show();
