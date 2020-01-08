@@ -14,7 +14,8 @@ const int fps = 100;
 #define ctsPin 19  // place the sensor
 
 
-float speedC = 0;
+float speedPlayer1 = 0;
+float speedPlayer2 = 0;
 float gravity = 0.009;
 
 
@@ -108,22 +109,26 @@ void loop()
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
 
-    player1.playShow(sensorWertA, sensorWertB);
-    player2.playShow(sensorWertC, sensorWertD);
-
     if (player1.effect3 == true) {
-      player1.fireFirstPositionC = player1.fireFirstPositionC + speedC;
-      speedC = speedC + gravity;
+      player1.fireFirstPositionC = player1.fireFirstPositionC + speedPlayer1;
+      speedPlayer1 = speedPlayer1 + gravity;
       if ( player1.fireFirstPositionC > 140) {
-        player2.energyPlayerC = player2.energyPlayerC -1;
-        /*    for (int i = 0; i < NUM_LEDS; i++) {
-            led[i].setRGB( 220, 0, 0);
-            FastLED.show();
-            delay(10);
-          } */
+        player2.energyPlayerC = player2.energyPlayerC - 1;
         player1.resetPlayer();
-        speedC = 0;
+        speedPlayer1 = 0;
       }
+    } else if (player2.effect3 == true) {
+      player2.fireFirstPositionC = player2.fireFirstPositionC - speedPlayer2;
+      speedPlayer2 = speedPlayer2 + gravity;
+      if ( player2.fireFirstPositionC < 4) {
+        player1.energyPlayerC = player1.energyPlayerC - 1;
+        player2.resetPlayer();
+        speedPlayer2 = 0;
+      }
+    } else {
+      player1.playShow(sensorWertA, sensorWertB);
+      player2.playShow(sensorWertC, sensorWertD);
+
     }
 
   }
