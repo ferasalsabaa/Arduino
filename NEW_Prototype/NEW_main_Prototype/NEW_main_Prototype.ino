@@ -110,10 +110,10 @@ void loop()
     if (player1.effect3 == true) {
       player1.fireFirstPositionC = player1.fireFirstPositionC + player1.speedC;
       player1.speedC = player1.speedC + gravity;
-      if ( player1.fireFirstPositionC > 140 && player2.playerFireSecondC<190) {
+      if ( player1.fireFirstPositionC > 140 && (player2.playerFireSecondC<180 || player2.playerFireSecondC>190)) {
         player2.energyPlayerC = player2.energyPlayerC - 1;
         player1.resetPlayer();
-      } else if(player1.fireFirstPositionC > 140 && player2.playerFireSecondC>190){
+      } else if(player1.fireFirstPositionC > 140 && player2.playerFireSecondC>180 && player2.playerFireSecondC<190){
                
         player1.resetPlayer();
         player2.effect3 = true;
@@ -121,10 +121,10 @@ void loop()
     } else if (player2.effect3 == true) {
       player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
       player2.speedC = player2.speedC + gravity;
-      if ( player2.fireFirstPositionC < 4 && player1.playerFireSecondC<190) {
+      if ( player2.fireFirstPositionC < 4 && (player1.playerFireSecondC<180 || player1.playerFireSecondC>190)){
         player1.energyPlayerC = player1.energyPlayerC - 1;
         player2.resetPlayer();
-      } else if( player2.fireFirstPositionC < 4 && player1.playerFireSecondC>190){
+      } else if( player2.fireFirstPositionC < 4 && player1.playerFireSecondC>180 && player1.playerFireSecondC<190){
         player2.resetPlayer();
         player1.effect3 = true;
         }
