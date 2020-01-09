@@ -18,6 +18,9 @@ float speedPlayer1 = 0;
 float speedPlayer2 = 0;
 float gravity = 0.009;
 
+float color50 = 90;
+float color20 = 60;
+
 
 //VARIABLEN ERZEUGEN
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
@@ -107,27 +110,35 @@ void loop()
   if (cCheckInput.hasPassed(1)) {
     cCheckInput.restart();
 
+    if (color50 < 90 && color20 < 60) {
+      color50 += 0.4;
+      color20 += 0.2;
+    } else {
+      color50 = 0;
+      color20 = 0;
+    }
+
     if (player1.effect3 == true) {
       player1.fireFirstPositionC = player1.fireFirstPositionC + player1.speedC;
       player1.speedC = player1.speedC + gravity;
-      if ( player1.fireFirstPositionC > 140 && (player2.playerFireSecondC<180 || player2.playerFireSecondC>190)) {
+      if ( player1.fireFirstPositionC > 140 && (player2.playerFireSecondC < 180 || player2.playerFireSecondC > 190)) {
         player2.energyPlayerC = player2.energyPlayerC - 1;
         player1.resetPlayer();
-      } else if(player1.fireFirstPositionC > 140 && player2.playerFireSecondC>180 && player2.playerFireSecondC<190){
-               
+      } else if (player1.fireFirstPositionC > 140 && player2.playerFireSecondC > 180 && player2.playerFireSecondC < 190) {
+
         player1.resetPlayer();
         player2.effect3 = true;
-        }
+      }
     } else if (player2.effect3 == true) {
       player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
       player2.speedC = player2.speedC + gravity;
-      if ( player2.fireFirstPositionC < 4 && (player1.playerFireSecondC<180 || player1.playerFireSecondC>190)){
+      if ( player2.fireFirstPositionC < 4 && (player1.playerFireSecondC < 180 || player1.playerFireSecondC > 190)) {
         player1.energyPlayerC = player1.energyPlayerC - 1;
         player2.resetPlayer();
-      } else if( player2.fireFirstPositionC < 4 && player1.playerFireSecondC>180 && player1.playerFireSecondC<190){
+      } else if ( player2.fireFirstPositionC < 4 && player1.playerFireSecondC > 180 && player1.playerFireSecondC < 190) {
         player2.resetPlayer();
         player1.effect3 = true;
-        }
+      }
     } else {
       player1.playShow(sensorWertA, sensorWertB);
       player2.playShow(sensorWertC, sensorWertD);
@@ -149,30 +160,30 @@ void loop()
 
     switch (player1.energyPlayerC) {
       case 5:
-        led[0].setRGB( 50, 0, 0);
-        led[1].setRGB( 50, 22, 0);
-        led[2].setRGB( 50, 50, 0);
-        led[3].setRGB( 22 , 50, 0);
-        led[4].setRGB( 0, 50, 0);
+        led[0].setRGB( color50, 0, 0);
+        led[1].setRGB( color50, color20, 0);
+        led[2].setRGB( color50, color50, 0);
+        led[3].setRGB( color20 , color50, 0);
+        led[4].setRGB( 0, color50, 0);
 
         break;
       case 4:
-        led[0].setRGB( 50, 0, 0);
-        led[1].setRGB( 50, 22, 0);
-        led[2].setRGB( 50, 50, 0);
-        led[3].setRGB( 22 , 50, 0);
+        led[0].setRGB( color50, 0, 0);
+        led[1].setRGB( color50, color20, 0);
+        led[2].setRGB( color50, color50, 0);
+        led[3].setRGB( color20 , color50, 0);
         break;
       case 3:
-        led[0].setRGB( 50, 0, 0);
-        led[1].setRGB( 50, 22, 0);
-        led[2].setRGB( 50, 50, 0);
+        led[0].setRGB( color50, 0, 0);
+        led[1].setRGB( color50, color20, 0);
+        led[2].setRGB( color50, color50, 0);
         break;
       case 2:
-        led[0].setRGB( 50, 0, 0);
-        led[1].setRGB( 50, 22, 0);
+        led[0].setRGB( color50, 0, 0);
+        led[1].setRGB( color50, color20, 0);
         break;
       case 1:
-        led[0].setRGB( 50, 0, 0);
+        led[0].setRGB( color20, 0, 0);
         break;
       case 0:
         for (int i = 0; i < 200; i++) {
@@ -193,30 +204,30 @@ void loop()
     }
     switch (player2.energyPlayerC) {
       case 5:
-        led[143].setRGB( 50, 0, 0);
-        led[142].setRGB( 50, 22, 0);
-        led[141].setRGB( 50, 50, 0);
-        led[140].setRGB( 22 , 50, 0);
-        led[139].setRGB( 0, 50, 0);
+        led[143].setRGB( color50, 0, 0);
+        led[142].setRGB( color50, color20, 0);
+        led[141].setRGB( color50, color50, 0);
+        led[140].setRGB( color20 , color50, 0);
+        led[139].setRGB( 0, color50, 0);
 
         break;
       case 4:
-        led[143].setRGB( 50, 0, 0);
-        led[142].setRGB( 50, 22, 0);
-        led[141].setRGB( 50, 50, 0);
-        led[140].setRGB( 22 , 50, 0);
+        led[143].setRGB( color50, 0, 0);
+        led[142].setRGB( color50, color20, 0);
+        led[141].setRGB( color50, color50, 0);
+        led[140].setRGB( color20 , color50, 0);
         break;
       case 3:
-        led[143].setRGB( 50, 0, 0);
-        led[142].setRGB( 50, 22, 0);
-        led[141].setRGB( 50, 50, 0);
+        led[143].setRGB( color50, 0, 0);
+        led[142].setRGB( color50, color20, 0);
+        led[141].setRGB( color50, color50, 0);
         break;
       case 2:
-        led[143].setRGB( 50, 0, 0);
-        led[142].setRGB( 50, 22, 0);
+        led[143].setRGB( color50, 0, 0);
+        led[142].setRGB( color50, color20, 0);
         break;
       case 1:
-        led[143].setRGB( 50, 0, 0);
+        led[143].setRGB( color50, 0, 0);
         break;
       case 0:
         for (int i = 0; i < 200; i++) {
