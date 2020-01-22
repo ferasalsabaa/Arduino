@@ -132,12 +132,9 @@ void loop()
         player2.effect3 = true;
       }
     } else if (player2.effect3 == true) {
-   //   player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
-  //    player2.speedC = player2.speedC + gravity;
       if (player1.playerFireSecondC < 180 || player1.playerFireSecondC > 190) {
         player1.energyPlayerC = player1.energyPlayerC - 1;
         player2.resetPlayer();
-   //     fade = 0.0;
         meteorRain(0,0,0xff,10, 64, true, 10, 2);
       } else if ( player2.fireFirstPositionC < 4 && player1.playerFireSecondC > 180 && player1.playerFireSecondC < 190) {
         player2.resetPlayer();
@@ -161,23 +158,6 @@ void loop()
     led[onePos + 1].setRGB(player1.playerFireSecondC, 0, 0);
     led[twoPos].setRGB(0, 0, player2.playerFireFirstC);
     led[twoPos - 1].setRGB(0, 0, player2.playerFireSecondC);
-    if(player2.effect3 == true){
-     led[twoPos + 1].setRGB(0, 0, 150 * fade);
-      led[twoPos + 2].setRGB(0, 0, 120 * fade);
-       led[twoPos + 3].setRGB(0, 0, 100 * fade);
-          led[twoPos + 4].setRGB(0, 0, 80 * fade);
-      led[twoPos + 5].setRGB(0, 0, 60 * fade);
-       led[twoPos + 6].setRGB(0, 0, 20 * fade);
-      }
-
-          if(player1.effect3 == true){
-     led[onePos - 1].setRGB(150 * fade, 0, 0);
-      led[onePos - 2].setRGB(120 * fade, 0, 0);
-       led[onePos - 3].setRGB(100 * fade, 0, 0);
-          led[onePos - 4].setRGB(80 * fade, 0,0);
-      led[onePos - 5].setRGB(60 * fade, 0,0);
-       led[onePos - 6].setRGB(20 * fade, 0,0);
-      }
 
     switch (player1.energyPlayerC) {
       case 5:
