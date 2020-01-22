@@ -157,6 +157,23 @@ void loop()
     led[onePos + 1].setRGB(player1.playerFireSecondC, 0, 0);
     led[twoPos].setRGB(0, 0, player2.playerFireFirstC);
     led[twoPos - 1].setRGB(0, 0, player2.playerFireSecondC);
+    if(player2.effect3 == true){
+     led[twoPos + 1].setRGB(0, 0, player2.playerFireFirstC - 60);
+      led[twoPos + 2].setRGB(0, 0, player2.playerFireFirstC -80);
+       led[twoPos + 3].setRGB(0, 0, player2.playerFireFirstC -100);
+          led[twoPos + 4].setRGB(0, 0, player2.playerFireFirstC - 120);
+      led[twoPos + 5].setRGB(0, 0, player2.playerFireFirstC -160);
+       led[twoPos + 6].setRGB(0, 0, player2.playerFireFirstC -180);
+      }
+
+          if(player1.effect3 == true){
+     led[onePos - 1].setRGB(player1.playerFireFirstC - 60, 0, 0);
+      led[onePos - 2].setRGB(player1.playerFireFirstC - 80, 0, 0);
+       led[onePos - 3].setRGB(player1.playerFireFirstC - 100, 0, 0);
+          led[onePos - 4].setRGB(player1.playerFireFirstC - 120, 0,0);
+      led[onePos - 5].setRGB(player1.playerFireFirstC - 160, 0,0);
+       led[onePos - 6].setRGB(player1.playerFireFirstC - 180, 0,0);
+      }
 
     switch (player1.energyPlayerC) {
       case 5:
@@ -196,10 +213,8 @@ void loop()
           FastLED.show();
           delay(10);
         }
-        player2.resetPlayer();
-        player2.energyPlayerC = 5;
-        player1.resetPlayer();
-        player1.energyPlayerC = 5;
+        player2.resetPlayerNewGame();
+        player1.resetPlayerNewGame();
         break;
     }
     switch (player2.energyPlayerC) {
@@ -240,10 +255,8 @@ void loop()
           FastLED.show();
           delay(10);
         }
-        player2.resetPlayer();
-        player2.energyPlayerC = 5;
-        player1.resetPlayer();
-        player1.energyPlayerC = 5;
+        player2.resetPlayerNewGame();
+        player1.resetPlayerNewGame();
         break;
     }
 
