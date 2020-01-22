@@ -21,6 +21,8 @@ float gravity = 0.009;
 float color50 = 90;
 float color20 = 60;
 
+float fade = 0.0;
+
 
 //VARIABLEN ERZEUGEN
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
@@ -121,9 +123,13 @@ void loop()
     if (player1.effect3 == true) {
       player1.fireFirstPositionC = player1.fireFirstPositionC + player1.speedC;
       player1.speedC = player1.speedC + gravity;
+      if(fade < 1.0){
+           fade = fade + 0.005;
+        }
       if ( player1.fireFirstPositionC > 140 && (player2.playerFireSecondC < 180 || player2.playerFireSecondC > 190)) {
         player2.energyPlayerC = player2.energyPlayerC - 1;
         player1.resetPlayer();
+        fade = 0.0;
       } else if (player1.fireFirstPositionC > 140 && player2.playerFireSecondC > 180 && player2.playerFireSecondC < 190) {
 
         player1.resetPlayer();
@@ -132,9 +138,13 @@ void loop()
     } else if (player2.effect3 == true) {
       player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
       player2.speedC = player2.speedC + gravity;
+       if(fade < 1.0){
+           fade = fade + 0.005;
+        }
       if ( player2.fireFirstPositionC < 4 && (player1.playerFireSecondC < 180 || player1.playerFireSecondC > 190)) {
         player1.energyPlayerC = player1.energyPlayerC - 1;
         player2.resetPlayer();
+        fade = 0.0;
       } else if ( player2.fireFirstPositionC < 4 && player1.playerFireSecondC > 180 && player1.playerFireSecondC < 190) {
         player2.resetPlayer();
         player1.effect3 = true;
@@ -158,21 +168,21 @@ void loop()
     led[twoPos].setRGB(0, 0, player2.playerFireFirstC);
     led[twoPos - 1].setRGB(0, 0, player2.playerFireSecondC);
     if(player2.effect3 == true){
-     led[twoPos + 1].setRGB(0, 0, player2.playerFireFirstC - 60);
-      led[twoPos + 2].setRGB(0, 0, player2.playerFireFirstC -80);
-       led[twoPos + 3].setRGB(0, 0, player2.playerFireFirstC -100);
-          led[twoPos + 4].setRGB(0, 0, player2.playerFireFirstC - 120);
-      led[twoPos + 5].setRGB(0, 0, player2.playerFireFirstC -160);
-       led[twoPos + 6].setRGB(0, 0, player2.playerFireFirstC -180);
+     led[twoPos + 1].setRGB(0, 0, 150 * fade);
+      led[twoPos + 2].setRGB(0, 0, 120 * fade);
+       led[twoPos + 3].setRGB(0, 0, 100 * fade);
+          led[twoPos + 4].setRGB(0, 0, 80 * fade);
+      led[twoPos + 5].setRGB(0, 0, 60 * fade);
+       led[twoPos + 6].setRGB(0, 0, 20 * fade);
       }
 
           if(player1.effect3 == true){
-     led[onePos - 1].setRGB(player1.playerFireFirstC - 60, 0, 0);
-      led[onePos - 2].setRGB(player1.playerFireFirstC - 80, 0, 0);
-       led[onePos - 3].setRGB(player1.playerFireFirstC - 100, 0, 0);
-          led[onePos - 4].setRGB(player1.playerFireFirstC - 120, 0,0);
-      led[onePos - 5].setRGB(player1.playerFireFirstC - 160, 0,0);
-       led[onePos - 6].setRGB(player1.playerFireFirstC - 180, 0,0);
+     led[onePos - 1].setRGB(150 * fade, 0, 0);
+      led[onePos - 2].setRGB(120 * fade, 0, 0);
+       led[onePos - 3].setRGB(100 * fade, 0, 0);
+          led[onePos - 4].setRGB(80 * fade, 0,0);
+      led[onePos - 5].setRGB(60 * fade, 0,0);
+       led[onePos - 6].setRGB(20 * fade, 0,0);
       }
 
     switch (player1.energyPlayerC) {
