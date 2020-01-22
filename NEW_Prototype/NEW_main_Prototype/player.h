@@ -72,9 +72,9 @@ class Player {
 
         } else {
           if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC <= 200) {
-            playerFireFirstC = playerFireFirstC + 0.4;
+            playerFireFirstC = playerFireFirstC + 0.6;
           } else if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC >= 200 && playerFireSecondC < 200) {
-            playerFireSecondC = playerFireSecondC + 0.2;
+            playerFireSecondC = playerFireSecondC + 0.6;
           }
           if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
             if (playerFireSecondC < 120) {
@@ -118,9 +118,9 @@ class Player {
 
         } else {
           if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC <= 200) {
-            playerFireFirstC = playerFireFirstC + 0.2;
+            playerFireFirstC = playerFireFirstC + 0.6;
           } else if (sensorValueB > 7 && sensorValue < 7  && playerFireFirstC >= 200 && playerFireSecondC < 200) {
-            playerFireSecondC = playerFireSecondC + 0.2;
+            playerFireSecondC = playerFireSecondC + 0.6;
           }
           if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
             if (playerFireSecondC < 120) {
