@@ -124,7 +124,7 @@ void loop()
       player1.fireFirstPositionC = player1.fireFirstPositionC + player1.speedC;
       player1.speedC = player1.speedC + gravity;
       if(fade < 1.0){
-           fade = fade + 0.005;
+           fade = fade + 0.002;
         }
       if ( player1.fireFirstPositionC > 140 && (player2.playerFireSecondC < 180 || player2.playerFireSecondC > 190)) {
         player2.energyPlayerC = player2.energyPlayerC - 1;
@@ -139,7 +139,7 @@ void loop()
       player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
       player2.speedC = player2.speedC + gravity;
        if(fade < 1.0){
-           fade = fade + 0.005;
+           fade = fade + 0.002;
         }
       if ( player2.fireFirstPositionC < 4 && (player1.playerFireSecondC < 180 || player1.playerFireSecondC > 190)) {
         player1.energyPlayerC = player1.energyPlayerC - 1;
