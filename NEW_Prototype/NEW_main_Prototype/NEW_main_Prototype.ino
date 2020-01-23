@@ -21,6 +21,9 @@ float gravity = 0.009;
 float color50 = 90;
 float color20 = 60;
 
+float colorDefence1 = 90;
+float colorDefence2 = 90;
+
 float fade = 0.0;
 
 
@@ -120,25 +123,51 @@ void loop()
       color20 = 0;
     }
 
+    if (colorDefence1 < 90) {
+      colorDefence1 += 0.8;
+    } else {
+      colorDefence1 = 0;
+    }
+
+    if (colorDefence2 < 90) {
+      colorDefence2 += 0.8;
+    } else {
+      colorDefence2 = 0;
+    }
+
     if (player1.effect3 == true) {
-      if (player2.playerFireSecondC < 180 || player2.playerFireSecondC > 190) {
+      if (player2.defence == false && colorDefence2 < 20) {
         player2.energyPlayerC = player2.energyPlayerC - 1;
         player1.resetPlayer();
-    //    fade = 0.0;
-        meteorRain(0xff,0,0,10, 64, true, 10, 1);
-      } else if (player1.fireFirstPositionC > 140 && player2.playerFireSecondC > 180 && player2.playerFireSecondC < 190) {
-
-        player1.resetPlayer();
-        player2.effect3 = true;
+        meteorRain(0xff, 0, 0, 10, 64, true, 10, 1);
+      } else {
+        if (colorDefence2 < 20) {
+          player2.defence = false;
+          player2.energyPlayerC = player2.energyPlayerC - 1;
+          player1.resetPlayer();
+          meteorRain(0xff, 0, 0, 10, 64, true, 10, 1);
+        } else {
+          player1.resetPlayer();
+          player2.defence = false;
+          player2.effect3 = true;
+        }
       }
     } else if (player2.effect3 == true) {
-      if (player1.playerFireSecondC < 180 || player1.playerFireSecondC > 190) {
+      if (player1.defence == false && colorDefence1 < 20) {
         player1.energyPlayerC = player1.energyPlayerC - 1;
         player2.resetPlayer();
-        meteorRain(0,0,0xff,10, 64, true, 10, 2);
-      } else if ( player2.fireFirstPositionC < 4 && player1.playerFireSecondC > 180 && player1.playerFireSecondC < 190) {
-        player2.resetPlayer();
-        player1.effect3 = true;
+        meteorRain(0, 0, 0xff, 10, 64, true, 10, 2);
+      } else {
+        if (colorDefence1 < 20) {
+          player1.defence = false;
+          player1.energyPlayerC = player1.energyPlayerC - 1;
+          player2.resetPlayer();
+          meteorRain(0, 0, 0xff, 10, 64, true, 10, 2);
+        } else {
+          player2.resetPlayer();
+          player1.defence = false;
+          player1.effect3 = true;
+        }
       }
     } else {
       player1.playShow(sensorWertA, sensorWertB);
@@ -158,6 +187,18 @@ void loop()
     led[onePos + 1].setRGB(player1.playerFireSecondC, 0, 0);
     led[twoPos].setRGB(0, 0, player2.playerFireFirstC);
     led[twoPos - 1].setRGB(0, 0, player2.playerFireSecondC);
+
+    if (player1.defence == true) {
+      led[9].setRGB( colorDefence1, 0, 0);
+      led[10].setRGB( colorDefence1 , 0, 0);
+      led[11].setRGB( colorDefence1, 0, 0);
+    }
+
+    if (player2.defence == true) {
+      led[134].setRGB( 0, 0, colorDefence2);
+      led[133].setRGB( 0, 0, colorDefence2);
+      led[132].setRGB( 0 , 0, colorDefence2);
+    }
 
     switch (player1.energyPlayerC) {
       case 5:
@@ -255,137 +296,137 @@ float filter(float rawValue, float weight, float lastValue)
 }
 
 void showStrip() {
- #ifdef ADAFRUIT_NEOPIXEL_H
-   // NeoPixel
-   strip.show();
- #endif
- #ifndef ADAFRUIT_NEOPIXEL_H
-   // FastLED
-   FastLED.show();
- #endif
+#ifdef ADAFRUIT_NEOPIXEL_H
+  // NeoPixel
+  strip.show();
+#endif
+#ifndef ADAFRUIT_NEOPIXEL_H
+  // FastLED
+  FastLED.show();
+#endif
 }
 
 void setPixel(int Pixel, byte red, byte green, byte blue) {
- #ifdef ADAFRUIT_NEOPIXEL_H
-   // NeoPixel
-   strip.setPixelColor(Pixel, strip.Color(red, green, blue));
- #endif
- #ifndef ADAFRUIT_NEOPIXEL_H
-   // FastLED
-   led[Pixel].r = red;
-   led[Pixel].g = green;
-   led[Pixel].b = blue;
- #endif
+#ifdef ADAFRUIT_NEOPIXEL_H
+  // NeoPixel
+  strip.setPixelColor(Pixel, strip.Color(red, green, blue));
+#endif
+#ifndef ADAFRUIT_NEOPIXEL_H
+  // FastLED
+  led[Pixel].r = red;
+  led[Pixel].g = green;
+  led[Pixel].b = blue;
+#endif
 }
 
 void setAll(byte red, byte green, byte blue) {
-  for(int i = 0; i < NUM_LEDS; i++ ) {
+  for (int i = 0; i < NUM_LEDS; i++ ) {
     setPixel(i, red, green, blue);
   }
   showStrip();
 }
 
-void meteorRain(byte red, byte green, byte blue, byte meteorSize, byte meteorTrailDecay, boolean meteorRandomDecay, int SpeedDelay, int player) {  
-  setAll(0,0,0);
+void meteorRain(byte red, byte green, byte blue, byte meteorSize, byte meteorTrailDecay, boolean meteorRandomDecay, int SpeedDelay, int player) {
+  setAll(0, 0, 0);
 
-  if(player == 1){
-      for(int i = 0; i < NUM_LEDS; i++) {
-   
-   
-    // fade brightness all LEDs one step
-    for(int j=0; j<NUM_LEDS; j++) {
-      if( (!meteorRandomDecay) || (random(10)>5) ) {
-        fadeToBlack(j, meteorTrailDecay );        
+  if (player == 1) {
+    for (int i = 0; i < NUM_LEDS; i++) {
+
+
+      // fade brightness all LEDs one step
+      for (int j = 0; j < NUM_LEDS; j++) {
+        if ( (!meteorRandomDecay) || (random(10) > 5) ) {
+          fadeToBlack(j, meteorTrailDecay );
+        }
       }
-    }
-   
-    // draw meteor
-    for(int j = 0; j < meteorSize; j++) {
-      if( ( i-j <NUM_LEDS) && (i-j>=0) ) {
-        setPixel(i-j, red, green, blue);
+
+      // draw meteor
+      for (int j = 0; j < meteorSize; j++) {
+        if ( ( i - j < NUM_LEDS) && (i - j >= 0) ) {
+          setPixel(i - j, red, green, blue);
+        }
       }
+
+      showStrip();
+      delay(SpeedDelay);
     }
-   
-    showStrip();
-    delay(SpeedDelay);
+  } else {
+    for (int i = NUM_LEDS; i > 1; i--) {
+
+
+      // fade brightness all LEDs one step
+      for (int j = 0; j < NUM_LEDS; j++) {
+        if ( (!meteorRandomDecay) || (random(10) > 5) ) {
+          fadeToBlack(j, meteorTrailDecay );
+        }
+      }
+
+      // draw meteor
+      for (int j = 0; j < meteorSize; j++) {
+        if ( ( i - j < NUM_LEDS) && (i - j >= 0) ) {
+          setPixel(i - j, red, green, blue);
+        }
+      }
+
+      showStrip();
+      delay(SpeedDelay);
+    }
   }
-    } else{
-        for(int i = NUM_LEDS; i > 1; i--) {
-   
-   
-    // fade brightness all LEDs one step
-    for(int j=0; j<NUM_LEDS; j++) {
-      if( (!meteorRandomDecay) || (random(10)>5) ) {
-        fadeToBlack(j, meteorTrailDecay );        
-      }
-    }
-   
-    // draw meteor
-    for(int j = 0; j < meteorSize; j++) {
-      if( ( i-j <NUM_LEDS) && (i-j>=0) ) {
-        setPixel(i-j, red, green, blue);
-      }
-    }
-   
-    showStrip();
-    delay(SpeedDelay);
-  }
-      }
 }
 
 void fadeToBlack(int ledNo, byte fadeValue) {
- #ifdef ADAFRUIT_NEOPIXEL_H
-    // NeoPixel
-    uint32_t oldColor;
-    uint8_t r, g, b;
-    int value;
-   
-    oldColor = strip.getPixelColor(ledNo);
-    r = (oldColor & 0x00ff0000UL) >> 16;
-    g = (oldColor & 0x0000ff00UL) >> 8;
-    b = (oldColor & 0x000000ffUL);
+#ifdef ADAFRUIT_NEOPIXEL_H
+  // NeoPixel
+  uint32_t oldColor;
+  uint8_t r, g, b;
+  int value;
 
-    r=(r<=10)? 0 : (int) r-(r*fadeValue/256);
-    g=(g<=10)? 0 : (int) g-(g*fadeValue/256);
-    b=(b<=10)? 0 : (int) b-(b*fadeValue/256);
-   
-    strip.setPixelColor(ledNo, r,g,b);
- #endif
- #ifndef ADAFRUIT_NEOPIXEL_H
-   // FastLED
-   led[ledNo].fadeToBlackBy( fadeValue );
- #endif  
+  oldColor = strip.getPixelColor(ledNo);
+  r = (oldColor & 0x00ff0000UL) >> 16;
+  g = (oldColor & 0x0000ff00UL) >> 8;
+  b = (oldColor & 0x000000ffUL);
+
+  r = (r <= 10) ? 0 : (int) r - (r * fadeValue / 256);
+  g = (g <= 10) ? 0 : (int) g - (g * fadeValue / 256);
+  b = (b <= 10) ? 0 : (int) b - (b * fadeValue / 256);
+
+  strip.setPixelColor(ledNo, r, g, b);
+#endif
+#ifndef ADAFRUIT_NEOPIXEL_H
+  // FastLED
+  led[ledNo].fadeToBlackBy( fadeValue );
+#endif
 }
 // -------------------------------Fire -----------------------------------------------
 void Fire(int Cooling, int Sparking, int SpeedDelay) {
   static byte heat[NUM_LEDS];
   int cooldown;
- 
+
   // Step 1.  Cool down every cell a little
-  for( int i = 0; i < NUM_LEDS; i++) {
+  for ( int i = 0; i < NUM_LEDS; i++) {
     cooldown = random(0, ((Cooling * 10) / NUM_LEDS) + 2);
-   
-    if(cooldown>heat[i]) {
-      heat[i]=0;
+
+    if (cooldown > heat[i]) {
+      heat[i] = 0;
     } else {
-      heat[i]=heat[i]-cooldown;
+      heat[i] = heat[i] - cooldown;
     }
   }
- 
+
   // Step 2.  Heat from each cell drifts 'up' and diffuses a little
-  for( int k= NUM_LEDS - 1; k >= 2; k--) {
+  for ( int k = NUM_LEDS - 1; k >= 2; k--) {
     heat[k] = (heat[k - 1] + heat[k - 2] + heat[k - 2]) / 3;
   }
-   
+
   // Step 3.  Randomly ignite new 'sparks' near the bottom
-  if( random(255) < Sparking ) {
+  if ( random(255) < Sparking ) {
     int y = random(7);
-    heat[y] = heat[y] + random(160,255);
+    heat[y] = heat[y] + random(160, 255);
     //heat[y] = random(160,255);
   }
 
   // Step 4.  Convert heat to LED colors
-  for( int j = 0; j < NUM_LEDS; j++) {
+  for ( int j = 0; j < NUM_LEDS; j++) {
     setPixelHeatColor(j, heat[j] );
   }
 
@@ -395,16 +436,16 @@ void Fire(int Cooling, int Sparking, int SpeedDelay) {
 
 void setPixelHeatColor (int Pixel, byte temperature) {
   // Scale 'heat' down from 0-255 to 0-191
-  byte t192 = round((temperature/255.0)*191);
- 
+  byte t192 = round((temperature / 255.0) * 191);
+
   // calculate ramp up from
   byte heatramp = t192 & 0x3F; // 0..63
   heatramp <<= 2; // scale up to 0..252
- 
+
   // figure out which third of the spectrum we're in:
-  if( t192 > 0x80) {                     // hottest
+  if ( t192 > 0x80) {                    // hottest
     setPixel(Pixel, 255, 255, heatramp);
-  } else if( t192 > 0x40 ) {             // middle
+  } else if ( t192 > 0x40 ) {            // middle
     setPixel(Pixel, 255, heatramp, 0);
   } else {                               // coolest
     setPixel(Pixel, heatramp, 0, 0);
