@@ -189,15 +189,15 @@ void loop()
     led[twoPos - 1].setRGB(0, 0, player2.playerFireSecondC);
 
     if (player1.defence == true) {
-      led[9].setRGB( colorDefence1, 0, 0);
+      led[9].setRGB( colorDefence1 - 50, 0, 0);
       led[10].setRGB( colorDefence1 , 0, 0);
-      led[11].setRGB( colorDefence1, 0, 0);
+      led[11].setRGB( colorDefence1- 50, 0, 0);
     }
 
     if (player2.defence == true) {
-      led[134].setRGB( 0, 0, colorDefence2);
+      led[134].setRGB( 0, 0, colorDefence2 - 50);
       led[133].setRGB( 0, 0, colorDefence2);
-      led[132].setRGB( 0 , 0, colorDefence2);
+      led[132].setRGB( 0 , 0, colorDefence2- 50);
     }
 
     switch (player1.energyPlayerC) {
