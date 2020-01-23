@@ -136,7 +136,7 @@ void loop()
     }
 
     if (player1.effect3 == true) {
-      if (player2.defence == false && colorDefence2 < 20) {
+      if (player2.defence == false) {
         player2.energyPlayerC = player2.energyPlayerC - 1;
         player1.resetPlayer();
         meteorRain(0xff, 0, 0, 10, 64, true, 10, 1);
@@ -153,7 +153,7 @@ void loop()
         }
       }
     } else if (player2.effect3 == true) {
-      if (player1.defence == false && colorDefence1 < 20) {
+      if (player1.defence == false) {
         player1.energyPlayerC = player1.energyPlayerC - 1;
         player2.resetPlayer();
         meteorRain(0, 0, 0xff, 10, 64, true, 10, 2);
@@ -189,14 +189,18 @@ void loop()
     led[twoPos - 1].setRGB(0, 0, player2.playerFireSecondC);
 
     if (player1.defence == true) {
-      led[9].setRGB( colorDefence1 - 50, 0, 0);
-      led[10].setRGB( colorDefence1 , 0, 0);
+       led[7].setRGB( colorDefence1 - 50, 0, 0);
+        led[8].setRGB( colorDefence1 - 20, 0, 0);
+      led[9].setRGB( colorDefence1, 0, 0);
+      led[10].setRGB( colorDefence1 - 20 , 0, 0);
       led[11].setRGB( colorDefence1- 50, 0, 0);
     }
 
     if (player2.defence == true) {
-      led[134].setRGB( 0, 0, colorDefence2 - 50);
-      led[133].setRGB( 0, 0, colorDefence2);
+                  led[136].setRGB( 0, 0, colorDefence2 - 50);
+      led[135].setRGB( 0, 0, colorDefence2 - 20);
+      led[134].setRGB( 0, 0, colorDefence2);
+      led[133].setRGB( 0, 0, colorDefence2 - 20);
       led[132].setRGB( 0 , 0, colorDefence2- 50);
     }
 

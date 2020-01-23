@@ -150,8 +150,8 @@ class Player {
         fireFirstPositionC = 136;
         fireSecondPositionC = 135;
       } else {
-        fireFirstPositionC = 7;
-        fireSecondPositionC = 8;
+        fireFirstPositionC = 5;
+        fireSecondPositionC = 6;
       }
       playerFireFirstC = 0;
       playerFireSecondC = 0;
@@ -164,8 +164,8 @@ class Player {
       effect3 = false;
       countEffect1 = 0;
       if (playerPositionC == 137) {
-        fireFirstPositionC = 136;
-        fireSecondPositionC = 135;
+        fireFirstPositionC = 137;
+        fireSecondPositionC = 138;
       } else {
         fireFirstPositionC = 7;
         fireSecondPositionC = 8;
@@ -175,5 +175,6 @@ class Player {
       speedC = 0;
       load = 0.4;
       energyPlayerC = 5;
+      defence = false;
     }
 };
