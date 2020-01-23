@@ -48,7 +48,6 @@ CRGB led [NUM_LEDS];
 int OnePlayerPosition = 6;
 
 float OneFireFirstPosition = 5;
-float OneFireSecondPosition = 6;
 
 float OnePlayerFireFirst = 0.0;
 float OnePlayerFireSecond = 0.0;
@@ -58,13 +57,12 @@ int OneEnergyPlayer = 5;
 bool OnefireCase = false;
 
 
-Player player1(OnePlayerPosition, OneFireFirstPosition, OneFireSecondPosition, OnePlayerFireFirst, OnePlayerFireSecond, OneEnergyPlayer);
+Player player1(OnePlayerPosition, OneFireFirstPosition, OnePlayerFireFirst, OnePlayerFireSecond, OneEnergyPlayer);
 
 // ---------------------------------player 2------------------------------------------
 int TwoPlayerPosition = 137;
 
 float TwoFireFirstPosition = 138;
-float TwoFireSecondPosition = 137;
 
 float TwoPlayerFireFirst = 0.0;
 float TwoPlayerFireSecond = 0.0;
@@ -72,7 +70,7 @@ float TwoPlayerFireSecond = 0.0;
 int TwoEnergyPlayer = 5;
 
 
-Player player2(TwoPlayerPosition, TwoFireFirstPosition, TwoFireSecondPosition, TwoPlayerFireFirst, TwoPlayerFireSecond, TwoEnergyPlayer);
+Player player2(TwoPlayerPosition, TwoFireFirstPosition, TwoPlayerFireFirst, TwoPlayerFireSecond, TwoEnergyPlayer);
 
 
 

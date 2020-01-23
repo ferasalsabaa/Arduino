@@ -5,7 +5,6 @@ class Player {
     int playerPositionC;
 
     float fireFirstPositionC;
-    float fireSecondPositionC;
 
     float playerFireFirstC;
     float playerFireSecondC;
@@ -29,11 +28,10 @@ class Player {
     float load = 0.4;
 
 
-    Player(int playerPosition, float fireFirstPosition, float fireSecondPosition, float playerFireFirst, float playerFireSecond, int energyPlayer) {
+    Player(int playerPosition, float fireFirstPosition, float playerFireFirst, float playerFireSecond, int energyPlayer) {
       playerPositionC = playerPosition;
 
       fireFirstPositionC = fireFirstPosition;
-      fireSecondPositionC = fireSecondPosition;
 
       playerFireFirstC = playerFireFirst;
       playerFireSecondC = playerFireSecond;
@@ -82,13 +80,13 @@ class Player {
             }
           if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
             if (playerFireSecondC < 120) {
-              effect3 = true;
+              effect1 = true;
               fireFirstPositionC = 5;
             } else if (playerFireSecondC > 120 && playerFireSecondC < 170) {
               effect3 = true;
               fireFirstPositionC = 5;
             } else if (playerFireSecondC > 170) {
-              effect3 = true;
+              effect2 = true;
               fireFirstPositionC = 5;
             }
           }
@@ -109,7 +107,7 @@ class Player {
             countEffect1 ++;
           }
           if (fireFirstPositionC > 137) {
-            fireFirstPositionC = 137;
+            fireFirstPositionC = 138;
           }
           countEffect1 ++;
         } else if (effect2 == true) {
@@ -130,11 +128,11 @@ class Player {
             }
           if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
             if (playerFireSecondC < 120) {
-              effect3 = true;
+              effect1 = true;
             } else if (playerFireSecondC > 120 && playerFireSecondC < 170) {
               effect3 = true;
             } else if (playerFireSecondC > 170) {
-              effect3 = true;
+              effect2 = true;
             }
           }
         }
@@ -147,11 +145,9 @@ class Player {
       effect3 = false;
       countEffect1 = 0;
       if (playerPositionC == 137) {
-        fireFirstPositionC = 136;
-        fireSecondPositionC = 135;
+        fireFirstPositionC = 138;
       } else {
         fireFirstPositionC = 5;
-        fireSecondPositionC = 6;
       }
       playerFireFirstC = 0;
       playerFireSecondC = 0;
@@ -164,11 +160,9 @@ class Player {
       effect3 = false;
       countEffect1 = 0;
       if (playerPositionC == 137) {
-        fireFirstPositionC = 137;
-        fireSecondPositionC = 138;
+        fireFirstPositionC = 138;
       } else {
-        fireFirstPositionC = 7;
-        fireSecondPositionC = 8;
+        fireFirstPositionC = 5;
       }
       playerFireFirstC = 0;
       playerFireSecondC = 0;
