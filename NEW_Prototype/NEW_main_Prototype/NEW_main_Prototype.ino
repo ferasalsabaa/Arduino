@@ -62,7 +62,7 @@ Player player1(OnePlayerPosition, OneFireFirstPosition, OnePlayerFireFirst, OneP
 // ---------------------------------player 2------------------------------------------
 int TwoPlayerPosition = 137;
 
-float TwoFireFirstPosition = 138;
+float TwoFireFirstPosition = 137;
 
 float TwoPlayerFireFirst = 0.0;
 float TwoPlayerFireSecond = 0.0;
@@ -135,34 +135,55 @@ void loop()
 
     if (player1.effect3 == true) {
       if (player2.defence == false) {
-        player2.energyPlayerC = player2.energyPlayerC - 1;
-        player1.resetPlayer();
-        meteorRain(0xff, 0, 0, 10, 64, true, 10, 1);
-      } else {
-        if (colorDefence2 < 20) {
-          player2.defence = false;
+
+        player1.fireFirstPositionC = player1.fireFirstPositionC + player1.speedC;
+        player1.speedC = player1.speedC + gravity;
+        if ( player1.fireFirstPositionC > 140) {
           player2.energyPlayerC = player2.energyPlayerC - 1;
           player1.resetPlayer();
           meteorRain(0xff, 0, 0, 10, 64, true, 10, 1);
+        }
+      } else {
+        if (colorDefence2 < 20) {
+          player1.fireFirstPositionC = player1.fireFirstPositionC + player1.speedC;
+          player1.speedC = player1.speedC + gravity;
+          if ( player1.fireFirstPositionC > 140) {
+            player2.defence = false;
+            player2.energyPlayerC = player2.energyPlayerC - 1;
+            player1.resetPlayer();
+            meteorRain(0xff, 0, 0, 10, 64, true, 10, 1);
+          }
         } else {
           player1.resetPlayer();
+          player1.playerFireFirstC = 200;
+          player1.playerFireSecondC = 200;
           player2.defence = false;
           player2.effect3 = true;
         }
       }
     } else if (player2.effect3 == true) {
       if (player1.defence == false) {
-        player1.energyPlayerC = player1.energyPlayerC - 1;
-        player2.resetPlayer();
-        meteorRain(0, 0, 0xff, 10, 64, true, 10, 2);
-      } else {
-        if (colorDefence1 < 20) {
-          player1.defence = false;
+        player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
+        player2.speedC = player2.speedC + gravity;
+        if ( player2.fireFirstPositionC < 4) {
           player1.energyPlayerC = player1.energyPlayerC - 1;
           player2.resetPlayer();
           meteorRain(0, 0, 0xff, 10, 64, true, 10, 2);
+        }
+      } else {
+        if (colorDefence1 < 20) {
+          player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
+          player2.speedC = player2.speedC + gravity;
+          if ( player2.fireFirstPositionC < 4) {
+            player1.defence = false;
+            player1.energyPlayerC = player1.energyPlayerC - 1;
+            player2.resetPlayer();
+            meteorRain(0, 0, 0xff, 10, 64, true, 10, 2);
+          }
         } else {
           player2.resetPlayer();
+          player1.playerFireFirstC = 200;
+          player1.playerFireSecondC = 200;
           player1.defence = false;
           player1.effect3 = true;
         }
@@ -184,22 +205,63 @@ void loop()
     led[onePos].setRGB(player1.playerFireFirstC, 0, 0);
     led[onePos + 1].setRGB(player1.playerFireSecondC, 0, 0);
     led[twoPos].setRGB(0, 0, player2.playerFireFirstC);
-    led[twoPos - 1].setRGB(0, 0, player2.playerFireSecondC);
+    led[twoPos +  1].setRGB(0, 0, player2.playerFireSecondC);
+
+   
+
+    if (player2.effect3 == true) {
+      int count = 0;
+     /*  for(int i=twoPos; i>twoPos -10; i--){
+      led[i].setRGB(0, 0, 200 - count);
+      count += 10;
+      }*/
+      led[twoPos + 1].setRGB(0, 0, player2.playerFireFirstC - 60);
+      led[twoPos + 2].setRGB(0, 0, player2.playerFireFirstC - 80);
+      led[twoPos + 3].setRGB(0, 0, player2.playerFireFirstC - 100);
+      led[twoPos + 4].setRGB(0, 0, player2.playerFireFirstC - 120);
+      led[twoPos + 5].setRGB(0, 0, player2.playerFireFirstC - 160);
+      if (twoPos < 135) {
+        led[twoPos + 6].setRGB(0, 0, player2.playerFireFirstC - 130);
+        led[twoPos + 7].setRGB(0, 0, player2.playerFireFirstC - 140);
+        led[twoPos + 8].setRGB(0, 0, player2.playerFireFirstC - 150);
+        led[twoPos + 9].setRGB(0, 0, player2.playerFireFirstC - 160);
+      }
+      if (twoPos < 125) {
+        led[twoPos + 10].setRGB(0, 0, player2.playerFireFirstC - 130);
+        led[twoPos + 11].setRGB(0, 0, player2.playerFireFirstC - 140);
+        led[twoPos + 12].setRGB(0, 0, player2.playerFireFirstC - 150);
+        led[twoPos + 13].setRGB(0, 0, player2.playerFireFirstC - 160);
+      }
+       if (twoPos < 115) {
+        led[twoPos + 14].setRGB(0, 0, player2.playerFireFirstC - 130);
+        led[twoPos + 15].setRGB(0, 0, player2.playerFireFirstC - 140);
+        led[twoPos + 16].setRGB(0, 0, player2.playerFireFirstC - 150);
+        led[twoPos + 17].setRGB(0, 0, player2.playerFireFirstC - 160);
+      }
+    }
+
+    if (player1.effect3 == true) {
+      led[onePos - 1].setRGB(player1.playerFireFirstC - 60, 0, 0);
+      led[onePos - 2].setRGB(player1.playerFireFirstC - 80, 0, 0);
+      led[onePos - 3].setRGB(player1.playerFireFirstC - 100, 0, 0);
+      led[onePos - 4].setRGB(player1.playerFireFirstC - 120, 0, 0);
+      led[onePos - 5].setRGB(player1.playerFireFirstC - 160, 0, 0);
+    }
 
     if (player1.defence == true) {
-       led[7].setRGB( colorDefence1 - 50, 0, 0);
-        led[8].setRGB( colorDefence1 - 20, 0, 0);
+      led[7].setRGB( colorDefence1 - 50, 0, 0);
+      led[8].setRGB( colorDefence1 - 20, 0, 0);
       led[9].setRGB( colorDefence1, 0, 0);
       led[10].setRGB( colorDefence1 - 20 , 0, 0);
-      led[11].setRGB( colorDefence1- 50, 0, 0);
+      led[11].setRGB( colorDefence1 - 50, 0, 0);
     }
 
     if (player2.defence == true) {
-                  led[136].setRGB( 0, 0, colorDefence2 - 50);
+      led[136].setRGB( 0, 0, colorDefence2 - 50);
       led[135].setRGB( 0, 0, colorDefence2 - 20);
       led[134].setRGB( 0, 0, colorDefence2);
       led[133].setRGB( 0, 0, colorDefence2 - 20);
-      led[132].setRGB( 0 , 0, colorDefence2- 50);
+      led[132].setRGB( 0 , 0, colorDefence2 - 50);
     }
 
     switch (player1.energyPlayerC) {
@@ -300,7 +362,7 @@ float filter(float rawValue, float weight, float lastValue)
 void showStrip() {
 #ifdef ADAFRUIT_NEOPIXEL_H
   // NeoPixel
-  strip.show();
+  //  strip.show();
 #endif
 #ifndef ADAFRUIT_NEOPIXEL_H
   // FastLED
@@ -329,22 +391,22 @@ void setAll(byte red, byte green, byte blue) {
 }
 
 void meteorRain(byte red, byte green, byte blue, byte meteorSize, byte meteorTrailDecay, boolean meteorRandomDecay, int SpeedDelay, int player) {
-  setAll(0, 0, 0);
+  // setAll(0, 0, 0);
 
   if (player == 1) {
-    for (int i = 0; i < NUM_LEDS; i++) {
+    for (int i = 6; i < 100; i++) {
 
 
       // fade brightness all LEDs one step
-      for (int j = 0; j < NUM_LEDS; j++) {
+      for (int j = 6; j < 100; j++) {
         if ( (!meteorRandomDecay) || (random(10) > 5) ) {
           fadeToBlack(j, meteorTrailDecay );
         }
       }
 
       // draw meteor
-      for (int j = 0; j < meteorSize; j++) {
-        if ( ( i - j < NUM_LEDS) && (i - j >= 0) ) {
+      for (int j = 6; j < meteorSize; j++) {
+        if ( ( i - j < 100) && (i - j >= 0) ) {
           setPixel(i - j, red, green, blue);
         }
       }
