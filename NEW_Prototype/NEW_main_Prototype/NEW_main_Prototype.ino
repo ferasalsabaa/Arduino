@@ -16,7 +16,7 @@ const int fps = 100;
 
 float speedPlayer1 = 0;
 float speedPlayer2 = 0;
-float gravity = 0.009;
+float gravity = 0.001;
 
 float color50 = 90;
 float color20 = 60;
@@ -162,6 +162,7 @@ void loop()
         }
       }
     } else if (player2.effect3 == true) {
+      player2.fireFlame -= 0.03;
       if (player1.defence == false) {
         player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
         player2.speedC = player2.speedC + gravity;
@@ -207,36 +208,50 @@ void loop()
     led[twoPos].setRGB(0, 0, player2.playerFireFirstC);
     led[twoPos +  1].setRGB(0, 0, player2.playerFireSecondC);
 
-   
+
 
     if (player2.effect3 == true) {
       int count = 0;
-     /*  for(int i=twoPos; i>twoPos -10; i--){
-      led[i].setRGB(0, 0, 200 - count);
-      count += 10;
-      }*/
-      led[twoPos + 1].setRGB(0, 0, player2.playerFireFirstC - 60);
-      led[twoPos + 2].setRGB(0, 0, player2.playerFireFirstC - 80);
-      led[twoPos + 3].setRGB(0, 0, player2.playerFireFirstC - 100);
-      led[twoPos + 4].setRGB(0, 0, player2.playerFireFirstC - 120);
-      led[twoPos + 5].setRGB(0, 0, player2.playerFireFirstC - 160);
-      if (twoPos < 135) {
-        led[twoPos + 6].setRGB(0, 0, player2.playerFireFirstC - 130);
-        led[twoPos + 7].setRGB(0, 0, player2.playerFireFirstC - 140);
-        led[twoPos + 8].setRGB(0, 0, player2.playerFireFirstC - 150);
-        led[twoPos + 9].setRGB(0, 0, player2.playerFireFirstC - 160);
+      /*  for(int i=twoPos; i>twoPos -10; i--){
+        led[i].setRGB(0, 0, 200 - count);
+        count += 10;
+        }*/
+      led[twoPos + 1].setRGB(0, 0, 170);
+      led[twoPos + 2].setRGB(0, 0, player2.playerFireSecondC);
+      led[twoPos + 3].setRGB(0, 0, player2.playerFireSecondC);
+      led[twoPos + 4].setRGB(0, 0, 140);
+      led[twoPos + 5].setRGB(0, 0, 130);
+      if (twoPos < 132) {
+        led[twoPos + 6].setRGB(0, 0, 120);
+        led[twoPos + 7].setRGB(0, 0, 110);
+        led[twoPos + 8].setRGB(0, 0, 100);
+        led[twoPos + 9].setRGB(0, 0, 90);
+        led[twoPos + 10].setRGB(0, 0, 80);
       }
-      if (twoPos < 125) {
-        led[twoPos + 10].setRGB(0, 0, player2.playerFireFirstC - 130);
-        led[twoPos + 11].setRGB(0, 0, player2.playerFireFirstC - 140);
-        led[twoPos + 12].setRGB(0, 0, player2.playerFireFirstC - 150);
-        led[twoPos + 13].setRGB(0, 0, player2.playerFireFirstC - 160);
+      if (twoPos < 127) {
+        led[twoPos + 10].setRGB(0, 0, 80);
+        led[twoPos + 11].setRGB(0, 0, 70);
+        led[twoPos + 12].setRGB(0, 0, 60);
+        led[twoPos + 13].setRGB(0, 0, 50 );
+        led[twoPos + 14].setRGB(0, 0, 40);
       }
-       if (twoPos < 115) {
-        led[twoPos + 14].setRGB(0, 0, player2.playerFireFirstC - 130);
-        led[twoPos + 15].setRGB(0, 0, player2.playerFireFirstC - 140);
-        led[twoPos + 16].setRGB(0, 0, player2.playerFireFirstC - 150);
-        led[twoPos + 17].setRGB(0, 0, player2.playerFireFirstC - 160);
+      if (twoPos < 122) {
+        led[twoPos + 15].setRGB(0, 0, 30);
+        led[twoPos + 16].setRGB(0, 0, 20);
+        led[twoPos + 17].setRGB(0, 0, 10);
+        led[128].setRGB(0, 0, player2.fireFlame - 0.1);
+        led[126].setRGB(0, 0, player2.fireFlame);
+                led[124].setRGB(0, 0, player2.fireFlame + 0.6);
+      }if(twoPos < 106){
+        led[122].setRGB(0, 0, player2.fireFlame);
+                led[118].setRGB(0, 0, player2.fireFlame - 0.1);
+        led[117].setRGB(0, 0, player2.fireFlame);
+                led[114].setRGB(0, 0, player2.fireFlame + 10.6);
+        led[112].setRGB(0, 0, player2.fireFlame);
+                led[110].setRGB(0, 0, player2.fireFlame - 10.6);
+        led[106].setRGB(0, 0, player2.fireFlame);
+                led[twoPos + 18].setRGB(0, 0, player2.fireFlame - 10.1);
+        led[twoPos + 20].setRGB(0, 0, player2.fireFlame + 10.6);
       }
     }
 

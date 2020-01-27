@@ -27,6 +27,8 @@ class Player {
 
     float load = 0.4;
 
+    float fireFlame = 15;
+
 
     Player(int playerPosition, float fireFirstPosition, float playerFireFirst, float playerFireSecond, int energyPlayer) {
       playerPositionC = playerPosition;
@@ -152,6 +154,7 @@ class Player {
       playerFireFirstC = 0;
       playerFireSecondC = 0;
       speedC = 0;
+      fireFlame = 15;
     }
 
     void resetPlayerNewGame() {
@@ -170,5 +173,6 @@ class Player {
       load = 0.4;
       energyPlayerC = 5;
       defence = false;
+      fireFlame = 15;
     }
 };
