@@ -28,6 +28,10 @@ class Player {
     float load = 0.4;
 
     float fireFlame = 15;
+        float fireFlameWave2 = 50;
+          float fireFlameWave3 = 50;
+            float fireFlameWave4 = 50;
+              float fireFlameWave5 = 50;
 
 
     Player(int playerPosition, float fireFirstPosition, float playerFireFirst, float playerFireSecond, int energyPlayer) {
@@ -155,6 +159,10 @@ class Player {
       playerFireSecondC = 0;
       speedC = 0;
       fireFlame = 15;
+      fireFlameWave2 = 50;
+            fireFlameWave3 = 50;
+      fireFlameWave4 = 50;
+      fireFlameWave5 = 50;
     }
 
     void resetPlayerNewGame() {
@@ -174,5 +182,9 @@ class Player {
       energyPlayerC = 5;
       defence = false;
       fireFlame = 15;
+      fireFlameWave2 = 50;
+      fireFlameWave3 = 50;
+      fireFlameWave4 = 50;
+      fireFlameWave5 = 50;
     }
 };
