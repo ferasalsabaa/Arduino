@@ -30,8 +30,8 @@ class Player {
     float fireFlame = 15;
         float fireFlameWave2 = 50;
           float fireFlameWave3 = 50;
-            float fireFlameWave4 = 50;
-              float fireFlameWave5 = 50;
+            float fireFlameWave4 = 100;
+              float fireFlameWave5 = 100;
 
 
     Player(int playerPosition, float fireFirstPosition, float playerFireFirst, float playerFireSecond, int energyPlayer) {
@@ -161,8 +161,8 @@ class Player {
       fireFlame = 15;
       fireFlameWave2 = 50;
             fireFlameWave3 = 50;
-      fireFlameWave4 = 50;
-      fireFlameWave5 = 50;
+      fireFlameWave4 = 100;
+      fireFlameWave5 = 100;
     }
 
     void resetPlayerNewGame() {
@@ -184,7 +184,7 @@ class Player {
       fireFlame = 15;
       fireFlameWave2 = 50;
       fireFlameWave3 = 50;
-      fireFlameWave4 = 50;
-      fireFlameWave5 = 50;
+      fireFlameWave4 = 100;
+      fireFlameWave5 = 100;
     }
 };
