@@ -33,6 +33,8 @@ class Player {
     float fireFlameWave4 = 100;
     float fireFlameWave5 = 100;
 
+    boolean defenceStrong;
+
     Player(int playerPosition, float fireFirstPosition, float playerFireFirst, float playerFireSecond, int energyPlayer) {
       playerPositionC = playerPosition;
 
@@ -162,6 +164,7 @@ class Player {
       fireFlameWave3 = 50;
       fireFlameWave4 = 100;
       fireFlameWave5 = 100;
+      defence = false;
     }
 
     void resetPlayerNewGame() {

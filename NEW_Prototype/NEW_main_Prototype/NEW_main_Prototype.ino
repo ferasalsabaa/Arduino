@@ -126,11 +126,26 @@ void loop()
     } else {
       colorDefence1 = 0;
     }
+    if (player2.effect3 == false && player1.effect3) {
+      if (colorDefence1 > 5) {
+        player1.defenceStrong = true;
+      } else {
+        player1.defenceStrong = false;
+      }
+    }
 
     if (colorDefence2 < 90) {
       colorDefence2 += 0.8;
     } else {
       colorDefence2 = 0;
+    }
+
+    if (player1.effect3 == false && player2.effect3 == false) {
+      if (colorDefence2 > 10) {
+        player2.defenceStrong = true;
+      } else {
+        player2.defenceStrong = false;
+      }
     }
 
     if (player1.effect3 == true) {
@@ -139,29 +154,19 @@ void loop()
       player1.fireFlameWave3 -= 0.15;
       player1.fireFlameWave4 -= 0.32;
       player1.fireFlameWave5 -= 0.32;
-      if (player2.defence == false) {
         player1.fireFirstPositionC = player1.fireFirstPositionC + player1.speedC;
         player1.speedC = player1.speedC + gravity;
-        if ( player1.fireFirstPositionC > 140) {
-          player2.energyPlayerC = player2.energyPlayerC - 1;
-          player1.resetPlayer();
-        }
-      } else {
-        if (player2.playerFireFirstC > 20) {
-          player1.fireFirstPositionC = player1.fireFirstPositionC + player1.speedC;
-          player1.speedC = player1.speedC + gravity;
-          if ( player1.fireFirstPositionC > 140) {
-            player2.defence = false;
-            player2.energyPlayerC = player2.energyPlayerC - 1;
+
+
+
+      if(player1.fireFirstPositionC > 135 && player1.fireFirstPositionC < 136 && colorDefence2 > 35 && player2.defence == true){
+             player2.resetPlayer();
             player1.resetPlayer();
-          }
-        } else {
-          player1.resetPlayer();
-          player1.playerFireFirstC = 200;
-          player1.playerFireSecondC = 200;
-          player2.defence = false;
-          player2.effect3 = true;
         }
+      if ( player1.fireFirstPositionC > 140) {
+          player2.energyPlayerC = player2.energyPlayerC - 1;
+           player2.resetPlayer();
+          player1.resetPlayer();
       }
     } else if (player2.effect3 == true) {
       player2.fireFlame -= 0.06;
@@ -169,29 +174,16 @@ void loop()
       player2.fireFlameWave3 -= 0.15;
       player2.fireFlameWave4 -= 0.32;
       player2.fireFlameWave5 -= 0.32;
-      if (player1.defence == false) {
-        player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
-        player2.speedC = player2.speedC + gravity;
-        if ( player2.fireFirstPositionC < 4) {
+      player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
+      player2.speedC = player2.speedC + gravity;
+      if(player2.fireFirstPositionC < 9 && player2.fireFirstPositionC > 7 && colorDefence1 > 35 && player1.defence == true){
+             player2.resetPlayer();
+            player1.resetPlayer();
+        }
+      if ( player2.fireFirstPositionC < 4) {
           player1.energyPlayerC = player1.energyPlayerC - 1;
           player2.resetPlayer();
-        }
-      } else {
-        if (player1.playerFireFirstC > 20) {
-          player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
-          player2.speedC = player2.speedC + gravity;
-          if ( player2.fireFirstPositionC < 4) {
-            player1.defence = false;
-            player1.energyPlayerC = player1.energyPlayerC - 1;
-            player2.resetPlayer();
-          }
-        } else {
-          player2.resetPlayer();
-          player1.playerFireFirstC = 200;
-          player1.playerFireSecondC = 200;
-          player1.defence = false;
-          player1.effect3 = true;
-        }
+           player1.resetPlayer();
       }
     } else {
       player1.playShow(sensorWertA, sensorWertB);
@@ -381,7 +373,7 @@ void loop()
         led[0].setRGB( 0, 0, 200);
         led[1].setRGB( 0, 0, 200);
         led[2].setRGB( 0, 0, 200);
-        led[3].setRGB( 0 , 0,200);
+        led[3].setRGB( 0 , 0, 200);
         led[4].setRGB( 0, 0, 200);
       }
     }
