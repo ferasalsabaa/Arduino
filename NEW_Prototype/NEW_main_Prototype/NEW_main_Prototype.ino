@@ -147,7 +147,7 @@ void loop()
           player1.resetPlayer();
         }
       } else {
-        if (colorDefence2 < 20) {
+        if (player2.playerFireFirstC > 20) {
           player1.fireFirstPositionC = player1.fireFirstPositionC + player1.speedC;
           player1.speedC = player1.speedC + gravity;
           if ( player1.fireFirstPositionC > 140) {
@@ -177,7 +177,7 @@ void loop()
           player2.resetPlayer();
         }
       } else {
-        if (colorDefence1 < 20) {
+        if (player1.playerFireFirstC > 20) {
           player2.fireFirstPositionC = player2.fireFirstPositionC - player2.speedC;
           player2.speedC = player2.speedC + gravity;
           if ( player2.fireFirstPositionC < 4) {
@@ -211,191 +211,6 @@ void loop()
     led[onePos + 1].setRGB(player1.playerFireSecondC, 0, 0);
     led[twoPos].setRGB(0, 0, player2.playerFireFirstC);
     led[twoPos +  1].setRGB(0, 0, player2.playerFireSecondC);
-
-
-
-    if (player2.effect3 == true) {
-      led[twoPos + 1].setRGB(0, 0, 170);
-      led[twoPos + 2].setRGB(0, 0, player2.playerFireSecondC);
-      led[twoPos + 3].setRGB(0, 0, player2.playerFireSecondC);
-      led[twoPos + 4].setRGB(0, 0, 140);
-      led[twoPos + 5].setRGB(0, 0, 130);
-      if (twoPos < 132) {
-        led[twoPos + 6].setRGB(0, 0, 120);
-        led[twoPos + 7].setRGB(0, 0, 110);
-        led[twoPos + 8].setRGB(0, 0, 100);
-        led[twoPos + 9].setRGB(0, 0, 90);
-        led[twoPos + 10].setRGB(0, 0, 80);
-      }
-      if (twoPos < 127) {
-        led[twoPos + 10].setRGB(0, 0, 80);
-        led[twoPos + 11].setRGB(0, 0, 70);
-        led[twoPos + 12].setRGB(0, 0, 60);
-        led[twoPos + 13].setRGB(0, 0, 50 );
-        led[twoPos + 14].setRGB(0, 0, 40);
-      }
-      if (twoPos < 122) {
-        led[twoPos + 15].setRGB(0, 0, 30);
-        led[twoPos + 16].setRGB(0, 0, 20);
-        led[twoPos + 17].setRGB(0, 0, 10);
-        led[128].setRGB(0, 0, player2.fireFlame - 0.1);
-        led[126].setRGB(0, 0, player2.fireFlame);
-        led[124].setRGB(0, 0, player2.fireFlame + 0.6);
-        float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-        float result = player2.fireFlame / r2;
-        led[134].setRGB(0, 0, result + 0.6);
-        led[136].setRGB(0, 0, player2.fireFlame + 0.6);
-      }
-      if (twoPos < 106) {
-        for (int i = 125; i > 105; i--) {
-          if (i % 2 != 0 || i % 3 == 0) {
-
-            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-            float result = player2.fireFlame / r2;
-            led[i].setRGB(0, 0, player2.fireFlame + result);
-          }
-        }
-      }
-      if (twoPos < 89) {
-        for (int k = 108; k > 88; k--) {
-          if (k % 2 == 0) {
-            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-            float result = player2.fireFlameWave2 / r2;
-            led[k].setRGB(0, 0, player2.fireFlameWave2 + result);
-          }
-        }
-      }
-      if (twoPos < 72) {
-        for (int i = 91; i > 71; i--) {
-          if (i % 2 != 0 || i % 3 == 0) {
-            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-            float result = player2.fireFlameWave3 / r2;
-            led[i].setRGB(0, 0, result);
-          }
-        }
-      }
-      if (twoPos < 55) { // - 17
-        for (int k = 74; k > 54; k--) { // 55 + 19; -20
-          if (k % 2 == 0) {
-            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-            float result = player2.fireFlameWave4 / r2;
-            led[k].setRGB(0, 0, player2.fireFlameWave4 + result);
-          }
-        }
-      }
-      if (twoPos < 38) {
-        for (int k = 57; k > 37; k--) {
-          if (k % 2 == 0 || k % 3 == 0) {
-            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-            float result = player2.fireFlameWave5 / r2;
-            led[k].setRGB(0, 0, player2.fireFlameWave5 + result);
-          }
-        }
-      }
-    }
-
-    if (player1.effect3 == true) {
-      led[onePos - 1].setRGB(170, 0, 0);
-      led[onePos - 2].setRGB(player1.playerFireSecondC, 0, 0);
-      led[onePos - 3].setRGB(player1.playerFireSecondC, 0, 0);
-      led[onePos - 4].setRGB(140, 0, 0);
-      led[onePos - 5].setRGB(130, 0, 0);
-      if (onePos > 10) {
-        led[onePos - 6].setRGB(120, 0, 0);
-        led[onePos - 7].setRGB(110, 0, 0);
-        led[onePos - 8].setRGB(100, 0, 0);
-        led[onePos - 9].setRGB(90, 0, 0);
-        led[onePos - 10].setRGB(80, 0, 0);
-      }
-      if (onePos > 15) {
-        led[onePos - 10].setRGB(80, 0, 0);
-        led[onePos - 11].setRGB(70, 0, 0);
-        led[onePos - 12].setRGB(60, 0, 0);
-        led[onePos - 13].setRGB(50, 0, 0 );
-        led[onePos - 14].setRGB(40, 0, 0);
-      }
-      if (onePos > 20) {
-        led[onePos - 15].setRGB(30, 0, 0);
-        led[onePos - 16].setRGB(20, 0, 0);
-        led[onePos - 17].setRGB(10, 0, 0);
-      }
-      if (onePos > 25) {
-        for (int i = 6; i < 26; i++) {
-          if (i % 2 != 0 || i % 3 == 0) {
-
-            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-            float result = player1.fireFlame / r2;
-            led[i].setRGB(player1.fireFlame + result, 0, 0);
-          }
-        }
-      }
-      if (onePos > 42) {
-        for (int i = 15; i < 35; i++) {
-          if (i % 2 != 0 || i % 3 == 0) {
-
-            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-            float result = player1.fireFlame / r2;
-            led[i].setRGB(player1.fireFlame + result, 0, 0);
-          }
-        }
-      }
-      if (onePos > 59) {
-        for (int i = 40; i < 60; i++) {
-          if (i % 2 != 0 || i % 3 == 0) {
-
-            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-            float result = player1.fireFlameWave2 / r2;
-            led[i].setRGB(player1.fireFlame + result, 0, 0);
-          }
-        }
-      }
-      if (onePos > 76) {
-        for (int i = 57; i < 77; i++) {
-          if (i % 2 != 0 || i % 3 == 0) {
-
-            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-            float result = player1.fireFlameWave3 / r2;
-            led[i].setRGB(player1.fireFlame + result, 0, 0);
-          }
-        }
-      }
-      if(onePos > 93){
-          for (int i = 76; i < 96; i++) {
-          if (i % 2 != 0 || i % 3 == 0) {
-
-            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-            float result = player1.fireFlameWave4 / r2;
-            led[i].setRGB(player1.fireFlame + result, 0, 0);
-          }
-        }
-        }
-          if(onePos > 110){
-          for (int i = 91; i < 111; i++) {
-          if (i % 2 != 0 || i % 3 == 0) {
-
-            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
-            float result = player1.fireFlameWave5 / r2;
-            led[i].setRGB(player1.fireFlame + result, 0, 0);
-          }
-        }
-        }
-    }
-
-    if (player1.defence == true) {
-      led[7].setRGB( colorDefence1 - 50, 0, 0);
-      led[8].setRGB( colorDefence1 - 20, 0, 0);
-      led[9].setRGB( colorDefence1, 0, 0);
-      led[10].setRGB( colorDefence1 - 20 , 0, 0);
-      led[11].setRGB( colorDefence1 - 50, 0, 0);
-    }
-
-    if (player2.defence == true) {
-      led[136].setRGB( 0, 0, colorDefence2 - 50);
-      led[135].setRGB( 0, 0, colorDefence2 - 20);
-      led[134].setRGB( 0, 0, colorDefence2);
-      led[133].setRGB( 0, 0, colorDefence2 - 20);
-      led[132].setRGB( 0 , 0, colorDefence2 - 50);
-    }
 
     switch (player1.energyPlayerC) {
       case 5:
@@ -482,6 +297,205 @@ void loop()
         break;
     }
 
+
+
+    if (player2.effect3 == true) {
+      led[twoPos + 1].setRGB(0, 0, 170);
+      led[twoPos + 2].setRGB(0, 0, player2.playerFireSecondC);
+      led[twoPos + 3].setRGB(0, 0, player2.playerFireSecondC);
+      led[twoPos + 4].setRGB(0, 0, 140);
+      led[twoPos + 5].setRGB(0, 0, 130);
+      if (twoPos < 132) {
+        led[twoPos + 6].setRGB(0, 0, 120);
+        led[twoPos + 7].setRGB(0, 0, 110);
+        led[twoPos + 8].setRGB(0, 0, 100);
+        led[twoPos + 9].setRGB(0, 0, 90);
+        led[twoPos + 10].setRGB(0, 0, 80);
+      }
+      if (twoPos < 127) {
+        led[twoPos + 10].setRGB(0, 0, 80);
+        led[twoPos + 11].setRGB(0, 0, 70);
+        led[twoPos + 12].setRGB(0, 0, 60);
+        led[twoPos + 13].setRGB(0, 0, 50 );
+        led[twoPos + 14].setRGB(0, 0, 40);
+      }
+      if (twoPos < 122) {
+        led[twoPos + 15].setRGB(0, 0, 30);
+        led[twoPos + 16].setRGB(0, 0, 20);
+        led[twoPos + 17].setRGB(0, 0, 10);
+        led[128].setRGB(0, 0, player2.fireFlame - 0.1);
+        led[126].setRGB(0, 0, player2.fireFlame);
+        led[124].setRGB(0, 0, player2.fireFlame + 0.6);
+        float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+        float result = player2.fireFlame / r2;
+        led[134].setRGB(0, 0, result + 0.6);
+        led[136].setRGB(0, 0, player2.fireFlame + 0.6);
+      }
+      if (twoPos < 106) {
+        for (int i = 125; i > 105; i--) {
+          if (i % 2 != 0 || i % 3 == 0) {
+
+            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+            float result = player2.fireFlame / r2;
+            led[i].setRGB(0, 0, player2.fireFlame + result);
+          }
+        }
+      }
+      if (twoPos < 89) {
+        for (int k = 108; k > 88; k--) {
+          if (k % 2 == 0) {
+            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+            float result = player2.fireFlameWave2 / r2;
+            led[k].setRGB(0, 0, player2.fireFlameWave2 + result);
+          }
+        }
+      }
+      if (twoPos < 72) {
+        for (int i = 91; i > 71; i--) {
+          if (i % 2 != 0 || i % 3 == 0) {
+            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+            float result = player2.fireFlameWave3 / r2;
+            led[i].setRGB(0, 0, result);
+          }
+        }
+      }
+      if (twoPos < 55) { // - 17
+        for (int k = 74; k > 54; k--) { // 55 + 19; -20
+          if (k % 2 == 0) {
+            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+            float result = player2.fireFlameWave4 / r2;
+            led[k].setRGB(0, 0, player2.fireFlameWave4 + result);
+          }
+        }
+      }
+      if (twoPos < 38) {
+        for (int k = 57; k > 37; k--) {
+          if (k % 2 == 0 || k % 3 == 0) {
+            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+            float result = player2.fireFlameWave5 / r2;
+            led[k].setRGB(0, 0, player2.fireFlameWave5 + result);
+          }
+        }
+      }
+      if (twoPos < 18) {
+        led[0].setRGB( 0, 0, 200);
+        led[1].setRGB( 0, 0, 200);
+        led[2].setRGB( 0, 0, 200);
+        led[3].setRGB( 0 , 0,200);
+        led[4].setRGB( 0, 0, 200);
+      }
+    }
+
+    if (player1.effect3 == true) {
+      led[onePos - 1].setRGB(170, 0, 0);
+      led[onePos - 2].setRGB(player1.playerFireSecondC, 0, 0);
+      led[onePos - 3].setRGB(player1.playerFireSecondC, 0, 0);
+      led[onePos - 4].setRGB(140, 0, 0);
+      led[onePos - 5].setRGB(130, 0, 0);
+      if (onePos > 10) {
+        led[onePos - 6].setRGB(120, 0, 0);
+        led[onePos - 7].setRGB(110, 0, 0);
+        led[onePos - 8].setRGB(100, 0, 0);
+        led[onePos - 9].setRGB(90, 0, 0);
+        led[onePos - 10].setRGB(80, 0, 0);
+      }
+      if (onePos > 15) {
+        led[onePos - 10].setRGB(80, 0, 0);
+        led[onePos - 11].setRGB(70, 0, 0);
+        led[onePos - 12].setRGB(60, 0, 0);
+        led[onePos - 13].setRGB(50, 0, 0 );
+        led[onePos - 14].setRGB(40, 0, 0);
+      }
+      if (onePos > 20) {
+        led[onePos - 15].setRGB(30, 0, 0);
+        led[onePos - 16].setRGB(20, 0, 0);
+        led[onePos - 17].setRGB(10, 0, 0);
+      }
+      if (onePos > 25) {
+        for (int i = 6; i < 26; i++) {
+          if (i % 2 != 0 || i % 3 == 0) {
+
+            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+            float result = player1.fireFlame / r2;
+            led[i].setRGB(player1.fireFlame + result, 0, 0);
+          }
+        }
+      }
+      if (onePos > 42) {
+        for (int i = 15; i < 35; i++) {
+          if (i % 2 != 0 || i % 3 == 0) {
+
+            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+            float result = player1.fireFlame / r2;
+            led[i].setRGB(player1.fireFlame + result, 0, 0);
+          }
+        }
+      }
+      if (onePos > 59) {
+        for (int i = 40; i < 60; i++) {
+          if (i % 2 != 0 || i % 3 == 0) {
+
+            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+            float result = player1.fireFlameWave2 / r2;
+            led[i].setRGB(player1.fireFlame + result, 0, 0);
+          }
+        }
+      }
+      if (onePos > 76) {
+        for (int i = 57; i < 77; i++) {
+          if (i % 2 != 0 || i % 3 == 0) {
+
+            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+            float result = player1.fireFlameWave3 / r2;
+            led[i].setRGB(player1.fireFlame + result, 0, 0);
+          }
+        }
+      }
+      if (onePos > 93) {
+        for (int i = 76; i < 96; i++) {
+          if (i % 2 != 0 || i % 3 == 0) {
+
+            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+            float result = player1.fireFlameWave4 / r2;
+            led[i].setRGB(player1.fireFlame + result, 0, 0);
+          }
+        }
+      }
+      if (onePos > 110) {
+        for (int i = 91; i < 111; i++) {
+          if (i % 2 != 0 || i % 3 == 0) {
+
+            float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
+            float result = player1.fireFlameWave5 / r2;
+            led[i].setRGB(player1.fireFlame + result, 0, 0);
+          }
+        }
+      }
+      if (onePos > 127) {
+        led[143].setRGB( 200, 0, 0);
+        led[142].setRGB( 200, 0, 0);
+        led[141].setRGB( 200, 0, 0);
+        led[140].setRGB( 200 , 0, 0);
+        led[139].setRGB( 200, 0, 0);
+
+      }
+    }
+
+    if (player1.defence == true) {
+      led[7].setRGB( colorDefence1 - 50, 0, 0);
+      led[8].setRGB( colorDefence1 - 20, 0, 0);
+      led[9].setRGB( colorDefence1, 0, 0);
+      led[10].setRGB( colorDefence1 - 20 , 0, 0);
+      led[11].setRGB( colorDefence1 - 50, 0, 0);
+    }
+
+    if (player2.defence == true) {
+      led[136].setRGB( 0, 0, colorDefence2 - 50);
+      led[135].setRGB( 0, 0, colorDefence2 - 20);
+      led[134].setRGB( 0, 0, colorDefence2);
+      led[133].setRGB( 0, 0, colorDefence2 - 20);
+      led[132].setRGB( 0 , 0, colorDefence2 - 50);
+    }
     FastLED.show();
   }
 }// end loop
