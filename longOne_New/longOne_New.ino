@@ -2,14 +2,14 @@
 #include <Chrono.h>
 #include "player.h"
 
-#define NUM_LEDS 144 // all leds
+#define NUM_LEDS 300 // all leds
 #define LED_PIN 14   // place the led
 
 const int ledLength = 8;     // later long of car
 #define LED_TYPE    WS2811
 #define COLOR_ORDER GRB
 int MAX_BRIGHTNESS =  60;
-const int fps = 100;
+const int fps = 45;
 
 #define ctsPin 19  // place the sensor
 
@@ -60,9 +60,9 @@ bool OnefireCase = false;
 Player player1(OnePlayerPosition, OneFireFirstPosition, OnePlayerFireFirst, OnePlayerFireSecond, OneEnergyPlayer);
 
 // ---------------------------------player 2------------------------------------------
-int TwoPlayerPosition = 137;
+int TwoPlayerPosition = 293;
 
-float TwoFireFirstPosition = 137;
+float TwoFireFirstPosition = 293;
 
 float TwoPlayerFireFirst = 0.0;
 float TwoPlayerFireSecond = 0.0;
