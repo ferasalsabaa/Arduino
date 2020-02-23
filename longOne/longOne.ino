@@ -160,12 +160,12 @@ void loop()
 
 
       if (player1.fireFirstPositionC > 135 && player1.fireFirstPositionC < 136 && colorDefence2 > 35 && player2.defence == true) {
-        player2.resetPlayer();
+        player2.resetPlayerAttack();
         player1.resetPlayer();
       }
       if ( player1.fireFirstPositionC > 140) {
         player2.energyPlayerC = player2.energyPlayerC - 1;
-        player2.resetPlayer();
+        player2.resetPlayerAttack();
         player1.resetPlayer();
       }
     } else if (player2.effect3 == true) {
@@ -178,17 +178,17 @@ void loop()
       player2.speedC = player2.speedC + gravity;
       if (player2.fireFirstPositionC < 9 && player2.fireFirstPositionC > 7 && colorDefence1 > 35 && player1.defence == true) {
         player2.resetPlayer();
-        player1.resetPlayer();
+        player1.resetPlayerAttack();
       }
       if ( player2.fireFirstPositionC < 4) {
         player1.energyPlayerC = player1.energyPlayerC - 1;
         player2.resetPlayer();
-        player1.resetPlayer();
+        player1.resetPlayerAttack();
       }
-    } else {
+    } //else {
       player1.playShow(sensorWertA, sensorWertB);
       player2.playShow(sensorWertC, sensorWertD);
-    }
+    //}
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps)  ) { //milliseconds chrono -> triggers on every frame...
