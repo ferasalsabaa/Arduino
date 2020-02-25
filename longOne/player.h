@@ -87,13 +87,13 @@ class Player {
           }
           if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
             if (playerFireSecondC < 100) {
-              effect1 = true;
+              effect3 = true;
               fireFirstPositionC = 5;
             } else if (playerFireSecondC > 100 && playerFireSecondC < 180) {
               effect3 = true;
               fireFirstPositionC = 5;
             } else if (playerFireSecondC > 180) {
-              effect2 = true;
+              effect3 = true;
               fireFirstPositionC = 5;
             }
           }
@@ -135,11 +135,11 @@ class Player {
           }
           if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
             if (playerFireSecondC < 100) {
-              effect1 = true;
+              effect3 = true;
             } else if (playerFireSecondC > 100 && playerFireSecondC < 180) {
               effect3 = true;
             } else if (playerFireSecondC > 180) {
-              effect2 = true;
+              effect3 = true;
             }
           }
         }
@@ -191,21 +191,7 @@ class Player {
     }
 
         void resetPlayerAttack() {
-      effect1 = false;
-      effect2 = false;
-      effect3 = false;
-      countEffect1 = 0;
-      if (playerPositionC == 137) {
-        fireFirstPositionC = 137;
-      } else {
-        fireFirstPositionC = 5;
-      }
-      speedC = 0;
-      fireFlame = 15;
-      fireFlameWave2 = 50;
-      fireFlameWave3 = 50;
-      fireFlameWave4 = 100;
-      fireFlameWave5 = 100;
+
       defence = false;
     }
 };

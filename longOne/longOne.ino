@@ -168,7 +168,8 @@ void loop()
         player2.resetPlayerAttack();
         player1.resetPlayer();
       }
-    } else if (player2.effect3 == true) {
+    }
+    if (player2.effect3 == true) {
       player2.fireFlame -= 0.06;
       player2.fireFlameWave2 -= 0.2;
       player2.fireFlameWave3 -= 0.15;
