@@ -87,13 +87,13 @@ class Player {
           }
           if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
             if (playerFireSecondC < 100) {
-              effect3 = true;
+              effect1 = true;
               fireFirstPositionC = 5;
             } else if (playerFireSecondC > 100 && playerFireSecondC < 180) {
               effect3 = true;
               fireFirstPositionC = 5;
             } else if (playerFireSecondC > 180) {
-              effect3 = true;
+              effect2 = true;
               fireFirstPositionC = 5;
             }
           }
@@ -135,11 +135,11 @@ class Player {
           }
           if (sensorValue < 7 && sensorValueB < 7 && playerFireSecondC > 10) {
             if (playerFireSecondC < 100) {
-              effect3 = true;
+              effect1 = true;
             } else if (playerFireSecondC > 100 && playerFireSecondC < 180) {
               effect3 = true;
             } else if (playerFireSecondC > 180) {
-              effect3 = true;
+              effect2 = true;
             }
           }
         }
