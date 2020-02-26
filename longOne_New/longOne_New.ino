@@ -160,15 +160,16 @@ void loop()
 
 
       if (player1.fireFirstPositionC > 135 && player1.fireFirstPositionC < 136 && colorDefence2 > 35 && player2.defence == true) {
-        player2.resetPlayer();
+        player2.resetPlayerAttack();
         player1.resetPlayer();
       }
       if ( player1.fireFirstPositionC > 140) {
         player2.energyPlayerC = player2.energyPlayerC - 1;
-        player2.resetPlayer();
+        player2.resetPlayerAttack();
         player1.resetPlayer();
       }
-    } else if (player2.effect3 == true) {
+    }
+    if (player2.effect3 == true) {
       player2.fireFlame -= 0.06;
       player2.fireFlameWave2 -= 0.2;
       player2.fireFlameWave3 -= 0.15;
@@ -178,12 +179,12 @@ void loop()
       player2.speedC = player2.speedC + gravity;
       if (player2.fireFirstPositionC < 9 && player2.fireFirstPositionC > 7 && colorDefence1 > 35 && player1.defence == true) {
         player2.resetPlayer();
-        player1.resetPlayer();
+        player1.resetPlayerAttack();
       }
       if ( player2.fireFirstPositionC < 4) {
         player1.energyPlayerC = player1.energyPlayerC - 1;
         player2.resetPlayer();
-        player1.resetPlayer();
+        player1.resetPlayerAttack();
       }
     } else {
       player1.playShow(sensorWertA, sensorWertB);

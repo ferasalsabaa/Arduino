@@ -189,4 +189,10 @@ class Player {
       fireFlameWave4 = 100;
       fireFlameWave5 = 100;
     }
+
+
+    void resetPlayerAttack() {
+
+      defence = false;
+    }
 };
