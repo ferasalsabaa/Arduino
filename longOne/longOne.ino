@@ -290,6 +290,21 @@ void loop()
         break;
     }
 
+if(player1.effect1 == true && onePos >90){
+       led[100].setRGB(200, 0, 0);
+      led[99].setRGB(200, 0, 0);
+      led[98].setRGB(200, 0, 0);
+      led[97].setRGB(200, 0, 0);
+      led[96].setRGB(200, 0, 0);
+  }
+
+  if(player2.effect1 == true && twoPos <50){
+       led[40].setRGB(0, 0, 200);
+      led[41].setRGB(0, 0, 200);
+      led[42].setRGB(0, 0, 200);
+      led[43].setRGB(0, 0, 200);
+      led[44].setRGB(0, 0, 200);
+  }
 
 
     if (player2.effect3 == true) {

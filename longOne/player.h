@@ -52,23 +52,24 @@ class Player {
       if (playerPositionC == 6) {
 
         if (effect1 == true) {
-          if (countEffect1 > 250) {
+        /*  if (countEffect1 > 250) {
             resetPlayer();
-          }
+          } */
           fireFirstPositionC = fireFirstPositionC + speedC;
           speedC = speedC + gravity;
           playerFireFirstC = playerFireFirstC - 0.8;
           playerFireSecondC = playerFireSecondC - 0.8 ;
 
           if (fireFirstPositionC > 100) {
-            speedC = speedC * -1;
-            countEffect1 ++;
+            resetPlayer();
+         //   speedC = speedC * -1;
+         //   countEffect1 ++;
           }
 
-          if (fireFirstPositionC < 1) {
+         /* if (fireFirstPositionC < 1) {
             fireFirstPositionC = 1;
           }
-          countEffect1 ++;
+          countEffect1 ++;*/
         } else if (effect2 == true) {
           playerFireFirstC = playerFireFirstC - 1.8;
           playerFireSecondC = playerFireSecondC - 1.8 ;
@@ -112,13 +113,14 @@ class Player {
           playerFireFirstC = playerFireFirstC - 0.8;
           playerFireSecondC = playerFireSecondC - 0.8 ;
           if (fireFirstPositionC < 40) {
-            speedC = speedC * -1;
-            countEffect1 ++;
+            /*speedC = speedC * -1;
+            countEffect1 ++;*/
+             resetPlayer(); //****
           }
-          if (fireFirstPositionC > 137) {
+     /*     if (fireFirstPositionC > 137) {
             fireFirstPositionC = 138;
           }
-          countEffect1 ++;
+          countEffect1 ++;*/
         } else if (effect2 == true) {
           playerFireFirstC = playerFireFirstC - 1.8;
           playerFireSecondC = playerFireSecondC - 1.8 ;
