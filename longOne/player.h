@@ -70,6 +70,8 @@ class Player {
           }
           countEffect1 ++;
         } else if (effect2 == true) {
+          playerFireFirstC = playerFireFirstC - 1.8;
+          playerFireSecondC = playerFireSecondC - 1.8 ;
           fireFirstPositionC = fireFirstPositionC + speedC + 0.5;
           speedC = speedC + gravity;
           if (fireFirstPositionC > 140) {
@@ -118,6 +120,8 @@ class Player {
           }
           countEffect1 ++;
         } else if (effect2 == true) {
+          playerFireFirstC = playerFireFirstC - 1.8;
+          playerFireSecondC = playerFireSecondC - 1.8 ;
           fireFirstPositionC = fireFirstPositionC - speedC - 0.5;
           speedC = speedC + gravity;
           if (fireFirstPositionC < 4) {
@@ -190,7 +194,7 @@ class Player {
       fireFlameWave5 = 100;
     }
 
-        void resetPlayerAttack() {
+    void resetPlayerAttack() {
 
       defence = false;
     }
