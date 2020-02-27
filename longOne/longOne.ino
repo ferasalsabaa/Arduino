@@ -219,28 +219,18 @@ void loop()
         led[player1.playerPositionC - 5].setRGB( color20 , color50, 0);
         led[player1.playerPositionC - 4].setRGB( color20 , color50, 0);
         led[player1.playerPositionC - 3].setRGB( color20 , color50, 0);
-        led[player1.playerPositionC - 2].setRGB( color20 , color50, 0);
         break;
       case 3:
         led[player1.playerPositionC - 6].setRGB( color50, color50, 0);
         led[player1.playerPositionC - 5].setRGB( color50, color50, 0);
         led[player1.playerPositionC - 4].setRGB( color50, color50, 0);
-        led[player1.playerPositionC - 3].setRGB( color50, color50, 0);
-        led[player1.playerPositionC - 2].setRGB( color50, color50, 0);
         break;
       case 2:
         led[player1.playerPositionC - 6].setRGB( color50, color20, 0);
         led[player1.playerPositionC - 5].setRGB( color50, color20, 0);
-        led[player1.playerPositionC - 4].setRGB( color50, color20, 0);
-        led[player1.playerPositionC - 3].setRGB( color50, color20, 0);
-        led[player1.playerPositionC - 2].setRGB( color50, color20, 0);
         break;
       case 1:
         led[player1.playerPositionC - 6].setRGB( color20, 0, 0);
-        led[player1.playerPositionC - 5].setRGB( color20, 0, 0);
-        led[player1.playerPositionC - 4].setRGB( color20, 0, 0);
-        led[player1.playerPositionC - 3].setRGB( color20, 0, 0);
-        led[player1.playerPositionC - 2].setRGB( color20, 0, 0);
         break;
       case 0:
         for (int i = 0; i < 200; i++) {
@@ -271,28 +261,18 @@ void loop()
         led[player2.playerPositionC + 5].setRGB(  color20 , color50, 0);
         led[player2.playerPositionC + 4].setRGB( color20 , color50, 0);
         led[player2.playerPositionC + 3].setRGB( color20 , color50, 0);
-        led[player2.playerPositionC + 2].setRGB( color20 , color50, 0);
         break;
       case 3:
         led[player2.playerPositionC + 6].setRGB( color50, color50, 0);
         led[player2.playerPositionC + 5].setRGB(color50, color50, 0);
         led[player2.playerPositionC + 4].setRGB( color50, color50, 0);
-        led[player2.playerPositionC + 3].setRGB( color50, color50, 0);
-        led[player2.playerPositionC + 2].setRGB( color50, color50, 0);
         break;
       case 2:
         led[player2.playerPositionC + 6].setRGB( color50, color20, 0);
         led[player2.playerPositionC + 5].setRGB( color50, color20, 0);
-        led[player2.playerPositionC + 4].setRGB( color50, color20, 0);
-        led[player2.playerPositionC + 3].setRGB( color50, color20, 0);
-        led[player2.playerPositionC + 2].setRGB( color50, color20, 0);
         break;
       case 1:
         led[player2.playerPositionC + 6].setRGB( color50, 0, 0);
-        led[player2.playerPositionC + 5].setRGB( color50, 0, 0);
-        led[player2.playerPositionC + 4].setRGB( color50, 0, 0);
-        led[player2.playerPositionC + 3].setRGB( color50, 0, 0);
-        led[player2.playerPositionC + 2].setRGB( color50, 0, 0);
         break;
       case 0:
         for (int i = 0; i < 200; i++) {
