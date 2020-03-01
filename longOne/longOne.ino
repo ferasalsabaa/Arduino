@@ -187,8 +187,8 @@ void loop()
         player1.resetPlayerAttack();
       }
     } //else {
-      player1.playShow(sensorWertA, sensorWertB);
-      player2.playShow(sensorWertC, sensorWertD);
+    player1.playShow(sensorWertA, sensorWertB);
+    player2.playShow(sensorWertC, sensorWertD);
     //}
   }
   //DRAW FRAME
@@ -289,22 +289,38 @@ void loop()
         player1.resetPlayerNewGame();
         break;
     }
+    if (player1.effect3 == true && player2.effect3 == true && (onePos == twoPos || onePos == twoPos - 1 || onePos == twoPos + 1)) {
+      if (onePos < 48) {
+        fill_solid( led, NUM_LEDS, CRGB(200, 0, 200));
+        player2.resetPlayer();
+      } else if (onePos > 96) {
+        fill_solid( led, NUM_LEDS, CRGB(200, 0, 200));
+        player1.resetPlayer();
+      } else {
+        fill_solid( led, NUM_LEDS, CRGB(200, 0, 200));
+        player2.energyPlayerC = player2.energyPlayerC - 1;
+        player1.energyPlayerC = player1.energyPlayerC - 1;
+        player1.resetPlayer();
+        player2.resetPlayer();
+      }
 
-if(player1.effect1 == true && onePos >90){
-       led[100].setRGB(200, 0, 0);
+
+    }
+    if (player1.effect1 == true && onePos > 90) {
+      led[100].setRGB(200, 0, 0);
       led[99].setRGB(200, 0, 0);
       led[98].setRGB(200, 0, 0);
       led[97].setRGB(200, 0, 0);
       led[96].setRGB(200, 0, 0);
-  }
+    }
 
-  if(player2.effect1 == true && twoPos <50){
-       led[40].setRGB(0, 0, 200);
+    if (player2.effect1 == true && twoPos < 50) {
+      led[40].setRGB(0, 0, 200);
       led[41].setRGB(0, 0, 200);
       led[42].setRGB(0, 0, 200);
       led[43].setRGB(0, 0, 200);
       led[44].setRGB(0, 0, 200);
-  }
+    }
 
 
     if (player2.effect3 == true) {
