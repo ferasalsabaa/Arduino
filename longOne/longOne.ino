@@ -26,6 +26,8 @@ float colorDefence2 = 90;
 
 float fade = 0.0;
 
+float matchEffect = 0.0;
+
 
 //VARIABLEN ERZEUGEN
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
@@ -126,26 +128,11 @@ void loop()
     } else {
       colorDefence1 = 0;
     }
-    if (player2.effect3 == false && player1.effect3) {
-      if (colorDefence1 > 5) {
-        player1.defenceStrong = true;
-      } else {
-        player1.defenceStrong = false;
-      }
-    }
 
     if (colorDefence2 < 90) {
       colorDefence2 += 0.8;
     } else {
       colorDefence2 = 0;
-    }
-
-    if (player1.effect3 == false && player2.effect3 == false) {
-      if (colorDefence2 > 10) {
-        player2.defenceStrong = true;
-      } else {
-        player2.defenceStrong = false;
-      }
     }
 
     if (player1.effect3 == true) {
