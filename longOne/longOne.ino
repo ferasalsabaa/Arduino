@@ -362,45 +362,45 @@ void loop()
           matchEffect = 0.0;
         }
       } else {
-        if (matchEffect < 199) {
-          for (int i = 21; i < 114 ; i++) {
+         if (matchEffect < 199) {
+                              for (int i = 21; i < 114 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 2));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 31; i < 104 ; i++) {
+                            for (int i = 31; i < 104 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 5));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 41; i < 96 ; i++) {
+                            for (int i = 41; i < 96 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 51; i < 86 ; i++) {
+                      for (int i = 51; i < 86 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 50));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 61; i < 76 ; i++) {
+                   for (int i = 61; i < 76 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 100));
             led[i].setRGB( r2, 0, r2);
           }
-
-        } else {
-          player2.resetPlayer();
+          
+          } else{
+                 player2.resetPlayer();
           player1.resetPlayer();
           matchEffect = 0.0;
+            }
+        
+        
+       /* for (int i = 200; i > 0; i--) {
+          i -= 5;
+          fill_solid( led, NUM_LEDS, CRGB(i, 0, i));
+          FastLED.show();
+          delay(1);
         }
-
-
-        /* for (int i = 200; i > 0; i--) {
-           i -= 5;
-           fill_solid( led, NUM_LEDS, CRGB(i, 0, i));
-           FastLED.show();
-           delay(1);
-          }
-          player2.energyPlayerC = player2.energyPlayerC - 1;
-          player1.energyPlayerC = player1.energyPlayerC - 1;
-          player1.resetPlayer();
-          player2.resetPlayer();*/
+        player2.energyPlayerC = player2.energyPlayerC - 1;
+        player1.energyPlayerC = player1.energyPlayerC - 1;
+        player1.resetPlayer();
+        player2.resetPlayer();*/
       }
 
 
