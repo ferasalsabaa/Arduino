@@ -292,7 +292,7 @@ void loop()
       case 1:
         led[player1.playerPositionC - 6].setRGB( color20, 0, 0);
         break;
-      case 0:
+      default:
         for (int i = 0; i < 200; i++) {
           fill_solid( led, NUM_LEDS_H, CRGB(0, 0, i));
           FastLED.show();
@@ -334,7 +334,7 @@ void loop()
       case 1:
         led[player2.playerPositionC + 6].setRGB( color50, 0, 0);
         break;
-      case 0:
+      default:
         for (int i = 0; i < 200; i++) {
           fill_solid( led, NUM_LEDS_H, CRGB(i, 0, 0));
           FastLED.show();

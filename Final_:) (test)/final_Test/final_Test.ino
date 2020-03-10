@@ -10,7 +10,7 @@ const int ledLength = 8;     // later long of car
 #define LED_TYPE    WS2811
 #define COLOR_ORDER GRB
 int MAX_BRIGHTNESS =  60;
-const int fps = 100;
+const int fps = 45;
 
 #define ctsPin 19  // place the sensor
 
