@@ -2,6 +2,34 @@
 #include <Chrono.h>
 #include "player.h"
 
+
+// ***********
+#include <Wire.h>
+#include <SPI.h>
+#include <FastLED.h>
+#include <Chrono.h>
+#include <Adafruit_LIS3DH.h>
+#include <Adafruit_Sensor.h>
+
+
+// Used for software SPI
+#define LIS3DH_CLK 13
+#define LIS3DH_MISO 12
+#define LIS3DH_MOSI 11
+// Used for hardware & software SPI
+#define LIS3DH_CS 10
+
+float total_acceleration = 0;
+
+// software SPI
+//Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3DH_CLK);
+// hardware SPI
+//Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS);
+// I2C
+Adafruit_LIS3DH lis = Adafruit_LIS3DH();
+
+// ***********
+
 #define NUM_LEDS 144 // all leds
 #define LED_PIN 14   // place the led
 
@@ -33,7 +61,7 @@ float matchEffect = 0.0;
 int sensorPinA = 15;    //hier ist die nummer des analogen pins gespeichert an dem unser sensor angeschlossen ist, ggf. anpassen! (z.b. 16, 17, 20, oder 21)
 int sensorPinB = 16;
 int sensorPinC = 17;
-int sensorPinD = 18;
+int sensorPinD = 20;
 int sensorWertA = 0;    //in dieser variable wird unser sensorwert, d.h. der Rückgabewert der Funktion analogRead(); oder touchRead(); gespeichert.
 int sensorWertB = 0;
 int sensorWertC = 0;
@@ -88,6 +116,13 @@ void setup() {
   //pinMode(sensorValue, OUTPUT);
   //pinMode(ctsPin, INPUT);
 
+  //*****************************
+  if (! lis.begin(0x18)) {   // change this to 0x19 for alternative i2c address
+    while (1) yield();
+  }
+   lis.setRange(LIS3DH_RANGE_4_G);   // 2, 4, 8 or 16 G!
+  //********************
+
   pinMode(sensorPinA, INPUT_PULLUP);  //declare pin as input AND enable internal 33kohm pullup resistor (that is: a 33k resistor between the analog input pin and 3.3 volts)
   pinMode(sensorPinB, INPUT_PULLUP);
   pinMode(sensorPinC, INPUT_PULLUP);
@@ -113,6 +148,7 @@ void loop()
 
   //INTERACTIVITY: work with sensor data every X ms
   if (cCheckInput.hasPassed(1)) {
+    total_acceleration = filter( sqrt(pow(lis.x, 2) + pow(lis.y, 2) + pow(lis.z, 2)), 0.3, total_acceleration);
     cCheckInput.restart();
 
     if (color50 < 90 && color20 < 60) {
@@ -183,11 +219,24 @@ void loop()
     player1.playShow(sensorWertA, sensorWertB);
     player2.playShow(sensorWertC, sensorWertD);
     //}
+    lis.read();      // get X Y and Z data at once
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps)  ) { //milliseconds chrono -> triggers on every frame...
     cNextFrame.restart();
     FastLED.clear();
+
+
+    if(total_acceleration > 9000){
+             led[80].setRGB(200, 200, 200);
+   
+        
+      } else{
+             led[81].setRGB(200, 0, 200);
+   
+        
+        }
+    
 
     int onePos = (int) player1.fireFirstPositionC;
     int twoPos = (int) player2.fireFirstPositionC;
