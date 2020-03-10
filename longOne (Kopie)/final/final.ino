@@ -3,7 +3,32 @@
 #include "player.h"
 
 
+// ***********
+#include <Wire.h>
+#include <SPI.h>
+#include <FastLED.h>
+#include <Chrono.h>
+#include <Adafruit_LIS3DH.h>
+#include <Adafruit_Sensor.h>
 
+
+// Used for software SPI
+#define LIS3DH_CLK 13
+#define LIS3DH_MISO 12
+#define LIS3DH_MOSI 11
+// Used for hardware & software SPI
+#define LIS3DH_CS 10
+
+float total_acceleration = 0;
+
+// software SPI
+//Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3DH_CLK);
+// hardware SPI
+//Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS);
+// I2C
+Adafruit_LIS3DH lis = Adafruit_LIS3DH();
+
+// ***********
 
 #define NUM_LEDS 144 // all leds
 #define LED_PIN 14   // place the led
@@ -91,7 +116,12 @@ void setup() {
   //pinMode(sensorValue, OUTPUT);
   //pinMode(ctsPin, INPUT);
 
- 
+  //*****************************
+  if (! lis.begin(0x18)) {   // change this to 0x19 for alternative i2c address
+    while (1) yield();
+  }
+  lis.setRange(LIS3DH_RANGE_4_G);   // 2, 4, 8 or 16 G!
+  //********************
 
   pinMode(sensorPinA, INPUT_PULLUP);  //declare pin as input AND enable internal 33kohm pullup resistor (that is: a 33k resistor between the analog input pin and 3.3 volts)
   pinMode(sensorPinB, INPUT_PULLUP);
@@ -118,6 +148,7 @@ void loop()
 
   //INTERACTIVITY: work with sensor data every X ms
   if (cCheckInput.hasPassed(1)) {
+    total_acceleration = filter( sqrt(pow(lis.x, 2) + pow(lis.y, 2) + pow(lis.z, 2)), 0.3, total_acceleration);
     cCheckInput.restart();
 
 
@@ -161,7 +192,14 @@ void loop()
           player2.resetPlayerAttack();
           player1.resetPlayer();
         }
-        
+        if (player1.fireFirstPositionC > 135 && total_acceleration > 30000 ) {
+          player2.resetPlayer();
+          player2.playerFireFirstC = 200;
+          player2.playerFireSecondC = 200;
+          player2.fireFirstPositionC = player1.fireFirstPositionC;
+          player2.effect3 = true;
+          player1.resetPlayer();
+        }
         if ( player1.fireFirstPositionC > 140) {
           player2.energyPlayerC = player2.energyPlayerC - 1;
           player2.resetPlayerAttack();
@@ -180,7 +218,14 @@ void loop()
           player2.resetPlayer();
           player1.resetPlayerAttack();
         }
-       
+        if (player2.fireFirstPositionC < 9 && total_acceleration > 30000 ) {
+          player1.resetPlayer();
+          player1.playerFireFirstC = 200;
+          player1.playerFireSecondC = 200;
+          player1.fireFirstPositionC = player2.fireFirstPositionC;
+          player1.effect3 = true;
+          player2.resetPlayer();
+        }
         if ( player2.fireFirstPositionC < 4) {
           player1.energyPlayerC = player1.energyPlayerC - 1;
           player2.resetPlayer();
@@ -191,7 +236,7 @@ void loop()
     player1.playShow(sensorWertA, sensorWertB);
     player2.playShow(sensorWertC, sensorWertD);
     //}
-
+    lis.read();      // get X Y and Z data at once
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps)  ) { //milliseconds chrono -> triggers on every frame...
@@ -199,6 +244,15 @@ void loop()
     FastLED.clear();
 
 
+    if (total_acceleration > 30000) {
+      led[80].setRGB(200, 200, 200);
+
+
+    } else {
+      led[81].setRGB(200, 0, 200);
+
+
+    }
 
 
     int onePos = (int) player1.fireFirstPositionC;

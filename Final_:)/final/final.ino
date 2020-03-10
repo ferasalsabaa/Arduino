@@ -3,16 +3,42 @@
 #include "player.h"
 
 
+// ***********
+#include <Wire.h>
+#include <SPI.h>
+#include <FastLED.h>
+#include <Chrono.h>
+#include <Adafruit_LIS3DH.h>
+#include <Adafruit_Sensor.h>
 
 
-#define NUM_LEDS 144 // all leds
+// Used for software SPI
+#define LIS3DH_CLK 13
+#define LIS3DH_MISO 12
+#define LIS3DH_MOSI 11
+// Used for hardware & software SPI
+#define LIS3DH_CS 10
+
+float total_acceleration = 0;
+
+// software SPI
+//Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS, LIS3DH_MOSI, LIS3DH_MISO, LIS3DH_CLK);
+// hardware SPI
+//Adafruit_LIS3DH lis = Adafruit_LIS3DH(LIS3DH_CS);
+// I2C
+Adafruit_LIS3DH lis = Adafruit_LIS3DH();
+
+// ***********
+
+#define NUM_LEDS 300 // all leds
+#define NUM_LEDS_H 149 // all leds
 #define LED_PIN 14   // place the led
 
 const int ledLength = 8;     // later long of car
 #define LED_TYPE    WS2811
 #define COLOR_ORDER GRB
 int MAX_BRIGHTNESS =  60;
-const int fps = 100;
+const int fps = 45;
 
 #define ctsPin 19  // place the sensor
 
@@ -65,9 +91,9 @@ bool OnefireCase = false;
 Player player1(OnePlayerPosition, OneFireFirstPosition, OnePlayerFireFirst, OnePlayerFireSecond, OneEnergyPlayer);
 
 // ---------------------------------player 2------------------------------------------
-int TwoPlayerPosition = 137;
+int TwoPlayerPosition = 143;
 
-float TwoFireFirstPosition = 137;
+float TwoFireFirstPosition = 143;
 
 float TwoPlayerFireFirst = 0.0;
 float TwoPlayerFireSecond = 0.0;
@@ -91,7 +117,12 @@ void setup() {
   //pinMode(sensorValue, OUTPUT);
   //pinMode(ctsPin, INPUT);
 
- 
+  //*****************************
+  if (! lis.begin(0x18)) {   // change this to 0x19 for alternative i2c address
+    while (1) yield();
+  }
+  lis.setRange(LIS3DH_RANGE_4_G);   // 2, 4, 8 or 16 G!
+  //********************
 
   pinMode(sensorPinA, INPUT_PULLUP);  //declare pin as input AND enable internal 33kohm pullup resistor (that is: a 33k resistor between the analog input pin and 3.3 volts)
   pinMode(sensorPinB, INPUT_PULLUP);
@@ -118,6 +149,7 @@ void loop()
 
   //INTERACTIVITY: work with sensor data every X ms
   if (cCheckInput.hasPassed(1)) {
+    total_acceleration = filter( sqrt(pow(lis.x, 2) + pow(lis.y, 2) + pow(lis.z, 2)), 0.3, total_acceleration);
     cCheckInput.restart();
 
 
@@ -157,12 +189,19 @@ void loop()
 
 
 
-        if (player1.fireFirstPositionC > 135 && player1.fireFirstPositionC < 136 && colorDefence2 > 35 && player2.defence == true) {
+        if (player1.fireFirstPositionC > 141 && player1.fireFirstPositionC < 142 && colorDefence2 > 35 && player2.defence == true) {
           player2.resetPlayerAttack();
           player1.resetPlayer();
         }
-        
-        if ( player1.fireFirstPositionC > 140) {
+        if (player1.fireFirstPositionC > 141 && total_acceleration > 30000 ) {
+          player2.resetPlayer();
+          player2.playerFireFirstC = 200;
+          player2.playerFireSecondC = 200;
+          player2.fireFirstPositionC = player1.fireFirstPositionC;
+          player2.effect3 = true;
+          player1.resetPlayer();
+        }
+        if ( player1.fireFirstPositionC > 146) {
           player2.energyPlayerC = player2.energyPlayerC - 1;
           player2.resetPlayerAttack();
           player1.resetPlayer();
@@ -180,7 +219,14 @@ void loop()
           player2.resetPlayer();
           player1.resetPlayerAttack();
         }
-       
+        if (player2.fireFirstPositionC < 9 && total_acceleration > 30000 ) {
+          player1.resetPlayer();
+          player1.playerFireFirstC = 200;
+          player1.playerFireSecondC = 200;
+          player1.fireFirstPositionC = player2.fireFirstPositionC;
+          player1.effect3 = true;
+          player2.resetPlayer();
+        }
         if ( player2.fireFirstPositionC < 4) {
           player1.energyPlayerC = player1.energyPlayerC - 1;
           player2.resetPlayer();
@@ -191,7 +237,7 @@ void loop()
     player1.playShow(sensorWertA, sensorWertB);
     player2.playShow(sensorWertC, sensorWertD);
     //}
-
+    lis.read();      // get X Y and Z data at once
   }
   //DRAW FRAME
   if (cNextFrame.hasPassed((1000 * 1000) / fps)  ) { //milliseconds chrono -> triggers on every frame...
@@ -199,6 +245,15 @@ void loop()
     FastLED.clear();
 
 
+    if (total_acceleration > 30000) {
+      led[72].setRGB(200, 0, 0);
+
+
+    } else {
+      led[72].setRGB(0, 0, 200);
+
+
+    }
 
 
     int onePos = (int) player1.fireFirstPositionC;
@@ -239,11 +294,11 @@ void loop()
         break;
       case 0:
         for (int i = 0; i < 200; i++) {
-          fill_solid( led, NUM_LEDS, CRGB(0, 0, i));
+          fill_solid( led, NUM_LEDS_H, CRGB(0, 0, i));
           FastLED.show();
           delay(10);
         }
-        for (int i = 0; i < NUM_LEDS; i++) {
+        for (int i = 0; i < NUM_LEDS_H; i++) {
           fill_rainbow(led, i, 0, 5);
           FastLED.show();
           delay(10);
@@ -281,11 +336,11 @@ void loop()
         break;
       case 0:
         for (int i = 0; i < 200; i++) {
-          fill_solid( led, NUM_LEDS, CRGB(i, 0, 0));
+          fill_solid( led, NUM_LEDS_H, CRGB(i, 0, 0));
           FastLED.show();
           delay(10);
         }
-        for (int i = 0; i < NUM_LEDS; i++) {
+        for (int i = 0; i < NUM_LEDS_H; i++) {
           fill_rainbow(led, i, 0, 5);
           FastLED.show();
           delay(10);
@@ -347,23 +402,23 @@ void loop()
         }
       } else if (onePos > 96) {
         if (matchEffect < 199) {
-          for (int i = 143; i > 133; i--) {
+          for (int i = 149; i > 139; i--) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 100));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 133; i > 123; i--) {
+          for (int i = 139; i > 129; i--) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 50));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 123; i > 113; i--) {
+          for (int i = 129; i > 119; i--) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 113; i > 103; i--) {
+          for (int i = 119; i > 109; i--) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 5));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 103; i > 93; i--) {
+          for (int i = 109; i > 99; i--) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 2));
             led[i].setRGB( r2, 0, r2);
           }
@@ -375,23 +430,23 @@ void loop()
         }
       } else {
         if (matchEffect < 199) {
-          for (int i = 21; i < 114 ; i++) {
+          for (int i = 27; i < 120 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 2));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 31; i < 104 ; i++) {
+          for (int i = 37; i < 110 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 5));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 41; i < 96 ; i++) {
+          for (int i = 47; i < 102 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 51; i < 86 ; i++) {
+          for (int i = 57; i < 92 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 50));
             led[i].setRGB( r2, 0, r2);
           }
-          for (int i = 61; i < 76 ; i++) {
+          for (int i = 67; i < 82 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 100));
             led[i].setRGB( r2, 0, r2);
           }
@@ -401,18 +456,6 @@ void loop()
           player1.resetPlayer();
           matchEffect = 0.0;
         }
-
-
-        /* for (int i = 200; i > 0; i--) {
-           i -= 5;
-           fill_solid( led, NUM_LEDS, CRGB(i, 0, i));
-           FastLED.show();
-           delay(1);
-          }
-          player2.energyPlayerC = player2.energyPlayerC - 1;
-          player1.energyPlayerC = player1.energyPlayerC - 1;
-          player1.resetPlayer();
-          player2.resetPlayer();*/
       }
 
 
