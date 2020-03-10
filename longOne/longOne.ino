@@ -120,7 +120,7 @@ void setup() {
   if (! lis.begin(0x18)) {   // change this to 0x19 for alternative i2c address
     while (1) yield();
   }
-   lis.setRange(LIS3DH_RANGE_4_G);   // 2, 4, 8 or 16 G!
+  lis.setRange(LIS3DH_RANGE_4_G);   // 2, 4, 8 or 16 G!
   //********************
 
   pinMode(sensorPinA, INPUT_PULLUP);  //declare pin as input AND enable internal 33kohm pullup resistor (that is: a 33k resistor between the analog input pin and 3.3 volts)
@@ -150,6 +150,7 @@ void loop()
   if (cCheckInput.hasPassed(1)) {
     total_acceleration = filter( sqrt(pow(lis.x, 2) + pow(lis.y, 2) + pow(lis.z, 2)), 0.3, total_acceleration);
     cCheckInput.restart();
+
 
     if (color50 < 90 && color20 < 60) {
       color50 += 0.4;
@@ -191,6 +192,14 @@ void loop()
           player2.resetPlayerAttack();
           player1.resetPlayer();
         }
+        if (player1.fireFirstPositionC > 135 && total_acceleration > 30000 ) {
+          player2.resetPlayer();
+          player2.playerFireFirstC = 200;
+          player2.playerFireSecondC = 200;
+          player2.fireFirstPositionC = player1.fireFirstPositionC;
+          player2.effect3 = true;
+          player1.resetPlayer();
+        }
         if ( player1.fireFirstPositionC > 140) {
           player2.energyPlayerC = player2.energyPlayerC - 1;
           player2.resetPlayerAttack();
@@ -208,6 +217,14 @@ void loop()
         if (player2.fireFirstPositionC < 9 && player2.fireFirstPositionC > 7 && colorDefence1 > 35 && player1.defence == true) {
           player2.resetPlayer();
           player1.resetPlayerAttack();
+        }
+        if (player2.fireFirstPositionC < 9 && total_acceleration > 30000 ) {
+          player1.resetPlayer();
+          player1.playerFireFirstC = 200;
+          player1.playerFireSecondC = 200;
+          player1.fireFirstPositionC = player2.fireFirstPositionC;
+          player1.effect3 = true;
+          player2.resetPlayer();
         }
         if ( player2.fireFirstPositionC < 4) {
           player1.energyPlayerC = player1.energyPlayerC - 1;
@@ -227,16 +244,16 @@ void loop()
     FastLED.clear();
 
 
-    if(total_acceleration > 9000){
-             led[80].setRGB(200, 200, 200);
-   
-        
-      } else{
-             led[81].setRGB(200, 0, 200);
-   
-        
-        }
-    
+    if (total_acceleration > 30000) {
+      led[80].setRGB(200, 200, 200);
+
+
+    } else {
+      led[81].setRGB(200, 0, 200);
+
+
+    }
+
 
     int onePos = (int) player1.fireFirstPositionC;
     int twoPos = (int) player2.fireFirstPositionC;
@@ -411,45 +428,45 @@ void loop()
           matchEffect = 0.0;
         }
       } else {
-         if (matchEffect < 199) {
-                              for (int i = 21; i < 114 ; i++) {
+        if (matchEffect < 199) {
+          for (int i = 21; i < 114 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 2));
             led[i].setRGB( r2, 0, r2);
           }
-                            for (int i = 31; i < 104 ; i++) {
+          for (int i = 31; i < 104 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 5));
             led[i].setRGB( r2, 0, r2);
           }
-                            for (int i = 41; i < 96 ; i++) {
+          for (int i = 41; i < 96 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
             led[i].setRGB( r2, 0, r2);
           }
-                      for (int i = 51; i < 86 ; i++) {
+          for (int i = 51; i < 86 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 50));
             led[i].setRGB( r2, 0, r2);
           }
-                   for (int i = 61; i < 76 ; i++) {
+          for (int i = 61; i < 76 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 100));
             led[i].setRGB( r2, 0, r2);
           }
-          
-          } else{
-                 player2.resetPlayer();
+
+        } else {
+          player2.resetPlayer();
           player1.resetPlayer();
           matchEffect = 0.0;
-            }
-        
-        
-       /* for (int i = 200; i > 0; i--) {
-          i -= 5;
-          fill_solid( led, NUM_LEDS, CRGB(i, 0, i));
-          FastLED.show();
-          delay(1);
         }
-        player2.energyPlayerC = player2.energyPlayerC - 1;
-        player1.energyPlayerC = player1.energyPlayerC - 1;
-        player1.resetPlayer();
-        player2.resetPlayer();*/
+
+
+        /* for (int i = 200; i > 0; i--) {
+           i -= 5;
+           fill_solid( led, NUM_LEDS, CRGB(i, 0, i));
+           FastLED.show();
+           delay(1);
+          }
+          player2.energyPlayerC = player2.energyPlayerC - 1;
+          player1.energyPlayerC = player1.energyPlayerC - 1;
+          player1.resetPlayer();
+          player2.resetPlayer();*/
       }
 
 
