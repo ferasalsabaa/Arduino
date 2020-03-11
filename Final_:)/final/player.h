@@ -27,11 +27,11 @@ class Player {
 
     float load = 0.4;
 
-    float fireFlame = 15;
-    float fireFlameWave2 = 50;
-    float fireFlameWave3 = 50;
-    float fireFlameWave4 = 100;
-    float fireFlameWave5 = 100;
+    float fireFlame = 35;
+    float fireFlameWave2 = 116;
+    float fireFlameWave3 = 116;
+    float fireFlameWave4 = 280;
+    float fireFlameWave5 = 280;
 
     boolean defenceStrong;
 
@@ -165,11 +165,11 @@ class Player {
       playerFireFirstC = 0;
       playerFireSecondC = 0;
       speedC = 0;
-      fireFlame = 15;
-      fireFlameWave2 = 50;
-      fireFlameWave3 = 50;
-      fireFlameWave4 = 100;
-      fireFlameWave5 = 100;
+      fireFlame = 35;
+      fireFlameWave2 = 116;
+      fireFlameWave3 = 116;
+      fireFlameWave4 = 280;
+      fireFlameWave5 = 280;
       defence = false;
     }
 
@@ -189,11 +189,11 @@ class Player {
       load = 0.4;
       energyPlayerC = 5;
       defence = false;
-      fireFlame = 15;
-      fireFlameWave2 = 50;
-      fireFlameWave3 = 50;
-      fireFlameWave4 = 100;
-      fireFlameWave5 = 100;
+      fireFlame = 35;
+      fireFlameWave2 = 116;
+      fireFlameWave3 = 116;
+      fireFlameWave4 = 280;
+      fireFlameWave5 = 280;
     }
 
     void resetPlayerAttack() {

@@ -371,7 +371,7 @@ void loop()
     if (player1.effect3 == true && player2.effect3 == true && (onePos == twoPos || onePos == twoPos - 1 || onePos == twoPos + 1)) {
 
 
-      if (onePos < 48) {
+      if (onePos < 50) {
         if (matchEffect < 199) {
           for (int i = 0; i < 10; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 100));
@@ -400,7 +400,7 @@ void loop()
           player2.resetPlayer();
           matchEffect = 0.0;
         }
-      } else if (onePos > 96) {
+      } else if (onePos > 99) {
         if (matchEffect < 199) {
           for (int i = 149; i > 139; i--) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 100));
