@@ -440,22 +440,27 @@ void loop()
           for (int i = 0; i < 10; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 100));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 10; i < 20; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 50));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 20; i < 30; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 30; i < 40; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 5));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 60; i < 50; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 2));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
         }
         else {
@@ -469,22 +474,27 @@ void loop()
           for (int i = 149; i > 139; i--) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 100));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 139; i > 129; i--) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 50));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 129; i > 119; i--) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 119; i > 109; i--) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 5));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 109; i > 99; i--) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 2));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
         } else {
           player2.resetPlayer();
@@ -497,22 +507,27 @@ void loop()
           for (int i = 27; i < 120 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 2));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 37; i < 110 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 5));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 47; i < 102 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 57; i < 92 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 50));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
           for (int i = 67; i < 82 ; i++) {
             float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 100));
             led[i].setRGB( r2, 0, r2);
+            led[299 - i].setRGB( r2, 0, r2);
           }
 
         } else {
