@@ -677,12 +677,26 @@ void loop()
         led[onePos - 3].setRGB(player1.playerFireSecondC, 0, 0);
         led[onePos - 4].setRGB(140, 0, 0);
         led[onePos - 5].setRGB(130, 0, 0);
+
+        led[299 - (onePos - 1)].setRGB(170, 0, 0);
+        led[299 - (onePos - 2)].setRGB(player1.playerFireSecondC, 0, 0);
+        led[299 -(onePos - 3)].setRGB(player1.playerFireSecondC, 0, 0);
+        led[299 - (onePos - 4)].setRGB(140, 0, 0);
+        led[299 - (onePos - 5)].setRGB(130, 0, 0);
+        
         if (onePos > 10) {
           led[onePos - 6].setRGB(120, 0, 0);
           led[onePos - 7].setRGB(110, 0, 0);
           led[onePos - 8].setRGB(100, 0, 0);
           led[onePos - 9].setRGB(90, 0, 0);
           led[onePos - 10].setRGB(80, 0, 0);
+
+          led[299 -(onePos - 6)].setRGB(120, 0, 0);
+          led[299 -(onePos - 7)].setRGB(110, 0, 0);
+          led[299 -(onePos - 8)].setRGB(100, 0, 0);
+          led[299 -(onePos - 9)].setRGB(90, 0, 0);
+          led[299 -(onePos - 10)].setRGB(80, 0, 0);
+          
         }
         if (onePos > 15) {
           led[onePos - 10].setRGB(80, 0, 0);
@@ -690,11 +704,21 @@ void loop()
           led[onePos - 12].setRGB(60, 0, 0);
           led[onePos - 13].setRGB(50, 0, 0 );
           led[onePos - 14].setRGB(40, 0, 0);
+
+          led[299 -(onePos - 10)].setRGB(80, 0, 0);
+          led[299 -(onePos - 11)].setRGB(70, 0, 0);
+          led[299 -(onePos - 12)].setRGB(60, 0, 0);
+          led[299 -(onePos - 13)].setRGB(50, 0, 0 );
+          led[299 -(onePos - 14)].setRGB(40, 0, 0);
         }
         if (onePos > 20) {
           led[onePos - 15].setRGB(30, 0, 0);
           led[onePos - 16].setRGB(20, 0, 0);
           led[onePos - 17].setRGB(10, 0, 0);
+
+          led[299 -(onePos - 15)].setRGB(30, 0, 0);
+          led[299 -(onePos - 16)].setRGB(20, 0, 0);
+          led[299 -(onePos - 17)].setRGB(10, 0, 0);
         }
         if (onePos > 25) {
           for (int i = 6; i < 26; i++) {
@@ -703,6 +727,7 @@ void loop()
               float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
               float result = player1.fireFlame / r2;
               led[i].setRGB(player1.fireFlame + result, 0, 0);
+              led[299 - i].setRGB(player1.fireFlame + result, 0, 0);
             }
           }
         }
@@ -713,6 +738,7 @@ void loop()
               float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
               float result = player1.fireFlame / r2;
               led[i].setRGB(player1.fireFlame + result, 0, 0);
+              led[299 - i].setRGB(player1.fireFlame + result, 0, 0);
             }
           }
         }
@@ -723,6 +749,7 @@ void loop()
               float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
               float result = player1.fireFlameWave2 / r2;
               led[i].setRGB(player1.fireFlame + result, 0, 0);
+              led[299 - i].setRGB(player1.fireFlame + result, 0, 0);
             }
           }
         }
@@ -733,6 +760,7 @@ void loop()
               float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
               float result = player1.fireFlameWave3 / r2;
               led[i].setRGB(player1.fireFlame + result, 0, 0);
+              led[299 - i].setRGB(player1.fireFlame + result, 0, 0);
             }
           }
         }
@@ -743,6 +771,7 @@ void loop()
               float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
               float result = player1.fireFlameWave4 / r2;
               led[i].setRGB(player1.fireFlame + result, 0, 0);
+              led[299 - i].setRGB(player1.fireFlame + result, 0, 0);
             }
           }
         }
@@ -753,6 +782,7 @@ void loop()
               float r2 = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / 10));
               float result = player1.fireFlameWave5 / r2;
               led[i].setRGB(player1.fireFlame + result, 0, 0);
+              led[299 - i].setRGB(player1.fireFlame + result, 0, 0);
             }
           }
         }
@@ -762,6 +792,14 @@ void loop()
           led[player2.playerPositionC + 4].setRGB( 200, 0, 0);
           led[player2.playerPositionC + 3].setRGB( 200 , 0, 0);
           led[player2.playerPositionC + 2].setRGB( 200, 0, 0);
+
+
+          led[299 -(player2.playerPositionC + 6)].setRGB( 200, 0, 0);
+          led[299 -(player2.playerPositionC + 5)].setRGB( 200, 0, 0);
+          led[299 -(player2.playerPositionC + 4)].setRGB( 200, 0, 0);
+          led[299 -(player2.playerPositionC + 3)].setRGB( 200 , 0, 0);
+          led[299 -(player2.playerPositionC + 2)].setRGB( 200, 0, 0);
+
 
         }
       }
@@ -774,6 +812,12 @@ void loop()
       led[98].setRGB(200, 0, 0);
       led[97].setRGB(200, 0, 0);
       led[96].setRGB(200, 0, 0);
+
+      led[299 - 100].setRGB(200, 0, 0);
+      led[299 - 99].setRGB(200, 0, 0);
+      led[299 - 98].setRGB(200, 0, 0);
+      led[299 - 97].setRGB(200, 0, 0);
+      led[299 - 96].setRGB(200, 0, 0);
     }
 
     if (player2.effect1 == true && twoPos < 50) {
@@ -782,6 +826,12 @@ void loop()
       led[42].setRGB(0, 0, 200);
       led[43].setRGB(0, 0, 200);
       led[44].setRGB(0, 0, 200);
+
+      led[299 - 40].setRGB(0, 0, 200);
+      led[299 - 41].setRGB(0, 0, 200);
+      led[299 - 42].setRGB(0, 0, 200);
+      led[299 - 43].setRGB(0, 0, 200);
+      led[299 - 44].setRGB(0, 0, 200);
     }
 
 
