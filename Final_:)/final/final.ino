@@ -247,10 +247,12 @@ void loop()
 
     if (total_acceleration > 30000) {
       led[72].setRGB(200, 0, 0);
+      led[299 - 72].setRGB(200, 0, 0);
 
 
     } else {
       led[72].setRGB(0, 0, 200);
+      led[299 - 72].setRGB(0, 0, 200);
 
 
     }
@@ -262,8 +264,16 @@ void loop()
 
     led[onePos].setRGB(player1.playerFireFirstC, 0, 0);
     led[onePos + 1].setRGB(player1.playerFireSecondC, 0, 0);
+
+    led[299 - onePos].setRGB(player1.playerFireFirstC, 0, 0);
+    led[299 - (onePos + 1)].setRGB(player1.playerFireSecondC, 0, 0);
+
+
     led[twoPos].setRGB(0, 0, player2.playerFireFirstC);
     led[twoPos +  1].setRGB(0, 0, player2.playerFireSecondC);
+
+    led[299 - twoPos].setRGB(0, 0, player2.playerFireFirstC);
+    led[299 - (twoPos +  1)].setRGB(0, 0, player2.playerFireSecondC);
 
     switch (player1.energyPlayerC) {
       case 5:
@@ -349,31 +359,31 @@ void loop()
         led[player2.playerPositionC + 4].setRGB( color20 , color50, 0);
         led[player2.playerPositionC + 3].setRGB( color20 , color50, 0);
 
-        led[299 -(player2.playerPositionC + 6)].setRGB(  color20 , color50, 0);
-        led[299 -(player2.playerPositionC + 5)].setRGB(  color20 , color50, 0);
-        led[299 -(player2.playerPositionC + 4)].setRGB( color20 , color50, 0);
-        led[299 -(player2.playerPositionC + 3)].setRGB( color20 , color50, 0);
+        led[299 - (player2.playerPositionC + 6)].setRGB(  color20 , color50, 0);
+        led[299 - (player2.playerPositionC + 5)].setRGB(  color20 , color50, 0);
+        led[299 - (player2.playerPositionC + 4)].setRGB( color20 , color50, 0);
+        led[299 - (player2.playerPositionC + 3)].setRGB( color20 , color50, 0);
         break;
       case 3:
         led[player2.playerPositionC + 6].setRGB( color50, color50, 0);
         led[player2.playerPositionC + 5].setRGB(color50, color50, 0);
         led[player2.playerPositionC + 4].setRGB( color50, color50, 0);
 
-        led[299 -(player2.playerPositionC + 6)].setRGB( color50, color50, 0);
-        led[299 -(player2.playerPositionC + 5)].setRGB(color50, color50, 0);
-        led[299 -(player2.playerPositionC + 4)].setRGB( color50, color50, 0);
+        led[299 - (player2.playerPositionC + 6)].setRGB( color50, color50, 0);
+        led[299 - (player2.playerPositionC + 5)].setRGB(color50, color50, 0);
+        led[299 - (player2.playerPositionC + 4)].setRGB( color50, color50, 0);
         break;
       case 2:
         led[player2.playerPositionC + 6].setRGB( color50, color20, 0);
         led[player2.playerPositionC + 5].setRGB( color50, color20, 0);
 
-        led[299 -(player2.playerPositionC + 6)].setRGB( color50, color20, 0);
-        led[299 -(player2.playerPositionC + 5)].setRGB( color50, color20, 0);
+        led[299 - (player2.playerPositionC + 6)].setRGB( color50, color20, 0);
+        led[299 - (player2.playerPositionC + 5)].setRGB( color50, color20, 0);
         break;
       case 1:
         led[player2.playerPositionC + 6].setRGB( color50, 0, 0);
-        
-        led[299 -(player2.playerPositionC + 6)].setRGB( color50, 0, 0);
+
+        led[299 - (player2.playerPositionC + 6)].setRGB( color50, 0, 0);
         break;
       default:
         for (int i = 0; i < 200; i++) {
