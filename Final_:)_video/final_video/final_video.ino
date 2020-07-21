@@ -154,27 +154,29 @@ void loop()
     cCheckInput.restart();
 
 
+    player1.playerFireFirstC += 0.2;
+    player2.playerFireFirstC += 0.2;
     // 1
-    if(count_moves == 10){
+    if(count_moves == 110){
       player1.playerFireFirstC = 220;
       player1.playerFireSecondC = 220;
       player1.effect2 = true;
       }
-     // 2
-     if(count_moves == 150){
-      player2.playerFireFirstC = 220;
-      player2.playerFireSecondC = 220;
+     // 2 + 100
+     if(count_moves == 250 + 100){
+      player2.playerFireFirstC = 120;
+      player2.playerFireSecondC = 120;
       player2.effect1 = true;
       player1.defence = true;
       }
      // 3
-     if(count_moves == 350){
+     if(count_moves == 450 + 200){
       player1.playerFireFirstC = 220;
       player1.playerFireSecondC = 220;
       player1.effect3 = true;
       }
       // 4
-      if(count_moves == 620){
+      if(count_moves == 720 + 300){
       player1.effect3 = true;
       player1.playerFireFirstC = 220;
       player1.playerFireSecondC = 220;
@@ -182,14 +184,14 @@ void loop()
       player1.defence = true;
         }
       // 5
-      if(count_moves == 820){
+      if(count_moves == 920 + 400){
       player1.defence = true;
       player2.effect3 = true;
       player2.playerFireFirstC = 220;
       player2.playerFireSecondC = 220;
         }
       // 7
-      if(count_moves == 1020){
+      if(count_moves == 1120 + 500){
       player2.playerFireFirstC = 220;
       player2.playerFireSecondC = 220;
       player1.playerFireFirstC = 220;
@@ -199,13 +201,13 @@ void loop()
         }
 
       // 8.1
-      if(count_moves == 1420){
+      if(count_moves == 1520 + 600){
       player1.playerFireFirstC = 220;
       player1.playerFireSecondC = 220;
       player1.effect3 = true;
         }
       // 8.2
-      if(count_moves == 1500){
+      if(count_moves == 1590 + 600){
       player2.playerFireFirstC = 220;
       player2.playerFireSecondC = 220;
       player2.effect3 = true;
@@ -213,14 +215,26 @@ void loop()
 
 
 
-      // 8.1
-      if(count_moves == 1820){
+      //6
+      if(count_moves == 1920 + 800){
       total_acceleration = 30002;
       player1.playerFireFirstC = 220;
       player1.playerFireSecondC = 220;
       player1.effect3 = true;
         }
-    
+
+      // 8.1
+      if(count_moves == 2020 + 1000){
+      player1.playerFireFirstC = 220;
+      player1.playerFireSecondC = 220;
+      player1.effect3 = true;
+        }
+      // 8.2
+      if(count_moves == 2090 + 1000){
+      player2.playerFireFirstC = 220;
+      player2.playerFireSecondC = 220;
+      player2.effect3 = true;
+        }
 
     if (color50 < 90 && color20 < 60) {
       color50 += 0.4;
@@ -394,17 +408,17 @@ void loop()
         led[299 - (player1.playerPositionC - 6)].setRGB( color20, 0, 0);
         break;
       default:
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 300; i++) {
+          fill_rainbow_bi(led, i, 0, 5);
+    //      fill_rainbow_bi(led, NUM_LEDS_H + i, 0, 1);
+          FastLED.show();
+          delay(20);
+        }
+       for (int i = 0; i < 200; i++) {
           fill_solid( led, NUM_LEDS, CRGB(0, 0, i));
           FastLED.show();
-          delay(10);
-        }
-        for (int i = 0; i < NUM_LEDS_H; i++) {
-          fill_rainbow(led, i, 0, 5);
-          fill_rainbow(led, 299 - i, 0, 5);
-          FastLED.show();
-          delay(10);
-        }
+          delay(20);
+        } 
         player2.resetPlayerNewGame();
         player1.resetPlayerNewGame();
         break;
@@ -457,17 +471,19 @@ void loop()
         led[299 - (player2.playerPositionC + 6)].setRGB( color50, 0, 0);
         break;
       default:
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 300; i++) {
+          fill_rainbow_bi(led, i, 0, 5);
+    //      fill_rainbow_bi(led, NUM_LEDS_H + i, 0, 1);
+          FastLED.show();
+          delay(20);
+        }
+       for (int i = 0; i < 200; i++) {
           fill_solid( led, NUM_LEDS, CRGB(i, 0, 0));
           FastLED.show();
-          delay(10);
-        }
-        for (int i = 0; i < NUM_LEDS_H; i++) {
-          fill_rainbow(led, i, 0, 5);
-          fill_rainbow(led, 299 - i, 0, 5);
-          FastLED.show();
-          delay(10);
-        }
+          delay(20);
+        } 
+
+
         player2.resetPlayerNewGame();
         player1.resetPlayerNewGame();
         break;
@@ -922,4 +938,18 @@ float filter(float rawValue, float weight, float lastValue)
 {
   float result = weight * rawValue + (1.0 - weight) * lastValue;
   return result;
+}
+
+void fill_rainbow_bi( struct CRGB * pFirstLED, int numToFill,
+                  uint8_t initialhue,
+                  uint8_t deltahue )
+{
+    CHSV hsv;
+    hsv.hue = initialhue;
+    hsv.val = 120;
+    hsv.sat = 240;
+    for( int i = 0; i < numToFill; i++) {
+        pFirstLED[i] = hsv;
+        hsv.hue += deltahue;
+    }
 }
