@@ -42,6 +42,7 @@ const int fps = 45;
 
 #define ctsPin 19  // place the sensor
 
+int count_moves = 1;
 
 float speedPlayer1 = 0;
 float speedPlayer2 = 0;
@@ -153,6 +154,78 @@ void loop()
     cCheckInput.restart();
 
 
+    // 1
+    if(count_moves == 10){
+      player1.playerFireFirstC = 220;
+      player1.playerFireSecondC = 220;
+      player1.effect2 = true;
+      }
+     // 2
+     if(count_moves == 150){
+      player2.playerFireFirstC = 220;
+      player2.playerFireSecondC = 220;
+      player2.effect1 = true;
+      player1.defence = true;
+      }
+     // 3
+     if(count_moves == 350){
+      player1.playerFireFirstC = 220;
+      player1.playerFireSecondC = 220;
+      player1.effect3 = true;
+      }
+      // 4
+      if(count_moves == 620){
+      player1.effect3 = true;
+      player1.playerFireFirstC = 220;
+      player1.playerFireSecondC = 220;
+      player2.defence = true;
+      player1.defence = true;
+        }
+      // 5
+      if(count_moves == 820){
+      player1.defence = true;
+      player2.effect3 = true;
+      player2.playerFireFirstC = 220;
+      player2.playerFireSecondC = 220;
+        }
+      // 7
+      if(count_moves == 1020){
+      player2.playerFireFirstC = 220;
+      player2.playerFireSecondC = 220;
+      player1.playerFireFirstC = 220;
+      player1.playerFireSecondC = 220;
+      player2.effect3 = true;
+      player1.effect3 = true;
+        }
+      // 8.1
+      if(count_moves == 1420){
+      player1.playerFireFirstC = 220;
+      player1.playerFireSecondC = 220;
+      player1.effect3 = true;
+        }
+      // 8.2
+      if(count_moves == 1500){
+      player2.playerFireFirstC = 220;
+      player2.playerFireSecondC = 220;
+      player2.effect3 = true;
+        }
+
+
+
+      // 8.1
+      if(count_moves == 1820){
+      player1.playerFireFirstC = 220;
+      player1.playerFireSecondC = 220;
+      player1.effect3 = true;
+        }
+      // 8.2
+      if(count_moves == 1900){
+      player2.playerFireFirstC = 220;
+      player2.playerFireSecondC = 220;
+      player2.effect3 = true;
+        }
+    
+
     if (color50 < 90 && color20 < 60) {
       color50 += 0.4;
       color20 += 0.2;
@@ -244,7 +317,8 @@ void loop()
     cNextFrame.restart();
     FastLED.clear();
 
-
+    count_moves += 1;
+    
     if (total_acceleration > 30000) {
       led[72].setRGB(200, 0, 0);
       led[299 - 72].setRGB(200, 0, 0);
