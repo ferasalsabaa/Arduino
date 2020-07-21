@@ -150,7 +150,7 @@ void loop()
 
   //INTERACTIVITY: work with sensor data every X ms
   if (cCheckInput.hasPassed(1)) {
-    total_acceleration = filter( sqrt(pow(lis.x, 2) + pow(lis.y, 2) + pow(lis.z, 2)), 0.3, total_acceleration);
+   // total_acceleration = filter( sqrt(pow(lis.x, 2) + pow(lis.y, 2) + pow(lis.z, 2)), 0.3, total_acceleration);
     cCheckInput.restart();
 
 
@@ -197,6 +197,7 @@ void loop()
       player2.effect3 = true;
       player1.effect3 = true;
         }
+
       // 8.1
       if(count_moves == 1420){
       player1.playerFireFirstC = 220;
@@ -214,15 +215,10 @@ void loop()
 
       // 8.1
       if(count_moves == 1820){
+      total_acceleration = 30002;
       player1.playerFireFirstC = 220;
       player1.playerFireSecondC = 220;
       player1.effect3 = true;
-        }
-      // 8.2
-      if(count_moves == 1900){
-      player2.playerFireFirstC = 220;
-      player2.playerFireSecondC = 220;
-      player2.effect3 = true;
         }
     
 
@@ -273,6 +269,7 @@ void loop()
           player2.fireFirstPositionC = player1.fireFirstPositionC;
           player2.effect3 = true;
           player1.resetPlayer();
+          total_acceleration = 0; ////// chaaaange/
         }
         if ( player1.fireFirstPositionC > 146) {
           player2.energyPlayerC = player2.energyPlayerC - 1;
