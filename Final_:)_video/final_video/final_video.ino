@@ -48,11 +48,11 @@ float speedPlayer1 = 0;
 float speedPlayer2 = 0;
 float gravity = 0.003;
 
-float color50 = 90;
-float color20 = 60;
+float color50 = 220;
+float color20 = 190;
 
-float colorDefence1 = 90;
-float colorDefence2 = 90;
+float colorDefence1 = 220;
+float colorDefence2 = 220;
 
 float fade = 0.0;
 
@@ -154,8 +154,7 @@ void loop()
     cCheckInput.restart();
 
 
-    player1.playerFireFirstC += 0.2;
-    player2.playerFireFirstC += 0.2;
+
     // 1
     if(count_moves == 110){
       player1.playerFireFirstC = 220;
@@ -236,22 +235,22 @@ void loop()
       player2.effect3 = true;
         }
 
-    if (color50 < 90 && color20 < 60) {
-      color50 += 0.4;
-      color20 += 0.2;
+    if (color50 < 220 && color20 < 190) {
+      color50 += 0.8;
+      color20 += 0.4;
     } else {
       color50 = 0;
       color20 = 0;
     }
 
-    if (colorDefence1 < 90) {
-      colorDefence1 += 0.8;
+    if (colorDefence1 < 220) {
+      colorDefence1 += 1;
     } else {
       colorDefence1 = 0;
     }
 
-    if (colorDefence2 < 90) {
-      colorDefence2 += 0.8;
+    if (colorDefence2 < 220) {
+      colorDefence2 += 1;
     } else {
       colorDefence2 = 0;
     }
